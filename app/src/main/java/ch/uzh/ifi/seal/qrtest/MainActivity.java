@@ -2,22 +2,35 @@ package ch.uzh.ifi.seal.qrtest;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
+import android.widget.Toast;
 import com.google.zxing.integration.android.IntentIntegrator;
+import com.google.zxing.integration.android.IntentResult;
 import com.journeyapps.barcodescanner.CaptureActivity;
 
 public class MainActivity extends AppCompatActivity {
 
+    TextView scannedTextView;
+    FloatingActionButton actionButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        IntentIntegrator intentIntegrator = new IntentIntegrator(this);
-        intentIntegrator.setDesiredBarcodeFormats(IntentIntegrator.QR_CODE_TYPES);
-        intentIntegrator.setPrompt("Scanning for QR Codes...");
+        startScanning();
+        scannedTextView = (TextView)findViewById(R.id.scannedTextView);
+        actionButton = (FloatingActionButton)findViewById(R.id.actionButton);
+        actionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startScanning();
+            }
+        });
     }
 
     @Override
@@ -43,14 +56,18 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent intent) {
-        if (requestCode == 0) {
-            if (resultCode == RESULT_OK) {
-                String contents = intent.getStringExtra("SCAN_RESULT");
-                String format = intent.getStringExtra("SCAN_RESULT_FORMAT");
-                Log.d("TEST", contents);
-            } else if (resultCode == RESULT_CANCELED) {
-                // Handle cancel
-            }
-        }
+        IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, intent);
+        String value = result.getContents();
+        Toast.makeText(this, value, Toast.LENGTH_LONG).show();
+        scannedTextView.setText(scannedTextView.getText() + result.getContents()+"\n");
+
+
+    }
+
+    private void startScanning() {
+        IntentIntegrator intentIntegrator = new IntentIntegrator(this);
+        intentIntegrator.setDesiredBarcodeFormats(IntentIntegrator.QR_CODE_TYPES);
+        intentIntegrator.setPrompt("Scanning for QR Codes...");
+        intentIntegrator.initiateScan();
     }
 }

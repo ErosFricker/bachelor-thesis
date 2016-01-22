@@ -24,10 +24,6 @@
         <uses-library android:name="com.reconinstruments.os" />
         <uses-library android:name="com.reconinstruments.lib" />
 
-        <activity
-            android:name=".QRCaptureActivity"
-            android:label="@string/title_activity_qrcapture" >
-        </activity>
     </application>
 
 </manifest>
