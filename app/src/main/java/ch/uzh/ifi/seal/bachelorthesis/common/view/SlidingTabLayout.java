@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package ch.uzh.ifi.seal.qrtest.common.view;
+package ch.uzh.ifi.seal.bachelorthesis.common.view;
 
 import android.content.Context;
 import android.graphics.Typeface;

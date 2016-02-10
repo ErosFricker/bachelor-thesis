@@ -1,15 +1,16 @@
-package ch.uzh.ifi.seal.qrtest;
+package ch.uzh.ifi.seal.bachelorthesis.activities;
 
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Activity;
-import android.widget.Toast;
 
+import com.google.gson.Gson;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
-import org.apache.http.client.HttpClient;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
@@ -18,8 +19,12 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 
-import ch.uzh.ifi.seal.qrtest.common.logger.Log;
+import ch.uzh.ifi.seal.bachelorthesis.R;
+import ch.uzh.ifi.seal.bachelorthesis.model.Bug;
+import ch.uzh.ifi.seal.bachelorthesis.model.BugResult;
 
 public class ScanningActivity extends Activity {
 
@@ -83,13 +88,7 @@ public class ScanningActivity extends Activity {
 
             } catch (Exception e){
                 e.printStackTrace();
-                try {
-                    responseCode = connection.getResponseCode();
-                    InputStream in = new BufferedInputStream(connection.getInputStream());
-                    return in.toString();
-                } catch (IOException e1) {
-                    e1.printStackTrace();
-                }
+
             }
             return null;
         }
@@ -98,6 +97,13 @@ public class ScanningActivity extends Activity {
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
             bugs = result;
+            Gson gson = new Gson();
+            try {
+                BugResult bugResult = gson.fromJson(result, BugResult.class);
+                System.out.println(bugResult.getBugs().get(0).toString());
+            }catch (Exception e){
+                e.printStackTrace();
+            }
         }
     }
 

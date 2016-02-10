@@ -14,13 +14,13 @@
 * limitations under the License.
 */
 
-package ch.uzh.ifi.seal.qrtest.common.activities;
+package ch.uzh.ifi.seal.bachelorthesis.common.activities;
 
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 
-import ch.uzh.ifi.seal.qrtest.common.logger.Log;
-import ch.uzh.ifi.seal.qrtest.common.logger.LogWrapper;
+import ch.uzh.ifi.seal.bachelorthesis.common.logger.Log;
+import ch.uzh.ifi.seal.bachelorthesis.common.logger.LogWrapper;
 
 /**
  * Base launcher activity, to handle most of the common plumbing for samples.

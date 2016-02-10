@@ -2,7 +2,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-   <ch.uzh.ifi.seal.qrtest.common.view.SlidingTabLayout
+   <ch.uzh.ifi.seal.bachelorthesis.common.view.SlidingTabLayout
        android:id="@+id/sliding_tabs"
        android:layout_width="match_parent"
        android:layout_height="1dp"/>

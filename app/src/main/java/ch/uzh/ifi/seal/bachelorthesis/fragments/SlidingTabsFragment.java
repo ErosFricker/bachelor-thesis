@@ -1,6 +1,5 @@
-package ch.uzh.ifi.seal.qrtest;
+package ch.uzh.ifi.seal.bachelorthesis.fragments;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -14,10 +13,10 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import com.google.zxing.integration.android.IntentIntegrator;
-
-import ch.uzh.ifi.seal.qrtest.common.logger.Log;
-import ch.uzh.ifi.seal.qrtest.common.view.SlidingTabLayout;
+import ch.uzh.ifi.seal.bachelorthesis.R;
+import ch.uzh.ifi.seal.bachelorthesis.activities.ScanningActivity;
+import ch.uzh.ifi.seal.bachelorthesis.common.logger.Log;
+import ch.uzh.ifi.seal.bachelorthesis.common.view.SlidingTabLayout;
 
 
 /**
@@ -125,6 +124,7 @@ public class SlidingTabsFragment extends Fragment {
             TextView title = (TextView)view.findViewById(R.id.menu_title);
             title.setText(MenueTitles[position]);
             ImageButton button = (ImageButton)view.findViewById(R.id.imagebutton);
+            button.requestFocus();
             button.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

@@ -1,4 +1,4 @@
-package ch.uzh.ifi.seal.qrtest;
+package ch.uzh.ifi.seal.bachelorthesis;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

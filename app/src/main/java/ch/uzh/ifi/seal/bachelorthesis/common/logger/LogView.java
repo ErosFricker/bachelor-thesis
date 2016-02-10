@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package ch.uzh.ifi.seal.qrtest.common.logger;
+package ch.uzh.ifi.seal.bachelorthesis.common.logger;
 
 import android.app.Activity;
 import android.content.Context;

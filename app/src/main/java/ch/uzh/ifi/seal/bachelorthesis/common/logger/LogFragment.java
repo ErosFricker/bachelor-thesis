@@ -29,7 +29,7 @@
  * limitations under the License.
  */
 
-package ch.uzh.ifi.seal.qrtest.common.logger;
+package ch.uzh.ifi.seal.bachelorthesis.common.logger;
 
 import android.graphics.Typeface;
 import android.os.Bundle;
