@@ -1,17 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="ch.uzh.ifi.seal.qrtest" >
+    package="ch.uzh.ifi.seal.qrtest">
+
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/ReconTheme" >
+        android:theme="@style/ReconTheme">
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar" >
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -24,6 +26,9 @@
         <uses-library android:name="com.reconinstruments.os" />
         <uses-library android:name="com.reconinstruments.lib" />
 
+        <activity
+            android:name=".ScanningActivity"
+            android:label="@string/title_activity_scanning"></activity>
     </application>
 
 </manifest>
