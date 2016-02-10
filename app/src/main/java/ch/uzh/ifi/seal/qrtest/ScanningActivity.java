@@ -66,10 +66,10 @@ public class ScanningActivity extends Activity {
 
             try {
 
-                URL bugsURL = new URL(SERVER_URL+"/rest.cgi/bug/1");
+                URL bugsURL = new URL(SERVER_URL+"/rest.cgi/bug?api_key=43ToKcE99BLXH7xq7TcQGY4u5KzJRMqMwU4mXkFP");
                 connection = (HttpURLConnection) bugsURL.openConnection();
                 connection.setRequestMethod("GET");
-                connection.setRequestProperty("api_key", "43ToKcE99BLXH7xq7TcQGY4u5KzJRMqMwU4mXkFP");
+                //connection.setRequestProperty("api_key", "43ToKcE99BLXH7xq7TcQGY4u5KzJRMqMwU4mXkFP");
                 connection.setDoInput(true);
                 InputStream in = new BufferedInputStream(connection.getInputStream());
                 String line;
