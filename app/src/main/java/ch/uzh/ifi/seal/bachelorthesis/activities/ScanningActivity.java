@@ -1,23 +1,13 @@
 package ch.uzh.ifi.seal.bachelorthesis.activities;
 
-import android.content.Intent;
-import android.os.AsyncTask;
-import android.os.Bundle;
 import android.app.Activity;
+import android.content.Intent;
+import android.os.Bundle;
 
-import com.google.gson.Gson;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
-
 import ch.uzh.ifi.seal.bachelorthesis.R;
-import ch.uzh.ifi.seal.bachelorthesis.model.BugResult;
 import ch.uzh.ifi.seal.bachelorthesis.rest.GetBugsTask;
 
 public class ScanningActivity extends Activity {
