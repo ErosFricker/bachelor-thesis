@@ -125,6 +125,21 @@ public class SlidingTabsFragment extends Fragment {
             title.setText(MenueTitles[position]);
             ImageButton button = (ImageButton)view.findViewById(R.id.imagebutton);
             button.requestFocus();
+            switch (position){
+                case 0:
+                    button.setImageDrawable(getResources().getDrawable(R.drawable.my_issues_button_selector));
+                    break;
+                case 1:
+                    button.setImageDrawable(getResources().getDrawable(R.drawable.scan_dev_button_selector));
+                    break;
+                case 2:
+                    button.setImageDrawable(getResources().getDrawable(R.drawable.settings_button_selector));
+                    break;
+                default:
+                    break;
+            }
+
+
             button.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
