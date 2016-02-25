@@ -1,32 +1,52 @@
 package ch.uzh.ifi.seal.bachelorthesis.rest;
 
-import android.os.AsyncTask;
-
-import com.google.gson.Gson;
+import android.content.SharedPreferences;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 
-import ch.uzh.ifi.seal.bachelorthesis.model.BugResult;
+import ch.uzh.ifi.seal.bachelorthesis.model.User;
 
 /**
- * Created by erosfricker on 18.02.16.
+ * Created by erosfricker on 23.02.16.
  */
-public class GetBugsTask extends BugzillaAsyncTask {
+public class GetMyIssuesTask extends BugzillaAsyncTask {
 
+    private String userEMail = "";
+    private AsyncDelegate asyncDelegate;
+
+    public AsyncDelegate getAsyncDelegate() {
+        return asyncDelegate;
+    }
+
+    public void setAsyncDelegate(AsyncDelegate asyncDelegate) {
+        this.asyncDelegate = asyncDelegate;
+    }
+
+    public String getUserEMail() {
+        return userEMail;
+    }
+
+    public void setUserEMail(String userEMail) {
+        this.userEMail = userEMail;
+    }
 
     @Override
     protected String doInBackground(URL... params) {
-        int responseCode = 0;
         HttpURLConnection connection = null;
 
         try {
 
-            URL bugsURL = new URL(SERVER_URL+"/rest.cgi/bug?api_key=43ToKcE99BLXH7xq7TcQGY4u5KzJRMqMwU4mXkFP");
+            String url = SERVER_URL+"/rest.cgi/bug?api_key=43ToKcE99BLXH7xq7TcQGY4u5KzJRMqMwU4mXkFP";
+            if(!this.userEMail.equals("")){
+                url = "&assigned_to="+this.userEMail;
+            }
+            URL bugsURL = new URL(url);
             connection = (HttpURLConnection) bugsURL.openConnection();
             connection.setRequestMethod("GET");
             //connection.setRequestProperty("api_key", "43ToKcE99BLXH7xq7TcQGY4u5KzJRMqMwU4mXkFP");
@@ -46,17 +66,15 @@ public class GetBugsTask extends BugzillaAsyncTask {
 
         }
         return null;
+
     }
 
     @Override
-    protected void onPostExecute(String result) {
-        super.onPostExecute(result);
-        Gson gson = new Gson();
-        try {
-            BugResult bugResult = gson.fromJson(result, BugResult.class);
-            System.out.println(bugResult);
-        }catch (Exception e){
-            e.printStackTrace();
+    protected void onPostExecute(String s) {
+        super.onPostExecute(s);
+        if(this.asyncDelegate!= null) {
+            this.asyncDelegate.onPostExecuteFinished(s);
         }
+
     }
 }

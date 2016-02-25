@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 
 import ch.uzh.ifi.seal.bachelorthesis.R;
+import ch.uzh.ifi.seal.bachelorthesis.activities.MyIssuesActivity;
 import ch.uzh.ifi.seal.bachelorthesis.activities.ScanningActivity;
 
 /**
@@ -79,6 +80,7 @@ public class MenuFragment extends Fragment {
             public void onClick(View v) {
                 switch (menuPosition) {
                     case 0:
+                        showMyIssues();
                         Log.e("ERROR", "Not implemented tab " + menuPosition);
                         break;
                     case 1:
@@ -99,17 +101,22 @@ public class MenuFragment extends Fragment {
         return view;
     }
 
+    /**
+     * Starts the activity for showing the user's own issues
+     */
+    private void showMyIssues() {
+        Intent intent = new Intent(getActivity(), MyIssuesActivity.class);
+        startActivity(intent);
+
+    }
+
+    /**
+     * Starts the QR Scanning process
+     */
     private void startScanning() {
 
         Intent intent = new Intent(getActivity(), ScanningActivity.class);
         startActivity(intent);
-    }
-
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
     }
 
     @Override
@@ -140,7 +147,6 @@ public class MenuFragment extends Fragment {
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
 }

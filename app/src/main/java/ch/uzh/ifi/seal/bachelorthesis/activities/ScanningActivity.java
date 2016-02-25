@@ -38,7 +38,6 @@ public class ScanningActivity extends Activity {
 
     private boolean getBugsFromBugzilla(String login, String password) {
         boolean success = false;
-
         GetBugsTask task = new GetBugsTask();
         task.execute();
 
