@@ -1,6 +1,7 @@
 package ch.uzh.ifi.seal.bachelorthesis.model;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,9 +35,15 @@ public class BugArrayAdapter extends ArrayAdapter<Bug> {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
         LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View rowView = inflater.inflate(R.layout.bug_list_row, parent, false);
+        rowView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d("ONCLICK", "Item "+position+" clicked!");
+            }
+        });
         Bug currentBug = mBugs[position];
         TextView titleView = (TextView)rowView.findViewById(R.id.issue_title);
         titleView.setText(currentBug.getSummary());

@@ -3,6 +3,7 @@ package ch.uzh.ifi.seal.bachelorthesis.activities;
 import android.app.ListActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewConfiguration;
 import android.widget.ProgressBar;
 
 import com.google.gson.Gson;
@@ -25,6 +26,7 @@ public class MyIssuesActivity extends ListActivity implements AsyncDelegate {
 
         progressBar = (ProgressBar)findViewById(R.id.progress_bar);
         this.getListView().setEmptyView(progressBar);
+
 
         GetMyIssuesTask task = new GetMyIssuesTask();
         task.setAsyncDelegate(this);
@@ -57,6 +59,8 @@ public class MyIssuesActivity extends ListActivity implements AsyncDelegate {
         Bug[] bugArray = bugResult.getBugs().toArray(new Bug[bugResult.getBugs().size()]);
         BugArrayAdapter adapter = new BugArrayAdapter(this, bugArray);
         this.setListAdapter(adapter);
+        this.getListView().requestFocus();
+
 
     }
 

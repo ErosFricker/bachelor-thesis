@@ -9,61 +9,29 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.Menu;
 
+import com.reconinstruments.ui.carousel.CarouselActivity;
+
 import ch.uzh.ifi.seal.bachelorthesis.R;
 import ch.uzh.ifi.seal.bachelorthesis.fragments.MenuFragment;
 
-public class MainActivity extends FragmentActivity implements MenuFragment.OnFragmentInteractionListener{
+public class MainActivity extends CarouselActivity implements MenuFragment.OnFragmentInteractionListener{
 
-    ViewPager mViewPager;
-    MenuCollectionAdapter collectionAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        collectionAdapter = new MenuCollectionAdapter(getSupportFragmentManager());
-        mViewPager = (ViewPager) findViewById(R.id.pager);
-        mViewPager.setAdapter(collectionAdapter);
 
-    }
+        setContentView(R.layout.carousel_host);
+        getCarousel().setPageMargin(30);
+        getCarousel().setContents(new ImageMenuItem("My Issues", R.mipmap.bug, 0),
+                new ImageMenuItem("Scan Developers", R.mipmap.scan, 1),
+                new ImageMenuItem("Settings", R.mipmap.settings, 2));
+        //TODO: Test if this new menu with carousel works now
 
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
     }
 
     @Override
     public void onFragmentInteraction(Uri uri) {
 
-    }
-
-    class MenuCollectionAdapter extends FragmentStatePagerAdapter {
-
-        public MenuCollectionAdapter(FragmentManager fm) {
-            super(fm);
-        }
-
-        @Override
-        public Fragment getItem(int position) {
-            MenuFragment fragment = new MenuFragment();
-            Bundle args = new Bundle();
-            args.putInt(MenuFragment.MENU_POSITION, position);
-            fragment.setArguments(args);
-            return fragment;
-
-        }
-
-        @Override
-        public int getCount() {
-            return MenuFragment.NUMBER_OF_MENUES;
-        }
-
-        @Override
-        public CharSequence getPageTitle(int position) {
-            return MenuFragment.MenueTitles[position];
-        }
     }
 
 }

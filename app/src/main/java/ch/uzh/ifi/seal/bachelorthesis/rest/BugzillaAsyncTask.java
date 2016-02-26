@@ -9,7 +9,7 @@ import java.net.URL;
  */
 public abstract class BugzillaAsyncTask extends AsyncTask<URL, Integer, String> {
     //private static final String SERVER_URL = "http://192.168.1.27"; // --> localhost
-    final String SERVER_URL = "http://036176c4.ngrok.io"; //--> ngrok
+    final String SERVER_URL = "http://fb173c2c.ngrok.io"; //--> ngrok
 
 
 }

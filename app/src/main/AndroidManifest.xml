@@ -9,11 +9,11 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/ReconTheme">
+        android:theme="@style/ReconTheme.Fullscreen">
         <activity
             android:name=".activities.MainActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/ReconTheme.Fullscreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -28,8 +28,10 @@
 
         <activity
             android:name=".activities.ScanningActivity"
-            android:label="@string/title_activity_scanning" />
-        <activity android:name=".activities.MyIssuesActivity"></activity>
+            android:label="@string/title_activity_scanning"
+            android:theme="@style/ReconTheme.Fullscreen"/>
+        <activity android:name=".activities.MyIssuesActivity"
+        android:theme="@style/ReconTheme.Fullscreen"></activity>
     </application>
 
 </manifest>
