@@ -25,8 +25,6 @@ public class MainActivity extends CarouselActivity implements MenuFragment.OnFra
         getCarousel().setContents(new ImageMenuItem("My Issues", R.mipmap.bug, 0),
                 new ImageMenuItem("Scan Developers", R.mipmap.scan, 1),
                 new ImageMenuItem("Settings", R.mipmap.settings, 2));
-        //TODO: Test if this new menu with carousel works now
-
     }
 
     @Override
