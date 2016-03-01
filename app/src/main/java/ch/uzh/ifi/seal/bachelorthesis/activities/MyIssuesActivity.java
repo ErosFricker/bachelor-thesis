@@ -1,8 +1,9 @@
 package ch.uzh.ifi.seal.bachelorthesis.activities;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import ch.uzh.ifi.seal.bachelorthesis.R;
 import ch.uzh.ifi.seal.bachelorthesis.model.Bug;
@@ -13,15 +14,17 @@ import com.google.gson.Gson;
 import com.reconinstruments.ui.list.SimpleArrayAdapter;
 import com.reconinstruments.ui.list.SimpleListActivity;
 import com.reconinstruments.ui.list.SimpleListItem;
-import com.reconinstruments.ui.list.StandardListItem;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class MyIssuesActivity extends SimpleListActivity implements AsyncDelegate {
 
-    private ProgressBar progressBar;
+    Bug[] bugArray;
 
+    /**
+     * Custom List Item for displaying Bugs
+     */
     class BugListItem extends SimpleListItem {
 
         private String title;
@@ -35,6 +38,15 @@ public class MyIssuesActivity extends SimpleListActivity implements AsyncDelegat
         @Override
         public int getLayoutId() {
             return R.layout.bug_list_row;
+        }
+
+        @Override
+        public void onClick(Context context) {
+            Intent showDetailIntent = new Intent(context, ShowBugDetailActivity.class);
+            int position = getAdapter().getPosition(this);
+            showDetailIntent.putExtra(ShowBugDetailActivity.SELECTED_BUG_EXTRA, bugArray[position]);
+            context.startActivity(showDetailIntent);
+
         }
 
         @Override
@@ -58,31 +70,20 @@ public class MyIssuesActivity extends SimpleListActivity implements AsyncDelegat
         task.execute();
     }
 
-    private void displayWaitingSpinner() {
-
-        progressBar.setVisibility(View.VISIBLE);
-
-    }
-
-    private void dismissWaitingSpinner() {
-        progressBar.setVisibility(View.GONE);
-    }
-
     @Override
     public void onPostExecuteFinished(String result) {
         Gson gson = new Gson();
         BugResult bugResult = new BugResult();
         try {
             bugResult = gson.fromJson(result, BugResult.class);
-            System.out.println(bugResult);
         }catch (Exception e){
             e.printStackTrace();
         }
 
-        Bug[] bugArray = bugResult.getBugs().toArray(new Bug[bugResult.getBugs().size()]);
+        bugArray = bugResult.getBugs().toArray(new Bug[bugResult.getBugs().size()]);
         List<SimpleListItem> listItems = new ArrayList<>();
         for (Bug b : bugArray) {
-            listItems.add(new StandardListItem(b.getSummary()));
+            listItems.add(new BugListItem(b.getSummary(), b.getStatus()));
         }
         setAdapter(createAdapter(listItems));
 
@@ -92,12 +93,12 @@ public class MyIssuesActivity extends SimpleListActivity implements AsyncDelegat
         return new SimpleArrayAdapter<SimpleListItem>(this, contents) {
             @Override
             public int getViewTypeCount() {
-                return 1;
+                return 1; //We only have one View Type (custom ones)
             }
 
             @Override
             public int getItemViewType(int position) {
-                return 0;
+                return 2; //Custom Item ViewType
             }
 
 

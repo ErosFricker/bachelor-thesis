@@ -4,15 +4,16 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
+import ch.uzh.ifi.seal.bachelorthesis.rest.AsyncDelegate;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
 import ch.uzh.ifi.seal.bachelorthesis.R;
 import ch.uzh.ifi.seal.bachelorthesis.rest.GetBugsTask;
 
-public class ScanningActivity extends Activity {
+public class ScanningActivity extends Activity implements AsyncDelegate{
 
-    String bugs;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,20 +32,20 @@ public class ScanningActivity extends Activity {
         if(value == null){
             finish();
         }else {
-            getBugsFromBugzilla("erosfricker@gmail.com", "erta2008?");
+            getBugsFromBugzilla();
         }
 
     }
 
-    private boolean getBugsFromBugzilla(String login, String password) {
-        boolean success = false;
+    private boolean getBugsFromBugzilla() {
         GetBugsTask task = new GetBugsTask();
         task.execute();
-
-
         return false;
     }
 
 
+    @Override
+    public void onPostExecuteFinished(String result) {
 
+    }
 }

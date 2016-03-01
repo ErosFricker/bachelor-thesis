@@ -47,18 +47,8 @@ public class GetMyIssuesTask extends BugzillaAsyncTask {
                 url = "&assigned_to="+this.userEMail;
             }
             URL bugsURL = new URL(url);
-            connection = (HttpURLConnection) bugsURL.openConnection();
-            connection.setRequestMethod("GET");
-            //connection.setRequestProperty("api_key", "43ToKcE99BLXH7xq7TcQGY4u5KzJRMqMwU4mXkFP");
-            connection.setDoInput(true);
-            InputStream in = new BufferedInputStream(connection.getInputStream());
-            String line;
-            StringBuilder sb = new StringBuilder();
-            BufferedReader reader = new BufferedReader(new InputStreamReader(in));
-            while((line=reader.readLine())!= null){
-                sb.append(line);
-            }
-            return sb.toString();
+
+            return callRestService(bugsURL);
 
 
         } catch (Exception e){

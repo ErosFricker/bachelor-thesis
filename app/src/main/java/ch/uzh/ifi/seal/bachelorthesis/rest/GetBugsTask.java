@@ -4,10 +4,7 @@ import android.os.AsyncTask;
 
 import com.google.gson.Gson;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
@@ -21,25 +18,10 @@ public class GetBugsTask extends BugzillaAsyncTask {
 
     @Override
     protected String doInBackground(URL... params) {
-        int responseCode = 0;
-        HttpURLConnection connection = null;
-
         try {
 
             URL bugsURL = new URL(SERVER_URL+"/rest.cgi/bug?api_key=43ToKcE99BLXH7xq7TcQGY4u5KzJRMqMwU4mXkFP");
-            connection = (HttpURLConnection) bugsURL.openConnection();
-            connection.setRequestMethod("GET");
-            //connection.setRequestProperty("api_key", "43ToKcE99BLXH7xq7TcQGY4u5KzJRMqMwU4mXkFP");
-            connection.setDoInput(true);
-            InputStream in = new BufferedInputStream(connection.getInputStream());
-            String line;
-            StringBuilder sb = new StringBuilder();
-            BufferedReader reader = new BufferedReader(new InputStreamReader(in));
-            while((line=reader.readLine())!= null){
-                sb.append(line);
-            }
-            return sb.toString();
-
+            return callRestService(bugsURL);
 
         } catch (Exception e){
             e.printStackTrace();
@@ -47,6 +29,8 @@ public class GetBugsTask extends BugzillaAsyncTask {
         }
         return null;
     }
+
+
 
     @Override
     protected void onPostExecute(String result) {

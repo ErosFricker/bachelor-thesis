@@ -27,13 +27,14 @@ android {
 
 
 
+
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile 'junit:junit:3.8.1'
     provided 'com.reconinstruments.os:recon-platform:4.3.1'
     compile 'com.android.support:appcompat-v7:23.1.1'
     compile 'com.android.support:design:23.1.1'
-    compile 'com.reconinstruments.app:recon-application:4.3.1'
+    compile 'com.reconinstruments.app:recon-application:4.4.0'
     compile 'com.reconinstruments.ui:recon-ui:4.3.1'
     compile 'com.journeyapps:zxing-android-embedded:3.1.0@aar'
     compile 'com.google.zxing:core:3.2.0'

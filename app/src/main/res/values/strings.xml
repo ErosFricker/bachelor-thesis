@@ -5,4 +5,5 @@
 
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_scanning">ScanningActivity</string>
+    <string name="title_activity_show_bug_detail">ShowBugDetailActivity</string>
 </resources>

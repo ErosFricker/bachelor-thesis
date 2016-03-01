@@ -1,0 +1,28 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <EditTextPreference
+        android:key="server_url"
+        android:title="Server URL"
+        android:summary="The base URL for the server"
+        android:defaultValue="http://localhost"
+        android:inputType="textUri"
+        android:maxLines="1"
+    />
+
+    <EditTextPreference
+            android:key="username"
+            android:title="Username"
+            android:summary="The bugzilla user name"
+            android:inputType="text"
+            android:maxLines="1"
+    />
+
+    <EditTextPreference
+            android:key="password"
+            android:title="Password"
+            android:summary="The bugzilla password"
+            android:inputType="textPassword"
+            android:maxLines="1"
+    />
+
+</PreferenceScreen>
