@@ -37,7 +37,7 @@ public class ImageMenuItem extends StandardCarouselItem {
                 break;
 
             case 2:
-
+                intent = new Intent(context, SettingsActivity.class);
                 break;
             default:
 
