@@ -4,7 +4,9 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
+import ch.uzh.ifi.seal.bachelorthesis.model.BugResult;
 import ch.uzh.ifi.seal.bachelorthesis.rest.AsyncDelegate;
+import com.google.gson.Gson;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
@@ -46,6 +48,9 @@ public class ScanningActivity extends Activity implements AsyncDelegate{
 
     @Override
     public void onPostExecuteFinished(String result) {
+        Gson gson = new Gson();
+        BugResult bugResult = gson.fromJson(result, BugResult.class);
+        //TODO: Check result and pass it to the following activity
 
     }
 }

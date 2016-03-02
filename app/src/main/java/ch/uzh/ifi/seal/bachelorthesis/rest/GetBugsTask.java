@@ -15,6 +15,15 @@ import ch.uzh.ifi.seal.bachelorthesis.model.BugResult;
  */
 public class GetBugsTask extends BugzillaAsyncTask {
 
+    private AsyncDelegate asyncDelegate;
+
+    public AsyncDelegate getAsyncDelegate() {
+        return asyncDelegate;
+    }
+
+    public void setAsyncDelegate(AsyncDelegate asyncDelegate) {
+        this.asyncDelegate = asyncDelegate;
+    }
 
     @Override
     protected String doInBackground(URL... params) {
@@ -35,12 +44,6 @@ public class GetBugsTask extends BugzillaAsyncTask {
     @Override
     protected void onPostExecute(String result) {
         super.onPostExecute(result);
-        Gson gson = new Gson();
-        try {
-            BugResult bugResult = gson.fromJson(result, BugResult.class);
-            System.out.println(bugResult);
-        }catch (Exception e){
-            e.printStackTrace();
-        }
+        this.asyncDelegate.onPostExecuteFinished(result);
     }
 }
