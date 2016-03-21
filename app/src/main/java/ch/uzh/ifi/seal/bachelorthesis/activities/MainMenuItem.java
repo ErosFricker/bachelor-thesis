@@ -10,18 +10,10 @@ import ch.uzh.ifi.seal.bachelorthesis.R;
 /**
  * Created by erosfricker on 25.02.16.
  */
-public class ImageMenuItem extends StandardCarouselItem {
+public class MainMenuItem extends MenuItem {
 
-    Integer position = -1;
-
-    public ImageMenuItem(String title, Integer image, Integer position){
-        super(title, image);
-        this.position = position;
-    }
-
-    @Override
-    public int getLayoutId() {
-        return R.layout.carousel_item_title_icon_column;
+    public MainMenuItem(String title, Integer image, Integer position) {
+        super(title, image, position);
     }
 
     @Override

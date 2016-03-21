@@ -1,9 +1,11 @@
 package ch.uzh.ifi.seal.bachelorthesis.model;
 
+import java.io.Serializable;
+
 /**
  * Created by erosfricker on 18.02.16.
  */
-public class User {
+public class User implements Serializable{
 
     private Integer id;
     private String realName;

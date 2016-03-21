@@ -12,9 +12,9 @@ public class MainActivity extends CarouselActivity {
 
         setContentView(R.layout.carousel_host);
         getCarousel().setPageMargin(30);
-        getCarousel().setContents(new ImageMenuItem("My Issues", R.mipmap.bug, 0),
-                new ImageMenuItem("Scan Developers", R.mipmap.scan, 1),
-                new ImageMenuItem("Settings", R.mipmap.settings, 2));
+        getCarousel().setContents(new MainMenuItem("My Issues", R.mipmap.bug, 0),
+                new MainMenuItem("Scan Developers", R.mipmap.scan, 1),
+                new MainMenuItem("Settings", R.mipmap.settings, 2));
     }
 
 }

@@ -14,6 +14,11 @@ import ch.uzh.ifi.seal.bachelorthesis.model.BugResult;
  * Created by erosfricker on 18.02.16.
  */
 public class GetBugsTask extends BugzillaAsyncTask {
+    private String email = "";
+    public GetBugsTask(String email) {
+        super();
+        this.email = email;
+    }
 
     private AsyncDelegate asyncDelegate;
 
@@ -29,7 +34,7 @@ public class GetBugsTask extends BugzillaAsyncTask {
     protected String doInBackground(URL... params) {
         try {
 
-            URL bugsURL = new URL(SERVER_URL+"/rest.cgi/bug?api_key=43ToKcE99BLXH7xq7TcQGY4u5KzJRMqMwU4mXkFP");
+            URL bugsURL = new URL(SERVER_URL+"/rest.cgi/bug?api_key=43ToKcE99BLXH7xq7TcQGY4u5KzJRMqMwU4mXkFP&assigned_to="+this.email);
             return callRestService(bugsURL);
 
         } catch (Exception e){
