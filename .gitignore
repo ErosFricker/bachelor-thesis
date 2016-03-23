@@ -106,3 +106,5 @@ fabric.properties
 
 #Server settings
 app/src/main/res/raw/server_settings.txt
+
+app/src/main/res/raw/server_settings.txt
