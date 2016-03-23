@@ -1,20 +1,18 @@
 package ch.uzh.ifi.seal.bachelorthesis.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * Created by erosfricker on 10.02.16.
  */
-public class Bug {
+public class Bug implements Serializable {
 
     private User assigned_to_detail;
     private User creator_detail;
-
-
-
+    private String summary;
     private String creator;
     private Date deadline;
-
     private Integer id;
     private String[] keywords;
     private String priority;
@@ -92,4 +90,11 @@ public class Bug {
     public void setVersion(String version) {
         this.version = version;
     }
+    public String getSummary() {
+        return summary;
+    }
+    public void setSummary(String summary) {
+        this.summary = summary;
+    }
+
 }
