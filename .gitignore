@@ -108,3 +108,5 @@ fabric.properties
 app/src/main/res/raw/server_settings.txt
 
 .DS_Store
+
+app/src/main/res/raw/server_settings.txt
