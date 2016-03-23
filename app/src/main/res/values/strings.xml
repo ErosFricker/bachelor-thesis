@@ -8,4 +8,11 @@
     <string name="title_activity_scanning_menu">ScanningMenuActivity</string>
 
     <string name="hello_world">Hello world!</string>
+    <string name="title_activity_calendar">CalendarActivity</string>
+
+    <!--Settings Strings -->
+    <string name="shared_preferences_name">ch.erosfricker.bachelorthesis.settings.SERVER_SETTINGS</string>
+    <string name="preference_server_url">server_url</string>
+    <string name="preference_username">username</string>
+    <string name="preference_password">password</string>
 </resources>

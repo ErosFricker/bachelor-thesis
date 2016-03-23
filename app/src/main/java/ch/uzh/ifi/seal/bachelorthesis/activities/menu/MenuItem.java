@@ -1,7 +1,5 @@
-package ch.uzh.ifi.seal.bachelorthesis.activities;
+package ch.uzh.ifi.seal.bachelorthesis.activities.menu;
 
-import android.content.Context;
-import android.content.Intent;
 import ch.uzh.ifi.seal.bachelorthesis.R;
 import com.reconinstruments.ui.carousel.StandardCarouselItem;
 

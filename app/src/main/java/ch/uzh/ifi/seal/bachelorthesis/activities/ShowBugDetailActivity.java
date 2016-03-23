@@ -1,21 +1,19 @@
 package ch.uzh.ifi.seal.bachelorthesis.activities;
 
-import android.support.v4.widget.TextViewCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.Menu;
+import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.widget.TextView;
 import ch.uzh.ifi.seal.bachelorthesis.R;
 import ch.uzh.ifi.seal.bachelorthesis.model.Bug;
 
 /**
- * Activity class for displaying bug details selected in {@link MyIssuesActivity}
+ * Activity class for displaying bug details selected in {@link IssuesActivity}
  */
 public class ShowBugDetailActivity extends AppCompatActivity {
 
     Bug currentBug;
-    static final String SELECTED_BUG_EXTRA = "selectedbug";
+    public static final String SELECTED_BUG_EXTRA = "selectedbug";
 
     TextView titleView;
     TextView detailView;

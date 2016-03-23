@@ -1,23 +1,18 @@
 package ch.uzh.ifi.seal.bachelorthesis.rest;
 
-import android.os.AsyncTask;
-
-import com.google.gson.Gson;
-
-import java.io.*;
-import java.net.HttpURLConnection;
 import java.net.URL;
 
-import ch.uzh.ifi.seal.bachelorthesis.model.BugResult;
-
 /**
- * Created by erosfricker on 18.02.16.
+ * Created by erosfricker on 22/03/16.
  */
-public class GetBugsTask extends BugzillaAsyncTask {
+public class GetUserTask extends BugzillaAsyncTask {
     private String email = "";
-    public GetBugsTask(String email) {
+    private String serverURL = "";
+
+    public GetUserTask(String email, String serverURL) {
         super();
         this.email = email;
+        this.serverURL = serverURL;
     }
 
     private AsyncDelegate asyncDelegate;
@@ -34,7 +29,7 @@ public class GetBugsTask extends BugzillaAsyncTask {
     protected String doInBackground(URL... params) {
         try {
 
-            URL bugsURL = new URL(SERVER_URL+"/rest.cgi/bug?api_key=43ToKcE99BLXH7xq7TcQGY4u5KzJRMqMwU4mXkFP&assigned_to="+this.email);
+            URL bugsURL = new URL(this.serverURL+"/rest.cgi/user/"+this.email);
             return callRestService(bugsURL);
 
         } catch (Exception e){
@@ -49,6 +44,6 @@ public class GetBugsTask extends BugzillaAsyncTask {
     @Override
     protected void onPostExecute(String result) {
         super.onPostExecute(result);
-        this.asyncDelegate.onPostExecuteFinished(result);
+        this.asyncDelegate.onPostExecuteFinished(result, this);
     }
 }
