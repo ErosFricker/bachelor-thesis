@@ -107,3 +107,5 @@ crashlytics-build.properties
 fabric.properties
 
 app/src/main/res/raw/server_settings.txt
+
+.DS_Store
