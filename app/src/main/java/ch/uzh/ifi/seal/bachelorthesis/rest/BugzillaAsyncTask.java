@@ -11,8 +11,6 @@ import java.net.URL;
  */
 public abstract class BugzillaAsyncTask extends AsyncTask<URL, Integer, String> {
 
-    final String SERVER_URL = "http://b0ea03a3.ngrok.io"; //--> ngrok
-
     protected String callRestService(URL bugsURL) throws IOException {
         HttpURLConnection connection = (HttpURLConnection) bugsURL.openConnection();
         connection.setRequestMethod("GET");
