@@ -30,7 +30,7 @@ public class GetIssuesTask extends BugzillaAsyncTask {
 
             String url = this.serverURL+"/rest.cgi/bug";
             if(!this.userEmail.equals("")){
-                url = "?assigned_to="+this.userEmail;
+                url += "?assigned_to="+this.userEmail;
             }
             URL bugsURL = new URL(url);
 

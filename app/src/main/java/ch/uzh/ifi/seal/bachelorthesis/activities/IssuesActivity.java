@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import ch.uzh.ifi.seal.bachelorthesis.R;
 import ch.uzh.ifi.seal.bachelorthesis.model.Bug;
@@ -66,9 +67,8 @@ public class IssuesActivity extends SimpleListActivity implements AsyncDelegate 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_my_issues);
+        setContentView(R.layout.activity_issues);
         String userEmail = getIntent().getStringExtra(EXTRA_USER_EMAIL);
-
         GetIssuesTask task = new GetIssuesTask(userEmail, SettingsParser.getInstance(getApplicationContext()).getServerURL());
         task.setAsyncDelegate(this);
         task.execute();
