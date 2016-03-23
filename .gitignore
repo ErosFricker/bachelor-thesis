@@ -1,5 +1,3 @@
-
-
 # Created by https://www.gitignore.io/api/android,java,intellij
 
 ### Android ###
@@ -106,6 +104,18 @@ crashlytics.properties
 crashlytics-build.properties
 fabric.properties
 
+#Server settings
+app/src/main/res/raw/server_settings.txt
+
+app/.DS_Store
+
+.DS_Store
+
+app/.DS_Store
+
+app/src/.DS_Store
+
+app/src/main/.DS_Store
 .DS_Store
 
 app/.DS_Store

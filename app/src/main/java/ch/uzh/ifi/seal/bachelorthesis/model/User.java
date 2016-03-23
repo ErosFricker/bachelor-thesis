@@ -1,18 +1,20 @@
 package ch.uzh.ifi.seal.bachelorthesis.model;
 
+import java.io.Serializable;
+
 /**
  * Created by erosfricker on 18.02.16.
  */
-public class User {
+public class User implements Serializable{
 
     private Integer id;
-    private String realName;
+    private String real_name;
     private String name;
     private String email;
 
-    public User(Integer id, String realName, String name, String email) {
+    public User(Integer id, String real_name, String name, String email) {
         this.id = id;
-        this.realName = realName;
+        this.real_name = real_name;
         this.name = name;
         this.email = email;
     }
@@ -25,12 +27,12 @@ public class User {
         this.id = id;
     }
 
-    public String getRealName() {
-        return realName;
+    public String getReal_name() {
+        return real_name;
     }
 
-    public void setRealName(String realName) {
-        this.realName = realName;
+    public void setReal_name(String real_name) {
+        this.real_name = real_name;
     }
 
     public String getName() {

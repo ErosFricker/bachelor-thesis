@@ -9,7 +9,9 @@ import ch.uzh.ifi.seal.bachelorthesis.R;
 import ch.uzh.ifi.seal.bachelorthesis.model.Bug;
 import ch.uzh.ifi.seal.bachelorthesis.model.BugResult;
 import ch.uzh.ifi.seal.bachelorthesis.rest.AsyncDelegate;
-import ch.uzh.ifi.seal.bachelorthesis.rest.GetMyIssuesTask;
+import ch.uzh.ifi.seal.bachelorthesis.rest.BugzillaAsyncTask;
+import ch.uzh.ifi.seal.bachelorthesis.rest.GetIssuesTask;
+import ch.uzh.ifi.seal.bachelorthesis.rest.SettingsParser;
 import com.google.gson.Gson;
 import com.reconinstruments.ui.list.SimpleArrayAdapter;
 import com.reconinstruments.ui.list.SimpleListActivity;
@@ -18,9 +20,10 @@ import com.reconinstruments.ui.list.SimpleListItem;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MyIssuesActivity extends SimpleListActivity implements AsyncDelegate {
+public class IssuesActivity extends SimpleListActivity implements AsyncDelegate {
 
-    Bug[] bugArray;
+    private Bug[] bugArray;
+    public static final String EXTRA_USER_EMAIL = "useremail";
 
     /**
      * Custom List Item for displaying Bugs
@@ -30,7 +33,7 @@ public class MyIssuesActivity extends SimpleListActivity implements AsyncDelegat
         private String title;
         private String status;
 
-        public BugListItem(String title, String status) {
+        BugListItem(String title, String status) {
             this.title = title;
             this.status = status;
         }
@@ -64,14 +67,15 @@ public class MyIssuesActivity extends SimpleListActivity implements AsyncDelegat
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_issues);
+        String userEmail = getIntent().getStringExtra(EXTRA_USER_EMAIL);
 
-        GetMyIssuesTask task = new GetMyIssuesTask();
+        GetIssuesTask task = new GetIssuesTask(userEmail, SettingsParser.getInstance(getApplicationContext()).getServerURL());
         task.setAsyncDelegate(this);
         task.execute();
     }
 
     @Override
-    public void onPostExecuteFinished(String result) {
+    public void onPostExecuteFinished(String result, BugzillaAsyncTask asyncTask) {
         Gson gson = new Gson();
         BugResult bugResult = new BugResult();
         try {
@@ -89,7 +93,7 @@ public class MyIssuesActivity extends SimpleListActivity implements AsyncDelegat
 
     }
 
-    public SimpleArrayAdapter<SimpleListItem> createAdapter(List<SimpleListItem> contents) {
+    private SimpleArrayAdapter<SimpleListItem> createAdapter(List<SimpleListItem> contents) {
         return new SimpleArrayAdapter<SimpleListItem>(this, contents) {
             @Override
             public int getViewTypeCount() {
