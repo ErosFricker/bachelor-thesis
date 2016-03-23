@@ -107,3 +107,9 @@ crashlytics-build.properties
 fabric.properties
 
 .DS_Store
+
+app/.DS_Store
+
+app/src/.DS_Store
+
+app/src/main/.DS_Store
