@@ -104,9 +104,8 @@ crashlytics.properties
 crashlytics-build.properties
 fabric.properties
 
-#Server settings
-app/src/main/res/raw/server_settings.txt
 
+<<<<<<< HEAD
 app/.DS_Store
 
 .DS_Store
@@ -117,3 +116,8 @@ app/src/.DS_Store
 
 app/src/main/.DS_Store
 .DS_Store
+=======
+app/src/main/res/raw/server_settings.txt
+
+.DS_Store
+>>>>>>> master
