@@ -12,6 +12,7 @@ import java.net.URL;
 public abstract class BugzillaAsyncTask extends AsyncTask<URL, Integer, String> {
 
     protected String callRestService(URL bugsURL) throws IOException {
+        //TODO: Test if connection is possible via WiFi!!
         HttpURLConnection connection = (HttpURLConnection) bugsURL.openConnection();
         connection.setRequestMethod("GET");
         connection.setDoInput(true);

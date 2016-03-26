@@ -3,6 +3,8 @@
     android:orientation="horizontal" android:layout_width="match_parent"
     android:layout_height="48dp">
     <ImageView
+            android:id="@+id/issue_icon"
+            android:layout_gravity="center_vertical"
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:src="@mipmap/bug"/>
@@ -12,15 +14,14 @@
         android:layout_weight="1"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:textColor="@color/colorAccent"
-        android:textAppearance="@android:style/TextAppearance.DeviceDefault.Medium"
+        style="@style/recon_jet_text_selectable"
         />
     <TextView
-        android:id="@+id/issue_status"
+        android:id="@+id/issue_change_date"
         android:layout_width="0dp"
         android:layout_weight="1"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        android:textAppearance="@android:style/TextAppearance.DeviceDefault.Small"
+        style="@style/recon_jet_text_selectable"
         />
 </LinearLayout>
