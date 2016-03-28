@@ -20,7 +20,6 @@ public class ScanMenuItem extends MenuItem {
     @Override
     public void onClick(Context context) {
         Intent intent = new Intent();
-        //TODO: Change Buglist & Calendar classes to be more generic for both "myissues" and "dev's issues"
         switch (position){
             case 0:
                 intent = new Intent(context, IssuesActivity.class);

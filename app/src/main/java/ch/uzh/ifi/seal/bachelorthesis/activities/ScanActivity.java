@@ -43,10 +43,16 @@ public class ScanActivity extends Activity implements AsyncDelegate{
         getDeveloperName(value);
         if(value == null){
             finish();
-        }else {
-            getBugsFromBugzilla(value);
         }
 
+    }
+
+    private void showScanMenu(String email) {
+        Intent intent = new Intent(ScanActivity.this, ScanMenuActivity.class);
+        intent.putExtra(ScanMenuActivity.EXTRA_DEVELOPER_NAME, developerName);
+        intent.putExtra(ScanMenuActivity.EXTRA_DEVELOPER_EMAIL, email);
+        startActivity(intent);
+        this.finish();
     }
 
     private void getDeveloperName(String email) {
@@ -66,7 +72,7 @@ public class ScanActivity extends Activity implements AsyncDelegate{
     private void getBugsFromBugzilla(String email) {
         //TODO: Use developers email-address to get issues
         String serverURL = SettingsParser.getInstance(getApplicationContext()).getServerURL();
-        GetIssuesTask task = new GetIssuesTask(email, serverURL);
+        GetIssuesTask task = new GetIssuesTask(email, serverURL, this);
         task.setAsyncDelegate(this);
         task.execute();
     }
@@ -78,7 +84,6 @@ public class ScanActivity extends Activity implements AsyncDelegate{
             Gson gson = new Gson();
             BugResult bugResult = gson.fromJson(result, BugResult.class);
             Intent intent = new Intent(ScanActivity.this, ScanMenuActivity.class);
-            intent.putExtra(ScanMenuActivity.EXTRA_BUGRESULT, bugResult);
             intent.putExtra(ScanMenuActivity.EXTRA_DEVELOPER_NAME, developerName);
             startActivity(intent);
             this.finish();
@@ -87,6 +92,7 @@ public class ScanActivity extends Activity implements AsyncDelegate{
             UserResult userResult = gson.fromJson(result, UserResult.class);
             User user = userResult.getUsers().get(0);
             this.developerName = user.getReal_name();
+            showScanMenu(user.getName());
 
         }else{
             throw new UnsupportedOperationException("The async task was of unknown class");

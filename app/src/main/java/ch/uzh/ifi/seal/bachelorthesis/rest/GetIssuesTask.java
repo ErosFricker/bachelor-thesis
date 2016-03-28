@@ -13,9 +13,10 @@ public class GetIssuesTask extends BugzillaAsyncTask {
     private AsyncDelegate asyncDelegate;
 
 
-    public GetIssuesTask(String userEmail, String serverURL){
+    public GetIssuesTask(String userEmail, String serverURL, AsyncDelegate asyncDelegate){
         this.userEmail = userEmail;
         this.serverURL = serverURL;
+        this.asyncDelegate = asyncDelegate;
     }
 
     public void setAsyncDelegate(AsyncDelegate asyncDelegate) {

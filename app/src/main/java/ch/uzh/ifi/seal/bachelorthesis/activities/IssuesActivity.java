@@ -89,7 +89,7 @@ public class IssuesActivity extends SimpleListActivity implements AsyncDelegate 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_issues);
         String userEmail = getIntent().getStringExtra(EXTRA_USER_EMAIL);
-        GetIssuesTask task = new GetIssuesTask(userEmail, SettingsParser.getInstance(getApplicationContext()).getServerURL());
+        GetIssuesTask task = new GetIssuesTask(userEmail, SettingsParser.getInstance(getApplicationContext()).getServerURL(), this);
         task.setAsyncDelegate(this);
         task.execute();
     }
@@ -98,6 +98,7 @@ public class IssuesActivity extends SimpleListActivity implements AsyncDelegate 
     public void onPostExecuteFinished(String result, BugzillaAsyncTask asyncTask) {
         Gson gson = new Gson();
         BugResult bugResult = new BugResult();
+        System.out.println(result);
         try {
             bugResult = gson.fromJson(result, BugResult.class);
         }catch (Exception e){
