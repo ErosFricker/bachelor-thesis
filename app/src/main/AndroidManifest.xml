@@ -33,7 +33,7 @@
                 android:name=".activities.IssuesActivity"
                 android:theme="@style/ReconTheme.Fullscreen"/>
         <activity
-                android:name=".activities.ShowBugDetailActivity"
+                android:name=".activities.IssueDetailActivity"
                 android:label="@string/title_activity_show_bug_detail">
         </activity>
         <activity

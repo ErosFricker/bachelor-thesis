@@ -9,7 +9,6 @@ import com.reconinstruments.ui.carousel.CarouselActivity;
 
 public class ScanMenuActivity extends CarouselActivity {
 
-    public static final String EXTRA_BUGRESULT = "bugresult";
     public static final String EXTRA_DEVELOPER_NAME = "developername";
     public static final String EXTRA_DEVELOPER_EMAIL = "email";
     private String developerName;

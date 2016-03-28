@@ -18,6 +18,60 @@ public class Bug implements Serializable {
     private String priority;
     private String status;
     private String version;
+    private Date last_change_time;
+    private String description;
+    private String product;
+    private Date creation_time;
+    private String severity;
+    private String component;
+
+    public String getComponent() {
+        return component;
+    }
+
+    public void setComponent(String component) {
+        this.component = component;
+    }
+
+    public String getSeverity() {
+        return severity;
+    }
+
+    public void setSeverity(String severity) {
+        this.severity = severity;
+    }
+
+    public Date getCreation_time() {
+        return creation_time;
+    }
+
+    public void setCreation_time(Date creation_time) {
+        this.creation_time = creation_time;
+    }
+
+    public String getProduct() {
+        return product;
+    }
+
+    public void setProduct(String product) {
+        this.product = product;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public Date getLast_change_time() {
+        return last_change_time;
+    }
+
+    public void setLast_change_time(Date last_change_time) {
+        this.last_change_time = last_change_time;
+    }
 
     public User getCreator_detail() {
         return creator_detail;

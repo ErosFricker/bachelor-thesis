@@ -13,9 +13,10 @@ public class GetIssuesTask extends BugzillaAsyncTask {
     private AsyncDelegate asyncDelegate;
 
 
-    public GetIssuesTask(String userEmail, String serverURL){
+    public GetIssuesTask(String userEmail, String serverURL, AsyncDelegate asyncDelegate){
         this.userEmail = userEmail;
         this.serverURL = serverURL;
+        this.asyncDelegate = asyncDelegate;
     }
 
     public void setAsyncDelegate(AsyncDelegate asyncDelegate) {
@@ -30,7 +31,7 @@ public class GetIssuesTask extends BugzillaAsyncTask {
 
             String url = this.serverURL+"/rest.cgi/bug";
             if(!this.userEmail.equals("")){
-                url = "?assigned_to="+this.userEmail;
+                url += "?assigned_to="+this.userEmail;
             }
             URL bugsURL = new URL(url);
 
