@@ -73,6 +73,7 @@ public class IssueDetailActivity extends SimpleListActivity {
     }
 
     private void extractInformation(Bug currentBug) {
+        //TODO: Refactor this for better use of design patterns (not maintainable like this)
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy, HH:mm");
 
         this.bugDetailInformation.insertInformation("Title", currentBug.getSummary());

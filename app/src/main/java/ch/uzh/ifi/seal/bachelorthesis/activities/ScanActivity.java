@@ -69,14 +69,6 @@ public class ScanActivity extends Activity implements AsyncDelegate{
 
     }
 
-    private void getBugsFromBugzilla(String email) {
-        //TODO: Use developers email-address to get issues
-        String serverURL = SettingsParser.getInstance(getApplicationContext()).getServerURL();
-        GetIssuesTask task = new GetIssuesTask(email, serverURL, this);
-        task.setAsyncDelegate(this);
-        task.execute();
-    }
-
 
     @Override
     public void onPostExecuteFinished(String result, BugzillaAsyncTask asyncTask) {
@@ -97,7 +89,6 @@ public class ScanActivity extends Activity implements AsyncDelegate{
         }else{
             throw new UnsupportedOperationException("The async task was of unknown class");
         }
-        //TODO: Check result and pass it to the following activity
 
     }
 
