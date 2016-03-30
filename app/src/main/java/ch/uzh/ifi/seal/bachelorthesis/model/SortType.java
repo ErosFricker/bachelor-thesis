@@ -7,3 +7,5 @@ package ch.uzh.ifi.seal.bachelorthesis.model;
 public enum SortType {
     ByChangeDate, ByName, ByStatus
 }
+
+//TODO: Override toString()
