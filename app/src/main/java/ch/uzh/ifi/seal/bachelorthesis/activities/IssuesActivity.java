@@ -3,6 +3,7 @@ package ch.uzh.ifi.seal.bachelorthesis.activities;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -21,6 +22,8 @@ import com.reconinstruments.ui.list.SimpleListItem;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
@@ -104,15 +107,28 @@ public class IssuesActivity extends SimpleListActivity implements AsyncDelegate 
         }catch (Exception e){
             e.printStackTrace();
         }
-
+        List<Bug> bugList = sortBugs(bugResult);
         bugArray = bugResult.getBugs().toArray(new Bug[bugResult.getBugs().size()]);
         List<SimpleListItem> listItems = new ArrayList<>();
-        for (Bug b : bugArray) {
+        for (Bug b : bugList) {
             IssueStatus status = getIssueStatusFromString(b.getStatus());
             listItems.add(new BugListItem(b.getSummary(), status, b.getLast_change_time()));
         }
         setAdapter(createAdapter(listItems));
 
+    }
+
+    @NonNull
+    private List<Bug> sortBugs(BugResult bugResult) {
+        //TODO: Refactor to use Strategy Pattern
+        List<Bug> bugList = bugResult.getBugs();
+        Collections.sort(bugList, new Comparator<Bug>() {
+            @Override
+            public int compare(Bug lhs, Bug rhs) {
+                return lhs.getLast_change_time().compareTo(rhs.getLast_change_time());
+            }
+        });
+        return bugList;
     }
 
     private IssueStatus getIssueStatusFromString(String status) {
