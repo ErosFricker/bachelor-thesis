@@ -5,6 +5,7 @@ import android.content.Intent;
 import ch.uzh.ifi.seal.bachelorthesis.activities.CalendarActivity;
 import ch.uzh.ifi.seal.bachelorthesis.activities.IssuesActivity;
 import ch.uzh.ifi.seal.bachelorthesis.activities.ScanActivity;
+import ch.uzh.ifi.seal.bachelorthesis.activities.SettingsActivity;
 import ch.uzh.ifi.seal.bachelorthesis.rest.SettingsParser;
 
 /**
@@ -31,8 +32,10 @@ public class MainMenuItem extends MenuItem {
             case 2:
                 intent = new Intent(context, ScanActivity.class);
                 break;
+            case 3:
+                intent = new Intent(context, SettingsActivity.class);
+                break;
             default:
-
                 break;
 
         }
