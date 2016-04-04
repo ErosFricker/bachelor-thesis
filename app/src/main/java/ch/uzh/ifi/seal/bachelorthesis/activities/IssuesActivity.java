@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
@@ -20,6 +21,7 @@ import ch.uzh.ifi.seal.bachelorthesis.rest.SettingsParser;
 import com.google.gson.Gson;
 import com.reconinstruments.ui.carousel.CarouselItem;
 import com.reconinstruments.ui.carousel.StandardCarouselItem;
+import com.reconinstruments.ui.dialog.BaseDialog;
 import com.reconinstruments.ui.dialog.CarouselDialog;
 import com.reconinstruments.ui.dialog.DialogBuilder;
 import com.reconinstruments.ui.list.SimpleArrayAdapter;
@@ -37,12 +39,21 @@ import java.util.List;
 
 public class IssuesActivity extends SimpleListActivity implements AsyncDelegate {
 
-    private float x1;
-    private float x2;
     private Bug[] bugArray;
     private List<Bug> bugList;
     public static final String EXTRA_USER_EMAIL = "useremail";
     private SortType sortSelection = SortType.ByChangeDate;
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if(event.getKeyCode() == KeyEvent.KEYCODE_DPAD_LEFT || event.getKeyCode() == KeyEvent.KEYCODE_DPAD_RIGHT){
+            createSelectionDialog();
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
+
+
     /**
      * Custom List Item for displaying Bugs
      */
@@ -139,7 +150,7 @@ public class IssuesActivity extends SimpleListActivity implements AsyncDelegate 
         @Override
         public void updateView(View view) {
             super.updateView(view);
-            view.findViewById(R.id.checkmark).setVisibility(value==sortSelection?View.VISIBLE:View.INVISIBLE);
+            view.findViewById(R.id.checkmark).setVisibility(value == sortSelection ? View.VISIBLE : View.INVISIBLE);
         }
 
         @Override
@@ -179,7 +190,7 @@ public class IssuesActivity extends SimpleListActivity implements AsyncDelegate 
 
     public void createSelectionDialog() {
 
-        DialogBuilder builder = new DialogBuilder(this).setTitle("Timeout");
+        DialogBuilder builder = new DialogBuilder(this).setTitle("Sort List");
         builder.createSelectionDialog(selections, sortSelection.ordinal(), new CarouselDialog.OnItemSelectedListener() {
             @Override
             public void onItemSelected(CarouselDialog dialog, CarouselItem item, int position) {
@@ -214,6 +225,7 @@ public class IssuesActivity extends SimpleListActivity implements AsyncDelegate 
 
     private void refreshAdapter() {
         List<SimpleListItem> listItems = new ArrayList<>();
+
         for (Bug b : this.bugList) {
             IssueStatus status = getIssueStatusFromString(b.getStatus());
             listItems.add(new BugListItem(b.getSummary(), status, b.getLast_change_time()));
@@ -252,20 +264,4 @@ public class IssuesActivity extends SimpleListActivity implements AsyncDelegate 
 
         };
     }
-
-  /*  @Override
-    public boolean onTouchEvent(MotionEvent event) {
-        switch (event.getAction()){
-            case MotionEvent.ACTION_DOWN:
-                x1 = event.getX();
-                break;
-            case MotionEvent.ACTION_UP:
-                x2 = event.getX();
-                float dx = x2 - x1;
-                if (Math.abs(dx) > 150) {
-                    createSelectionDialog();
-                }
-        }
-        return super.onTouchEvent(event);
-    }*/
 }
