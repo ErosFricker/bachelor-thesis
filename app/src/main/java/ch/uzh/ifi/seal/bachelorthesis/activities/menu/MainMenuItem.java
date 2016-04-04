@@ -6,7 +6,7 @@ import ch.uzh.ifi.seal.bachelorthesis.activities.CalendarActivity;
 import ch.uzh.ifi.seal.bachelorthesis.activities.IssuesActivity;
 import ch.uzh.ifi.seal.bachelorthesis.activities.ScanActivity;
 import ch.uzh.ifi.seal.bachelorthesis.activities.SettingsActivity;
-import ch.uzh.ifi.seal.bachelorthesis.rest.SettingsParser;
+import ch.uzh.ifi.seal.bachelorthesis.model.SettingsParser;
 
 /**
  * Created by erosfricker on 25.02.16.

@@ -1,4 +1,4 @@
-package ch.uzh.ifi.seal.bachelorthesis.rest;
+package ch.uzh.ifi.seal.bachelorthesis.model;
 
 import android.content.Context;
 import android.content.SharedPreferences;

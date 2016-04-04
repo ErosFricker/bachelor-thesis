@@ -8,6 +8,7 @@ import android.widget.ProgressBar;
 import ch.uzh.ifi.seal.bachelorthesis.R;
 import ch.uzh.ifi.seal.bachelorthesis.activities.menu.ScanMenuActivity;
 import ch.uzh.ifi.seal.bachelorthesis.model.BugResult;
+import ch.uzh.ifi.seal.bachelorthesis.model.SettingsParser;
 import ch.uzh.ifi.seal.bachelorthesis.model.User;
 import ch.uzh.ifi.seal.bachelorthesis.model.UserResult;
 import ch.uzh.ifi.seal.bachelorthesis.rest.*;
