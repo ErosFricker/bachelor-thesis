@@ -7,13 +7,11 @@
         <TextView android:layout_width="match_parent"
                   style="@style/recon_jet_text_primary"
                   android:layout_height="wrap_content"
-                  android:id="@+id/detail_title"
-                  android:text="title"/>
+                  android:id="@+id/detail_title" />
         <TextView android:layout_width="match_parent"
                   android:layout_height="wrap_content"
                   style="@style/recon_jet_text_secondary"
                   android:id="@+id/detail_text"
-                  android:text="description"
         />
 
 </LinearLayout>

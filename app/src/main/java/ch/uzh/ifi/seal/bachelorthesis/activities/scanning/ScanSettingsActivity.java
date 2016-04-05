@@ -1,4 +1,4 @@
-package ch.uzh.ifi.seal.bachelorthesis.activities;
+package ch.uzh.ifi.seal.bachelorthesis.activities.scanning;
 
 import android.content.Intent;
 import android.view.View;

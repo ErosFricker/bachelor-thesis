@@ -1,11 +1,7 @@
 package ch.uzh.ifi.seal.bachelorthesis.activities;
 
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.ImageView;
-import android.widget.TextView;
+
 import ch.uzh.ifi.seal.bachelorthesis.R;
 import ch.uzh.ifi.seal.bachelorthesis.model.Bug;
 import ch.uzh.ifi.seal.bachelorthesis.model.BugDetailInformation;
@@ -23,47 +19,15 @@ import java.util.List;
  * Activity class for displaying bug details selected in {@link IssuesActivity}
  */
 public class IssueDetailActivity extends SimpleListActivity {
-    private Bug currentBug;
+
     static final String EXTRA_SELECTED_BUG = "selectedbug";
-    private BugDetailInformation bugDetailInformation = new BugDetailInformation();
-
-    /**
-     * Custom List Item for displaying Bugs
-     */
-    class BugDetailItem extends SimpleListItem {
-
-        private String title;
-        private String description;
-
-        BugDetailItem(String title, String description) {
-            this.title = title;
-            this.description = description;
-        }
-
-        @Override
-        public int getLayoutId() {
-            return R.layout.issue_detail_list_row;
-        }
-
-        @Override
-        public void onClick(Context context) {
-
-        }
-
-        @Override
-        public void updateView(View view) {
-            TextView titleView = (TextView)view.findViewById(R.id.detail_title);
-            TextView detailView = (TextView)view.findViewById(R.id.detail_text);
-            titleView.setText(this.title);
-            detailView.setText(this.description);
-        }
-    }
+    private final BugDetailInformation bugDetailInformation = new BugDetailInformation();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_issue_detail);
-        currentBug = (Bug)getIntent().getSerializableExtra(EXTRA_SELECTED_BUG);
+        Bug currentBug = (Bug) getIntent().getSerializableExtra(EXTRA_SELECTED_BUG);
         extractInformation(currentBug);
         List<SimpleListItem> listItems = new ArrayList<>();
         for(InformationTuple informationTuple : bugDetailInformation.getContents()) {
@@ -74,7 +38,7 @@ public class IssueDetailActivity extends SimpleListActivity {
 
     private void extractInformation(Bug currentBug) {
         //TODO: Refactor this for better use of design patterns (not maintainable like this)
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy, HH:mm");
+        DateFormat dateFormat = SimpleDateFormat.getDateTimeInstance();
 
         this.bugDetailInformation.insertInformation("Title", currentBug.getSummary());
         this.bugDetailInformation.insertInformation("Description", currentBug.getDescription());

@@ -1,13 +1,11 @@
 <resources>
-    <!--TODO: Change app name-->
-    <string name="app_name">QRTest</string>
-    <string name="action_settings">Settings</string>
+
+    <string name="app_name">AwareGlass</string>
 
     <string name="title_activity_scanning">Scan QR Code</string>
     <string name="title_activity_show_bug_detail">Show Details</string>
     <string name="title_activity_scanning_menu">ScanningMenuActivity</string>
 
-    <string name="hello_world">Hello world!</string>
     <string name="title_activity_calendar">CalendarActivity</string>
 
     <!--Settings Strings -->
@@ -15,17 +13,14 @@
     <string name="preference_server_url">server_url</string>
     <string name="preference_username">username</string>
     <string name="preference_password">password</string>
-    <string name="title_activity_view_detail">ViewDetailActivity</string>
-    <string name="title_activity_draweractivity">draweractivity</string>
 
-    <string name="title_section1">Section 1</string>
-    <string name="title_section2">Section 2</string>
-    <string name="title_section3">Section 3</string>
-
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
-
-    <string name="action_example">Example action</string>
-    <string name="title_activity_drawer">DrawerActivity</string>
     <string name="title_activity_settings">SettingsActivity</string>
+    <string name="setting_server_url">Server URL</string>
+    <string name="hint_server_url">http://localhost</string>
+    <string name="setting_username">User Name</string>
+    <string name="hint_username">user@example.com</string>
+    <string name="setting_password">Password</string>
+    <string name="hint_password">mypassword</string>
+    <string name="scan_settings_button">Scan Settings</string>
+    <string name="save">Save</string>
 </resources>

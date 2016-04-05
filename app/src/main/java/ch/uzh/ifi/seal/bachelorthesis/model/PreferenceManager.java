@@ -32,20 +32,20 @@ public class PreferenceManager {
     public void saveUserName(String userName) {
         SharedPreferences.Editor prefEditor = instance.sharedPreferences.edit();
         prefEditor.putString(instance.KEY_USERNAME, userName);
-        prefEditor.commit();
+        prefEditor.apply();
 
     }
 
     public void savePassword(String password) {
         SharedPreferences.Editor prefEditor = instance.sharedPreferences.edit();
         prefEditor.putString(instance.KEY_PASSWORD, password);
-        prefEditor.commit();
+        prefEditor.apply();
     }
 
     public void saveServerURL(String serverURL) {
         SharedPreferences.Editor prefEditor = instance.sharedPreferences.edit();
         prefEditor.putString(instance.KEY_SERVER_URL, serverURL);
-        prefEditor.commit();
+        prefEditor.apply();
 
     }
     public String getServerURL() {
