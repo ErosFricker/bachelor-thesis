@@ -26,9 +26,12 @@
         <uses-library android:name="com.reconinstruments.lib" />
 
         <activity
-            android:name=".activities.ScanActivity"
+            android:name=".activities.ScanSettingsActivity"
             android:label="@string/title_activity_scanning"
             android:theme="@style/ReconTheme.Fullscreen" />
+        <activity android:name=".activities.ScanDeveloperActivity"
+            android:label="@string/title_activity_scanning"
+            android:theme="@style/ReconTheme.Fullscreen"/>
         <activity
             android:name=".activities.IssuesActivity"
             android:theme="@style/ReconTheme.Fullscreen" />

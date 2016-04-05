@@ -24,10 +24,7 @@ public class SettingsActivity extends Activity {
         serverURLEditText = (EditText)findViewById(R.id.setting_server_url);
         usernameEditText = (EditText)findViewById(R.id.setting_login);
         passwordEditText = (EditText)findViewById(R.id.setting_password);
-        PreferenceManager preferenceManager = PreferenceManager.getInstance(this);
-        serverURLEditText.setText(preferenceManager.getServerURL());
-        usernameEditText.setText(preferenceManager.getUsername());
-        passwordEditText.setText(preferenceManager.getPassword());
+
 
 
         cancelButton = (Button)findViewById(R.id.cancel_button);
@@ -54,6 +51,16 @@ public class SettingsActivity extends Activity {
 
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        PreferenceManager preferenceManager = PreferenceManager.getInstance(this);
+        serverURLEditText.setText(preferenceManager.getServerURL());
+        usernameEditText.setText(preferenceManager.getUsername());
+        passwordEditText.setText(preferenceManager.getPassword());
+
+    }
+
     private void cancelPressed() {
         if(areFieldsFilled()) {
             finish();
@@ -63,7 +70,7 @@ public class SettingsActivity extends Activity {
     }
 
     private void scanSettingsToken() {
-        Intent intent = new Intent(this, ScanActivity.class);
+        Intent intent = new Intent(this, ScanSettingsActivity.class);
         startActivity(intent);
     }
 

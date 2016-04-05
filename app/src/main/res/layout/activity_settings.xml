@@ -19,6 +19,7 @@
             android:layout_height="wrap_content"
             android:text="Server URL"/>
         <EditText
+            style="@style/recon_jet_text_selectable"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="http://localhost"
@@ -59,6 +60,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <Button
+                style="@style/recon_jet_text_selectable"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"

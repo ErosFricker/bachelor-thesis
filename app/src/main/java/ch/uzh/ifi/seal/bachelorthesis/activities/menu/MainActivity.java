@@ -15,7 +15,7 @@ public class MainActivity extends CarouselActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.carousel_host);
-        SettingsParser.parseSettings(getApplicationContext());
+       // SettingsParser.parseSettings(getApplicationContext());
         getCarousel().setPageMargin(30);
         getCarousel().setContents(new MainMenuItem("My Issues", R.mipmap.bug, 0),
                 new MainMenuItem("My Calendar", R.mipmap.calendar, 1),
@@ -27,7 +27,7 @@ public class MainActivity extends CarouselActivity {
 
     private void checkServerSettings() {
         PreferenceManager manager = PreferenceManager.getInstance(this);
-        if (manager.getPassword() == null) {
+        if (manager.getPassword().isEmpty()) {
             Intent intent = new Intent(this, SettingsActivity.class);
             startActivity(intent);
         }

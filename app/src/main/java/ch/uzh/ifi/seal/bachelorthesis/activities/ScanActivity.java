@@ -18,10 +18,10 @@ import com.google.zxing.integration.android.IntentResult;
 
 import java.util.concurrent.ExecutionException;
 
-public class ScanActivity extends Activity implements AsyncDelegate{
+public abstract class ScanActivity extends Activity implements AsyncDelegate{
 
     private String developerName = "";
-    private ProgressBar progressBar;
+    ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,16 +37,7 @@ public class ScanActivity extends Activity implements AsyncDelegate{
 
     }
 
-    public void onActivityResult(int requestCode, int resultCode, Intent intent) {
-        IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, intent);
-        String value = result.getContents();
-        this.progressBar.setVisibility(View.VISIBLE);
-        getDeveloperName(value);
-        if(value == null){
-            finish();
-        }
-
-    }
+    public abstract void onActivityResult(int requestCode, int resultCode, Intent intent);
 
     private void showScanMenu(String email) {
         Intent intent = new Intent(ScanActivity.this, ScanMenuActivity.class);
@@ -56,7 +47,7 @@ public class ScanActivity extends Activity implements AsyncDelegate{
         this.finish();
     }
 
-    private void getDeveloperName(String email) {
+    void getDeveloperName(String email) {
 
         GetUserTask task = new GetUserTask(email, SettingsParser.getInstance(getApplicationContext()).getServerURL());
         task.setAsyncDelegate(this);
