@@ -41,7 +41,7 @@ public class SettingsParser {
 
         InputStream inputStream = context.getResources().openRawResource(context.getResources().getIdentifier("server_settings", "raw", context.getPackageName()));
         BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
-        String line = null;
+        String line;
         ArrayList<String> settings = new ArrayList<>();
         try {
             while((line = reader.readLine())!=null) {
@@ -65,7 +65,7 @@ public class SettingsParser {
         prefEditor.putString(parser.KEY_SERVER_URL, settings.get(0));
         prefEditor.putString(parser.KEY_USERNAME, settings.get(1));
         prefEditor.putString(parser.KEY_PASSWORD, settings.get(2));
-        prefEditor.commit();
+        prefEditor.apply();
         return true;
 
     }

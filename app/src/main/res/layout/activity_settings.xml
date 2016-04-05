@@ -12,68 +12,55 @@
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
         <TextView
             style="@style/recon_jet_text_primary"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Server URL"/>
+            android:text="@string/setting_server_url"/>
         <EditText
             style="@style/recon_jet_text_selectable"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="http://localhost"
+            android:hint="@string/hint_server_url"
             android:id="@+id/setting_server_url"
             android:inputType="textUri"/>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Login"
+            android:text="@string/setting_username"
             style="@style/recon_jet_text_primary"/>
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/setting_login"
             style="@style/recon_jet_text_selectable"
-            android:hint="user@example.com" />
+            android:hint="@string/hint_username" />
 
         <TextView
             style="@style/recon_jet_text_primary"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Password"/>
+            android:text="@string/setting_password"/>
         <EditText
             style="@style/recon_jet_text_selectable"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/setting_password"
             android:inputType="textPassword"
-            android:hint="mypassword"/>
+            android:hint="@string/hint_password"/>
         <Button
             style="@style/recon_jet_text_selectable"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/scan_settings_token_button"
-            android:text="Scan Settings"/>
-        <LinearLayout
-            android:orientation="horizontal"
+            android:text="@string/scan_settings_button"/>
+        <Button
+            style="@style/recon_jet_text_selectable"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <Button
-                style="@style/recon_jet_text_selectable"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Cancel"
-                android:id="@+id/cancel_button"/>
-            <Button
-                style="@style/recon_jet_text_selectable"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Save"
-                android:id="@+id/save_button"/>
-        </LinearLayout>
+            android:layout_height="wrap_content"
+            android:text="@string/save"
+            android:id="@+id/save_button"/>
     </LinearLayout>
 
 </ScrollView>

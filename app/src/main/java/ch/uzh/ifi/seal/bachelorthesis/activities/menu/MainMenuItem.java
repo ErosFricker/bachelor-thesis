@@ -4,15 +4,14 @@ import android.content.Context;
 import android.content.Intent;
 import ch.uzh.ifi.seal.bachelorthesis.activities.CalendarActivity;
 import ch.uzh.ifi.seal.bachelorthesis.activities.IssuesActivity;
-import ch.uzh.ifi.seal.bachelorthesis.activities.ScanActivity;
-import ch.uzh.ifi.seal.bachelorthesis.activities.ScanDeveloperActivity;
+import ch.uzh.ifi.seal.bachelorthesis.activities.scanning.ScanDeveloperActivity;
 import ch.uzh.ifi.seal.bachelorthesis.activities.SettingsActivity;
 import ch.uzh.ifi.seal.bachelorthesis.model.SettingsParser;
 
 /**
  * Created by erosfricker on 25.02.16.
  */
-public class MainMenuItem extends MenuItem {
+class MainMenuItem extends MenuItem {
 
     public MainMenuItem(String title, Integer image, Integer position) {
         super(title, image, position);
@@ -21,7 +20,7 @@ public class MainMenuItem extends MenuItem {
     @Override
     public void onClick(Context context) {
         Intent intent = new Intent();
-        switch (position){
+        switch (position){ //Sets the onClick action of the item based on its position in the menu
             case 0:
                 intent = new Intent(context, IssuesActivity.class);
                 intent.putExtra(IssuesActivity.EXTRA_USER_EMAIL, SettingsParser.getInstance(context).getUserName());

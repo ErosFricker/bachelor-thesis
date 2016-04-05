@@ -1,4 +1,4 @@
-package ch.uzh.ifi.seal.bachelorthesis.activities;
+package ch.uzh.ifi.seal.bachelorthesis.activities.scanning;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -14,7 +14,6 @@ import ch.uzh.ifi.seal.bachelorthesis.model.UserResult;
 import ch.uzh.ifi.seal.bachelorthesis.rest.*;
 import com.google.gson.Gson;
 import com.google.zxing.integration.android.IntentIntegrator;
-import com.google.zxing.integration.android.IntentResult;
 
 import java.util.concurrent.ExecutionException;
 
@@ -53,9 +52,7 @@ public abstract class ScanActivity extends Activity implements AsyncDelegate{
         task.setAsyncDelegate(this);
         try {
             task.execute().get();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
+        } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }
 
@@ -65,6 +62,7 @@ public abstract class ScanActivity extends Activity implements AsyncDelegate{
     @Override
     public void onPostExecuteFinished(String result, BugzillaAsyncTask asyncTask) {
         if(asyncTask instanceof GetIssuesTask) {
+            //TODO: Check this for code logic??
             Gson gson = new Gson();
             BugResult bugResult = gson.fromJson(result, BugResult.class);
             Intent intent = new Intent(ScanActivity.this, ScanMenuActivity.class);

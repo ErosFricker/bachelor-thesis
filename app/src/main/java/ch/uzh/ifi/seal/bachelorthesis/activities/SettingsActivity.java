@@ -9,12 +9,13 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import ch.uzh.ifi.seal.bachelorthesis.R;
+import ch.uzh.ifi.seal.bachelorthesis.activities.scanning.ScanSettingsActivity;
 import ch.uzh.ifi.seal.bachelorthesis.model.PreferenceManager;
 
 public class SettingsActivity extends Activity {
 
-    Button cancelButton, saveButton, scanTokenButton;
-    EditText serverURLEditText, usernameEditText, passwordEditText;
+    private Button saveButton, scanTokenButton;
+    private EditText serverURLEditText, usernameEditText, passwordEditText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,15 +26,6 @@ public class SettingsActivity extends Activity {
         usernameEditText = (EditText)findViewById(R.id.setting_login);
         passwordEditText = (EditText)findViewById(R.id.setting_password);
 
-
-
-        cancelButton = (Button)findViewById(R.id.cancel_button);
-        cancelButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                cancelPressed();
-            }
-        });
         saveButton = (Button)findViewById(R.id.save_button);
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -59,14 +51,6 @@ public class SettingsActivity extends Activity {
         usernameEditText.setText(preferenceManager.getUsername());
         passwordEditText.setText(preferenceManager.getPassword());
 
-    }
-
-    private void cancelPressed() {
-        if(areFieldsFilled()) {
-            finish();
-        }else {
-            Toast.makeText(this, "Please enter the data or scan your login token!", Toast.LENGTH_LONG).show();
-        }
     }
 
     private void scanSettingsToken() {

@@ -25,8 +25,6 @@ public class GetIssuesTask extends BugzillaAsyncTask {
 
     @Override
     protected String doInBackground(URL... params) {
-        HttpURLConnection connection = null;
-
         try {
 
             String url = this.serverURL+"/rest.cgi/bug";

@@ -1,7 +1,6 @@
 package ch.uzh.ifi.seal.bachelorthesis.model;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by erosfricker on 26/03/16.

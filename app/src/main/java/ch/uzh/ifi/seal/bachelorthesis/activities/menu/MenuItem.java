@@ -6,13 +6,15 @@ import com.reconinstruments.ui.carousel.StandardCarouselItem;
 /**
  * Created by erosfricker on 21/03/16.
  */
-public abstract class MenuItem extends StandardCarouselItem {
+abstract class MenuItem extends StandardCarouselItem {
     Integer position = -1;
 
-    public MenuItem(String title, Integer image, Integer position){
+    MenuItem(String title, Integer image, Integer position){
         super(title, image);
         this.position = position;
     }
+
+
 
     @Override
     public int getLayoutId() {

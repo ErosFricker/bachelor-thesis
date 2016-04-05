@@ -8,15 +8,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import ch.uzh.ifi.seal.bachelorthesis.R;
-import ch.uzh.ifi.seal.bachelorthesis.model.Bug;
-import ch.uzh.ifi.seal.bachelorthesis.model.BugResult;
-import ch.uzh.ifi.seal.bachelorthesis.model.IssueStatus;
-import ch.uzh.ifi.seal.bachelorthesis.model.SortType;
-import ch.uzh.ifi.seal.bachelorthesis.rest.AsyncDelegate;
-import ch.uzh.ifi.seal.bachelorthesis.rest.BugzillaAsyncTask;
-import ch.uzh.ifi.seal.bachelorthesis.rest.GetIssuesTask;
-import ch.uzh.ifi.seal.bachelorthesis.model.SettingsParser;
+
 import com.google.gson.Gson;
 import com.reconinstruments.ui.carousel.CarouselItem;
 import com.reconinstruments.ui.carousel.StandardCarouselItem;
@@ -25,14 +17,23 @@ import com.reconinstruments.ui.dialog.DialogBuilder;
 import com.reconinstruments.ui.list.SimpleArrayAdapter;
 import com.reconinstruments.ui.list.SimpleListActivity;
 import com.reconinstruments.ui.list.SimpleListItem;
-import com.reconinstruments.ui.list.StandardListItem;
 
-import java.text.SimpleDateFormat;
+import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
+
+import ch.uzh.ifi.seal.bachelorthesis.R;
+import ch.uzh.ifi.seal.bachelorthesis.model.Bug;
+import ch.uzh.ifi.seal.bachelorthesis.model.BugResult;
+import ch.uzh.ifi.seal.bachelorthesis.model.IssueStatus;
+import ch.uzh.ifi.seal.bachelorthesis.model.SettingsParser;
+import ch.uzh.ifi.seal.bachelorthesis.model.SortType;
+import ch.uzh.ifi.seal.bachelorthesis.rest.AsyncDelegate;
+import ch.uzh.ifi.seal.bachelorthesis.rest.BugzillaAsyncTask;
+import ch.uzh.ifi.seal.bachelorthesis.rest.GetIssuesTask;
 
 public class IssuesActivity extends SimpleListActivity implements AsyncDelegate {
 
@@ -41,6 +42,12 @@ public class IssuesActivity extends SimpleListActivity implements AsyncDelegate 
     public static final String EXTRA_USER_EMAIL = "useremail";
     private SortType sortSelection = SortType.ByChangeDate;
 
+    /**
+     * Overrides the onKeyDown method to support swipe left / right gestures.
+     * @param keyCode the keycode used
+     * @param event the event of the key
+     * @return returns if the key event should be registered
+     */
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if(event.getKeyCode() == KeyEvent.KEYCODE_DPAD_LEFT || event.getKeyCode() == KeyEvent.KEYCODE_DPAD_RIGHT){
@@ -49,16 +56,14 @@ public class IssuesActivity extends SimpleListActivity implements AsyncDelegate 
         return super.onKeyDown(keyCode, event);
     }
 
-
-
     /**
      * Custom List Item for displaying Bugs
      */
     class BugListItem extends SimpleListItem {
 
-        private String title;
-        private IssueStatus status;
-        private Date lastChangeTime;
+        private final String title;
+        private final IssueStatus status;
+        private final Date lastChangeTime;
 
         BugListItem(String title, IssueStatus status, Date lastChangeTime) {
             this.title = title;
@@ -86,7 +91,7 @@ public class IssuesActivity extends SimpleListActivity implements AsyncDelegate 
             titleView.setText(this.title);
 
             TextView changeDateView = (TextView)view.findViewById(R.id.issue_change_date);
-            SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy, HH:mm");
+            DateFormat dateFormat = DateFormat.getDateTimeInstance();
             changeDateView.setText(dateFormat.format(this.lastChangeTime));
 
             ImageView imageView = (ImageView)view.findViewById(R.id.issue_icon);
@@ -131,14 +136,10 @@ public class IssuesActivity extends SimpleListActivity implements AsyncDelegate 
         bugArray = bugResult.getBugs().toArray(new Bug[bugResult.getBugs().size()]);
         refreshAdapter();
         createSelectionDialog();
-
-
     }
-    public interface OnClickCallback {
-        void onClick(SortMenuListItem item);
-    }
+
     public class CheckedSelectionItem extends StandardCarouselItem {
-        SortType value;
+        final SortType value;
         public CheckedSelectionItem(String title,SortType value) {
             super(title);
             this.value = value;
@@ -162,30 +163,9 @@ public class IssuesActivity extends SimpleListActivity implements AsyncDelegate 
             this.selections.add(new CheckedSelectionItem(s.toString(), s));
         }
     }
-    List<CarouselItem> selections = new ArrayList<>();
+    private final List<CarouselItem> selections = new ArrayList<>();
 
-    public class SortMenuListItem extends StandardListItem {
-        String subtitle;
-        OnClickCallback callback;
-        public SortMenuListItem(String text, OnClickCallback callback){
-            super(text);
-            this.callback = callback;
-        }
-        public void onClick(Context context) {
-            callback.onClick(this);
-        }
-        public void setSubtitle(String subtitle) {
-            this.subtitle = subtitle;
-            TextView subtitleView = (TextView)getView().findViewById(R.id.subtitle);
-            subtitleView.setVisibility(View.VISIBLE);
-            subtitleView.setText(subtitle);
-        }
-        public String getSubtitle() {
-            return subtitle;
-        }
-    }
-
-    public void createSelectionDialog() {
+    private void createSelectionDialog() {
 
         DialogBuilder builder = new DialogBuilder(this).setTitle("Sort List");
         builder.createSelectionDialog(selections, sortSelection.ordinal(), new CarouselDialog.OnItemSelectedListener() {
@@ -198,7 +178,6 @@ public class IssuesActivity extends SimpleListActivity implements AsyncDelegate 
         }).show();
     }
 
-    @NonNull
     private void sortBugs() {
         //TODO: Refactor to use Strategy Pattern
         Collections.sort(bugList, new Comparator<Bug>() {
@@ -222,28 +201,12 @@ public class IssuesActivity extends SimpleListActivity implements AsyncDelegate 
 
     private void refreshAdapter() {
         List<SimpleListItem> listItems = new ArrayList<>();
-
         for (Bug b : this.bugList) {
-            IssueStatus status = getIssueStatusFromString(b.getStatus());
+            IssueStatus status = IssueStatus.fromString(b.getStatus());
             listItems.add(new BugListItem(b.getSummary(), status, b.getLast_change_time()));
         }
         setAdapter(createAdapter(listItems));
         getAdapter().notifyDataSetChanged();
-
-    }
-
-    private IssueStatus getIssueStatusFromString(String status) {
-        IssueStatus issueStatus = IssueStatus.NONE;
-        if(status.equals(IssueStatus.CONFIRMED.name())) {
-            issueStatus = IssueStatus.CONFIRMED;
-
-        }else if (status.equals(IssueStatus.IN_PROGRESS.name())){
-            issueStatus = IssueStatus.IN_PROGRESS;
-
-        }else if(status.equals(IssueStatus.RESOLVED)){
-            issueStatus = IssueStatus.RESOLVED;
-        }
-        return issueStatus;
     }
 
     private SimpleArrayAdapter<SimpleListItem> createAdapter(List<SimpleListItem> contents) {
