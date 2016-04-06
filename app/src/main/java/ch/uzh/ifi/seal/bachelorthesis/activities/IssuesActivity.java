@@ -3,7 +3,6 @@ package ch.uzh.ifi.seal.bachelorthesis.activities;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageView;
@@ -29,7 +28,7 @@ import ch.uzh.ifi.seal.bachelorthesis.R;
 import ch.uzh.ifi.seal.bachelorthesis.model.Bug;
 import ch.uzh.ifi.seal.bachelorthesis.model.BugResult;
 import ch.uzh.ifi.seal.bachelorthesis.model.IssueStatus;
-import ch.uzh.ifi.seal.bachelorthesis.model.SettingsParser;
+import ch.uzh.ifi.seal.bachelorthesis.model.PreferenceManager;
 import ch.uzh.ifi.seal.bachelorthesis.model.SortType;
 import ch.uzh.ifi.seal.bachelorthesis.rest.AsyncDelegate;
 import ch.uzh.ifi.seal.bachelorthesis.rest.BugzillaAsyncTask;
@@ -41,6 +40,7 @@ public class IssuesActivity extends SimpleListActivity implements AsyncDelegate 
     private List<Bug> bugList;
     public static final String EXTRA_USER_EMAIL = "useremail";
     private SortType sortSelection = SortType.ByChangeDate;
+    private CarouselDialog sortingDialog;
 
     /**
      * Overrides the onKeyDown method to support swipe left / right gestures.
@@ -117,7 +117,7 @@ public class IssuesActivity extends SimpleListActivity implements AsyncDelegate 
         setContentView(R.layout.activity_issues);
         String userEmail = getIntent().getStringExtra(EXTRA_USER_EMAIL);
         fillSelections();
-        GetIssuesTask task = new GetIssuesTask(userEmail, SettingsParser.getInstance(getApplicationContext()).getServerURL(), this);
+        GetIssuesTask task = new GetIssuesTask(userEmail, PreferenceManager.getInstance(getApplicationContext()).getServerURL(), this);
         task.setAsyncDelegate(this);
         task.execute();
     }
@@ -126,16 +126,16 @@ public class IssuesActivity extends SimpleListActivity implements AsyncDelegate 
     public void onPostExecuteFinished(String result, BugzillaAsyncTask asyncTask) {
         Gson gson = new Gson();
         BugResult bugResult = new BugResult();
-        System.out.println(result);
         try {
             bugResult = gson.fromJson(result, BugResult.class);
         }catch (Exception e){
             e.printStackTrace();
         }
-        this.bugList = bugResult.getBugs();
-        bugArray = bugResult.getBugs().toArray(new Bug[bugResult.getBugs().size()]);
-        refreshAdapter();
-        createSelectionDialog();
+        if (bugResult != null) {
+            this.bugList = bugResult.getBugs();
+            bugArray = bugResult.getBugs().toArray(new Bug[bugResult.getBugs().size()]);
+            refreshAdapter();
+        }
     }
 
     public class CheckedSelectionItem extends StandardCarouselItem {
@@ -158,6 +158,10 @@ public class IssuesActivity extends SimpleListActivity implements AsyncDelegate 
 
     }
 
+    public List<CarouselItem> getSelections() {
+        return selections;
+    }
+
     private void fillSelections(){
         for (SortType s : SortType.values()){
             this.selections.add(new CheckedSelectionItem(s.toString(), s));
@@ -166,16 +170,27 @@ public class IssuesActivity extends SimpleListActivity implements AsyncDelegate 
     private final List<CarouselItem> selections = new ArrayList<>();
 
     private void createSelectionDialog() {
-
-        DialogBuilder builder = new DialogBuilder(this).setTitle("Sort List");
-        builder.createSelectionDialog(selections, sortSelection.ordinal(), new CarouselDialog.OnItemSelectedListener() {
+        if(sortingDialog == null) {
+            DialogBuilder builder = new DialogBuilder(this).setTitle("Sort List");
+            sortingDialog = builder.createSelectionDialog(selections, sortSelection.ordinal(), new CarouselDialog.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(CarouselDialog dialog, CarouselItem item, int position) {
+                    sortSelection = SortType.values()[position];
+                    sortBugs();
+                    dialog.dismiss();
+                }
+            });
+        }
+        runOnUiThread(new Runnable() {
             @Override
-            public void onItemSelected(CarouselDialog dialog, CarouselItem item, int position) {
-                sortSelection = SortType.values()[position];
-                sortBugs();
-                dialog.dismiss();
+            public void run() {
+                sortingDialog.show();
             }
-        }).show();
+        });
+    }
+
+    public Bug[] getBugArray() {
+        return bugArray;
     }
 
     private void sortBugs() {
@@ -199,14 +214,24 @@ public class IssuesActivity extends SimpleListActivity implements AsyncDelegate 
         refreshAdapter();
     }
 
+    public CarouselDialog getSortingDialog() {
+        return sortingDialog;
+    }
+
     private void refreshAdapter() {
-        List<SimpleListItem> listItems = new ArrayList<>();
+        final List<SimpleListItem> listItems = new ArrayList<>();
         for (Bug b : this.bugList) {
             IssueStatus status = IssueStatus.fromString(b.getStatus());
             listItems.add(new BugListItem(b.getSummary(), status, b.getLast_change_time()));
         }
-        setAdapter(createAdapter(listItems));
-        getAdapter().notifyDataSetChanged();
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                setAdapter(createAdapter(listItems));
+                getAdapter().notifyDataSetChanged();
+            }
+        });
+
     }
 
     private SimpleArrayAdapter<SimpleListItem> createAdapter(List<SimpleListItem> contents) {
