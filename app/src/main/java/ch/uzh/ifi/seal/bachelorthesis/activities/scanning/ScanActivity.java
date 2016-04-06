@@ -8,7 +8,7 @@ import android.widget.ProgressBar;
 import ch.uzh.ifi.seal.bachelorthesis.R;
 import ch.uzh.ifi.seal.bachelorthesis.activities.menu.ScanMenuActivity;
 import ch.uzh.ifi.seal.bachelorthesis.model.BugResult;
-import ch.uzh.ifi.seal.bachelorthesis.model.SettingsParser;
+import ch.uzh.ifi.seal.bachelorthesis.model.PreferenceManager;
 import ch.uzh.ifi.seal.bachelorthesis.model.User;
 import ch.uzh.ifi.seal.bachelorthesis.model.UserResult;
 import ch.uzh.ifi.seal.bachelorthesis.rest.*;
@@ -48,7 +48,7 @@ public abstract class ScanActivity extends Activity implements AsyncDelegate{
 
     void getDeveloperName(String email) {
 
-        GetUserTask task = new GetUserTask(email, SettingsParser.getInstance(getApplicationContext()).getServerURL());
+        GetUserTask task = new GetUserTask(email, PreferenceManager.getInstance(this).getServerURL());
         task.setAsyncDelegate(this);
         try {
             task.execute().get();
@@ -61,6 +61,9 @@ public abstract class ScanActivity extends Activity implements AsyncDelegate{
 
     @Override
     public void onPostExecuteFinished(String result, BugzillaAsyncTask asyncTask) {
+        if(result == null) {
+            return;
+        }
         if(asyncTask instanceof GetIssuesTask) {
             //TODO: Check this for code logic??
             Gson gson = new Gson();
