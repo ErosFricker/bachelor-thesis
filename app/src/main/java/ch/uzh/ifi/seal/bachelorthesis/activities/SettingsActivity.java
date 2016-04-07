@@ -1,6 +1,9 @@
 package ch.uzh.ifi.seal.bachelorthesis.activities;
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.app.Activity;
 import android.view.View;
@@ -11,9 +14,10 @@ import android.widget.Toast;
 import ch.uzh.ifi.seal.bachelorthesis.R;
 import ch.uzh.ifi.seal.bachelorthesis.activities.scanning.ScanSettingsActivity;
 import ch.uzh.ifi.seal.bachelorthesis.model.PreferenceManager;
+import ch.uzh.ifi.seal.bachelorthesis.rest.BugzillaAsyncTask;
 
 public class SettingsActivity extends Activity {
-
+//TODO: Check if server responds and is correct login!!
     private Button saveButton, scanTokenButton;
     private EditText serverURLEditText, usernameEditText, passwordEditText;
 

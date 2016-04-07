@@ -39,8 +39,8 @@ public class IssuesActivity extends SimpleListActivity implements AsyncDelegate 
     private Bug[] bugArray;
     private List<Bug> bugList;
     public static final String EXTRA_USER_EMAIL = "useremail";
-    private SortType sortSelection = SortType.ByChangeDate;
     private CarouselDialog sortingDialog;
+    private SortingStrategy sortingStrategy = new SortingByLastChangeDate(0);
 
     /**
      * Overrides the onKeyDown method to support swipe left / right gestures.
@@ -117,7 +117,7 @@ public class IssuesActivity extends SimpleListActivity implements AsyncDelegate 
         setContentView(R.layout.activity_issues);
         String userEmail = getIntent().getStringExtra(EXTRA_USER_EMAIL);
         fillSelections();
-        GetIssuesTask task = new GetIssuesTask(userEmail, PreferenceManager.getInstance(getApplicationContext()).getServerURL(), this);
+        GetIssuesTask task = new GetIssuesTask(getApplicationContext(), userEmail, PreferenceManager.getInstance(getApplicationContext()).getServerURL(), this);
         task.setAsyncDelegate(this);
         task.execute();
     }
@@ -139,8 +139,8 @@ public class IssuesActivity extends SimpleListActivity implements AsyncDelegate 
     }
 
     public class CheckedSelectionItem extends StandardCarouselItem {
-        final SortType value;
-        public CheckedSelectionItem(String title,SortType value) {
+        final int value;
+        public CheckedSelectionItem(String title,int value) {
             super(title);
             this.value = value;
         }
@@ -148,7 +148,7 @@ public class IssuesActivity extends SimpleListActivity implements AsyncDelegate 
         @Override
         public void updateView(View view) {
             super.updateView(view);
-            view.findViewById(R.id.checkmark).setVisibility(value == sortSelection ? View.VISIBLE : View.INVISIBLE);
+            view.findViewById(R.id.checkmark).setVisibility(value == sortingStrategy.getPosition() ? View.VISIBLE : View.INVISIBLE);
         }
 
         @Override
@@ -164,7 +164,7 @@ public class IssuesActivity extends SimpleListActivity implements AsyncDelegate 
 
     private void fillSelections(){
         for (SortType s : SortType.values()){
-            this.selections.add(new CheckedSelectionItem(s.toString(), s));
+            this.selections.add(new CheckedSelectionItem(s.toString(), s.ordinal()));
         }
     }
     private final List<CarouselItem> selections = new ArrayList<>();
@@ -172,10 +172,22 @@ public class IssuesActivity extends SimpleListActivity implements AsyncDelegate 
     private void createSelectionDialog() {
         if(sortingDialog == null) {
             DialogBuilder builder = new DialogBuilder(this).setTitle("Sort List");
-            sortingDialog = builder.createSelectionDialog(selections, sortSelection.ordinal(), new CarouselDialog.OnItemSelectedListener() {
+            sortingDialog = builder.createSelectionDialog(selections, sortingStrategy.getPosition(), new CarouselDialog.OnItemSelectedListener() {
                 @Override
                 public void onItemSelected(CarouselDialog dialog, CarouselItem item, int position) {
-                    sortSelection = SortType.values()[position];
+                    switch (position) {
+                        case 0:
+                            sortingStrategy = new SortingByLastChangeDate(position);
+                            break;
+                        case 1:
+                            sortingStrategy = new SortingByName(position);
+                            break;
+                        case 2:
+                            sortingStrategy = new SortingByStatus(position);
+                            break;
+                        default:
+                            break;
+                    }
                     sortBugs();
                     dialog.dismiss();
                 }
@@ -194,20 +206,10 @@ public class IssuesActivity extends SimpleListActivity implements AsyncDelegate 
     }
 
     private void sortBugs() {
-        //TODO: Refactor to use Strategy Pattern
         Collections.sort(bugList, new Comparator<Bug>() {
             @Override
             public int compare(Bug lhs, Bug rhs) {
-                switch (sortSelection) {
-                    case ByChangeDate:
-                        return lhs.getLast_change_time().compareTo(rhs.getLast_change_time());
-                    case ByName:
-                        return lhs.getSummary().compareTo(rhs.getSummary());
-                    case ByStatus:
-                        return lhs.getStatus().compareTo(rhs.getSummary());
-                    default:
-                        return lhs.getLast_change_time().compareTo(rhs.getLast_change_time());
-                }
+                return sortingStrategy.compare(lhs, rhs);
 
             }
         });

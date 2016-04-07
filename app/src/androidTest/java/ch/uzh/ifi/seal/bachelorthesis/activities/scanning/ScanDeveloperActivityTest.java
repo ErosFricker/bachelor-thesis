@@ -50,7 +50,7 @@ public class ScanDeveloperActivityTest extends ActivityInstrumentationTestCase2<
 
     @Test
     public void testOnPostExecuteFinished() throws Exception {
-        GetUserTask task = new GetUserTask("erosfricker@gmail.com", "http://macaw.ifi.uzh.ch/bugzilla");
+        GetUserTask task = new GetUserTask(getActivity().getApplicationContext(), "erosfricker@gmail.com", "http://macaw.ifi.uzh.ch/bugzilla");
         Instrumentation.ActivityMonitor monitor = new Instrumentation.ActivityMonitor(ScanMenuActivity.class.getName(), null, false);
         getInstrumentation().addMonitor(monitor);
         ScanDeveloperActivity activity = getActivity();
