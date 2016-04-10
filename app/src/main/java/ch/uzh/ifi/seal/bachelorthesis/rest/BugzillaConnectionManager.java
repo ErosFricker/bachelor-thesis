@@ -4,9 +4,11 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
+import java.net.HttpURLConnection;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.net.SocketAddress;
+import java.net.URL;
 
 import ch.uzh.ifi.seal.bachelorthesis.model.PreferenceManager;
 
@@ -22,8 +24,10 @@ public class BugzillaConnectionManager {
 
     public boolean isWifiConnected() {
         ConnectivityManager connectivityManager = (ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo networkInfo = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
-        if (networkInfo != null && networkInfo.isConnected()) {
+        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+        boolean connected = networkInfo.isConnected();
+        boolean isWifi = networkInfo.getType() == ConnectivityManager.TYPE_WIFI;
+        if (connected && isWifi) {
             return true;
         }else {
 
@@ -35,11 +39,13 @@ public class BugzillaConnectionManager {
         boolean isReachable = false;
         try {
             PreferenceManager preferenceManager = PreferenceManager.getInstance(context);
-            SocketAddress socketAddress = new InetSocketAddress(preferenceManager.getServerURL(), 80);
-            Socket socket = new Socket();
-            int timeOut = 2000;
-            socket.connect(socketAddress, timeOut);
-            isReachable = true;
+            URL url = new URL(preferenceManager.getServerURL());
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            int code = connection.getResponseCode();
+
+            if(code == HttpURLConnection.HTTP_OK) {
+                isReachable = true;
+            }
         }catch (Exception exception) {
             exception.printStackTrace();
         }

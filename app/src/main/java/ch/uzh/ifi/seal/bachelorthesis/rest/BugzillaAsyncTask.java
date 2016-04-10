@@ -43,7 +43,7 @@ public abstract class BugzillaAsyncTask extends AsyncTask<URL, Integer, String> 
             return sb.toString();
         }else {
             Toast.makeText(context, "The server is not reachable. Please check your settings.", Toast.LENGTH_LONG).show();
-            return "";
+            throw new java.net.ConnectException("The server is not reachable");
         }
     }
 
