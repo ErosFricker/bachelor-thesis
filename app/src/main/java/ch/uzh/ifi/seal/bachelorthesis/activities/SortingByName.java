@@ -13,7 +13,7 @@ public class SortingByName extends SortingImplementation {
 
     @Override
     public int compare(Bug first, Bug second) {
-        return first.getSummary().compareTo(second.getSummary());
+        return first.getSummary().toLowerCase().compareTo(second.getSummary().toLowerCase());
     }
 
 
