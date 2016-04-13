@@ -80,7 +80,7 @@ public class IssuesActivity extends SimpleListActivity implements AsyncDelegate 
         public void onClick(Context context) {
             Intent showDetailIntent = new Intent(context, IssueDetailActivity.class);
             int position = getAdapter().getPosition(this);
-            showDetailIntent.putExtra(IssueDetailActivity.EXTRA_SELECTED_BUG, bugArray[position]);
+            showDetailIntent.putExtra(IssueDetailActivity.EXTRA_SELECTED_BUG, bugList.get(position));
             context.startActivity(showDetailIntent);
 
         }

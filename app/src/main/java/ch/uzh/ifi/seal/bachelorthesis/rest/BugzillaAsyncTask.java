@@ -28,7 +28,7 @@ public abstract class BugzillaAsyncTask extends AsyncTask<URL, Integer, String> 
 
     protected String callRestService(URL bugsURL) throws IOException {
         BugzillaConnectionManager connectionManager = new BugzillaConnectionManager(context);
-        if(connectionManager.isWifiConnected() && connectionManager.isServerReachable()) {
+     //   if(connectionManager.isWifiConnected() && connectionManager.isServerReachable()) {
 
             HttpURLConnection connection = (HttpURLConnection) bugsURL.openConnection();
             connection.setRequestMethod("GET");
@@ -41,10 +41,11 @@ public abstract class BugzillaAsyncTask extends AsyncTask<URL, Integer, String> 
                 sb.append(line);
             }
             return sb.toString();
-        }else {
-            Toast.makeText(context, "The server is not reachable. Please check your settings.", Toast.LENGTH_LONG).show();
-            throw new java.net.ConnectException("The server is not reachable");
-        }
+     //   }else {
+            //TODO: Fix this!
+            //Toast.makeText(context, "The server is not reachable. Please check your settings.", Toast.LENGTH_LONG).show();
+      //      throw new java.net.ConnectException("The server is not reachable");
+     //   }
     }
 
 
