@@ -1,5 +1,7 @@
 package ch.uzh.ifi.seal.bachelorthesis.rest;
 
+import android.content.Context;
+
 import java.net.HttpURLConnection;
 import java.net.URL;
 
@@ -13,7 +15,8 @@ public class GetIssuesTask extends BugzillaAsyncTask {
     private AsyncDelegate asyncDelegate;
 
 
-    public GetIssuesTask(String userEmail, String serverURL, AsyncDelegate asyncDelegate){
+    public GetIssuesTask(Context context, String userEmail, String serverURL, AsyncDelegate asyncDelegate){
+        super(context);
         this.userEmail = userEmail;
         this.serverURL = serverURL;
         this.asyncDelegate = asyncDelegate;

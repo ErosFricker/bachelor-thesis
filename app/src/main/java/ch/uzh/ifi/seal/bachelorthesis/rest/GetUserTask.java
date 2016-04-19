@@ -1,5 +1,7 @@
 package ch.uzh.ifi.seal.bachelorthesis.rest;
 
+import android.content.Context;
+
 import java.net.URL;
 
 /**
@@ -9,8 +11,8 @@ public class GetUserTask extends BugzillaAsyncTask {
     private String email = "";
     private String serverURL = "";
 
-    public GetUserTask(String email, String serverURL) {
-        super();
+    public GetUserTask(Context context, String email, String serverURL) {
+        super(context);
         this.email = email;
         this.serverURL = serverURL;
     }

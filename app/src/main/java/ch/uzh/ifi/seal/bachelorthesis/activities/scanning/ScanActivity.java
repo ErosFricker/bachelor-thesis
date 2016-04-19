@@ -48,7 +48,7 @@ public abstract class ScanActivity extends Activity implements AsyncDelegate{
 
     void getDeveloperName(String email) {
 
-        GetUserTask task = new GetUserTask(email, PreferenceManager.getInstance(this).getServerURL());
+        GetUserTask task = new GetUserTask(getApplicationContext(), email, PreferenceManager.getInstance(this).getServerURL());
         task.setAsyncDelegate(this);
         try {
             task.execute().get();
@@ -64,24 +64,12 @@ public abstract class ScanActivity extends Activity implements AsyncDelegate{
         if(result == null) {
             return;
         }
-        if(asyncTask instanceof GetIssuesTask) {
-            //TODO: Check this for code logic??
-            Gson gson = new Gson();
-            BugResult bugResult = gson.fromJson(result, BugResult.class);
-            Intent intent = new Intent(ScanActivity.this, ScanMenuActivity.class);
-            intent.putExtra(ScanMenuActivity.EXTRA_DEVELOPER_NAME, developerName);
-            startActivity(intent);
-            this.finish();
-        }else if(asyncTask instanceof GetUserTask){
-            Gson gson = new Gson();
-            UserResult userResult = gson.fromJson(result, UserResult.class);
-            User user = userResult.getUsers().get(0);
-            this.developerName = user.getReal_name();
-            showScanMenu(user.getName());
+        Gson gson = new Gson();
+        UserResult userResult = gson.fromJson(result, UserResult.class);
+        User user = userResult.getUsers().get(0);
+        this.developerName = user.getReal_name();
+        showScanMenu(user.getName());
 
-        }else{
-            throw new UnsupportedOperationException("The async task was of unknown class");
-        }
 
     }
 

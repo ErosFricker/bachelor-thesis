@@ -4,6 +4,7 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:allowBackup="true"
@@ -37,16 +38,24 @@
             android:theme="@style/ReconTheme.Fullscreen" />
         <activity
             android:name=".activities.IssueDetailActivity"
-            android:label="@string/title_activity_show_bug_detail" />
+            android:label="@string/title_activity_show_bug_detail"
+            android:theme="@style/ReconTheme.Fullscreen" />
+
         <activity
             android:name=".activities.menu.ScanMenuActivity"
-            android:label="@string/title_activity_scanning_menu" />
+            android:label="@string/title_activity_scanning_menu"
+            android:theme="@style/ReconTheme.Fullscreen" />
+
         <activity
             android:name=".activities.CalendarActivity"
-            android:label="@string/title_activity_calendar" />
+            android:label="@string/title_activity_calendar"
+            android:theme="@style/ReconTheme.Fullscreen" />
+
         <activity
             android:name=".activities.SettingsActivity"
-            android:label="@string/title_activity_settings"></activity>
+            android:label="@string/title_activity_settings"
+            android:theme="@style/ReconTheme.Fullscreen" />
+
     </application>
 
 </manifest>
