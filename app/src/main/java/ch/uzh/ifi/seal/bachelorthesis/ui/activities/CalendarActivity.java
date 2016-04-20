@@ -15,7 +15,7 @@ public class CalendarActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calendar);
         ExchangeService service = new ExchangeService(ExchangeVersion.Exchange2010_SP2);
-        ExchangeCredentials credentials = new WebCredentials("e.fricker@hotmail.com", "erta2008?");
+        ExchangeCredentials credentials = new WebCredentials("e.fricker@hotmail.com", "test");
         service.setCredentials(credentials);
     }
 
