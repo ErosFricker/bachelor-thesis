@@ -4,9 +4,7 @@ import android.test.ActivityInstrumentationTestCase2;
 
 import org.junit.Test;
 
-import ch.uzh.ifi.seal.bachelorthesis.activities.menu.MainActivity;
-
-import static org.junit.Assert.*;
+import ch.uzh.ifi.seal.bachelorthesis.ui.activities.menu.MainActivity;
 
 /**
  * Created by Eros Fricker on 04/05/16.

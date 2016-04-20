@@ -7,7 +7,7 @@
             android:layout_gravity="center_vertical"
             android:layout_width="24dp"
             android:layout_height="24dp"
-            android:src="@mipmap/bug"/>
+            android:src="@mipmap/issue"/>
     <TextView
         android:id="@+id/issue_title"
         android:layout_width="0dp"
