@@ -10,7 +10,7 @@ import android.widget.Toast;
 
 import ch.uzh.ifi.seal.bachelorthesis.R;
 import ch.uzh.ifi.seal.bachelorthesis.ui.activities.scanning.ScanSettingsActivity;
-import ch.uzh.ifi.seal.bachelorthesis.model.PreferenceManager;
+import ch.uzh.ifi.seal.bachelorthesis.model.PreferencesFacade;
 
 public class SettingsActivity extends Activity {
 //TODO: Check if server responds and is correct login!!
@@ -46,10 +46,10 @@ public class SettingsActivity extends Activity {
     @Override
     protected void onResume() {
         super.onResume();
-        PreferenceManager preferenceManager = PreferenceManager.getInstance(this);
-        serverURLEditText.setText(preferenceManager.getServerURL());
-        usernameEditText.setText(preferenceManager.getUsername());
-        passwordEditText.setText(preferenceManager.getPassword());
+        PreferencesFacade preferencesFacade = PreferencesFacade.getInstance(this);
+        serverURLEditText.setText(preferencesFacade.getServerURL());
+        usernameEditText.setText(preferencesFacade.getUsername());
+        passwordEditText.setText(preferencesFacade.getPassword());
 
     }
 
@@ -64,10 +64,10 @@ public class SettingsActivity extends Activity {
         String password = passwordEditText.getText().toString();
         if(areFieldsFilled()) {
 
-            PreferenceManager preferenceManager = PreferenceManager.getInstance(this);
-            preferenceManager.saveServerURL(serverURL);
-            preferenceManager.savePassword(password);
-            preferenceManager.saveUserName(username);
+            PreferencesFacade preferencesFacade = PreferencesFacade.getInstance(this);
+            preferencesFacade.saveServerURL(serverURL);
+            preferencesFacade.savePassword(password);
+            preferencesFacade.saveUserName(username);
             finish();
         }else {
             Toast.makeText(this, "Please enter the data or scan your login token!", Toast.LENGTH_LONG).show();

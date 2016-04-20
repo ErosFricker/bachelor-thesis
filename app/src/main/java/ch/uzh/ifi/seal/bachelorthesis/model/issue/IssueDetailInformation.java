@@ -22,7 +22,4 @@ public class IssueDetailInformation {
         return contents;
     }
 
-    public void setContents(ArrayList<InformationTuple> contents) {
-        this.contents = contents;
-    }
 }

@@ -6,7 +6,7 @@ import ch.uzh.ifi.seal.bachelorthesis.ui.activities.CalendarActivity;
 import ch.uzh.ifi.seal.bachelorthesis.ui.activities.IssuesActivity;
 import ch.uzh.ifi.seal.bachelorthesis.ui.activities.scanning.ScanDeveloperActivity;
 import ch.uzh.ifi.seal.bachelorthesis.ui.activities.SettingsActivity;
-import ch.uzh.ifi.seal.bachelorthesis.model.PreferenceManager;
+import ch.uzh.ifi.seal.bachelorthesis.model.PreferencesFacade;
 
 /**
  * Created by erosfricker on 25.02.16.
@@ -27,7 +27,7 @@ public class MainMenuItem extends MenuItem {
         switch (position){ //Sets the onClick action of the item based on its position in the menu
             case 0:
                 intent = new Intent(context, IssuesActivity.class);
-                PreferenceManager manager = PreferenceManager.getInstance(context);
+                PreferencesFacade manager = PreferencesFacade.getInstance(context);
                 intent.putExtra(IssuesActivity.EXTRA_USER_EMAIL, manager.getUsername());
                 break;
 

@@ -12,7 +12,4 @@ public class UserResult {
         return users;
     }
 
-    public void setUsers(List<User> users) {
-        this.users = users;
-    }
 }

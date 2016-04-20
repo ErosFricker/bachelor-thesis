@@ -7,7 +7,7 @@ import android.widget.TextView;
 
 import org.junit.Test;
 
-import ch.uzh.ifi.seal.bachelorthesis.model.PreferenceManager;
+import ch.uzh.ifi.seal.bachelorthesis.model.PreferencesFacade;
 
 /**
  * Created by Eros Fricker on 04/05/16.
@@ -34,7 +34,7 @@ public class MainActivityTest extends ActivityInstrumentationTestCase2<MainActiv
         mainActivity = getActivity();
         getInstrumentation().waitForMonitorWithTimeout(monitor, 1000);
         mainActivity.finish();
-        PreferenceManager manager = PreferenceManager.getInstance(mainActivity.getApplicationContext());
+        PreferencesFacade manager = PreferencesFacade.getInstance(mainActivity.getApplicationContext());
         manager.savePassword("test");
         manager.saveServerURL("http://macaw.ifi.uzh.ch/bugzilla");
         manager.saveUserName("erosfricker@gmail.com");

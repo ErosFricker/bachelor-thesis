@@ -8,7 +8,7 @@ import com.journeyapps.barcodescanner.CaptureActivity;
 import org.junit.Test;
 
 import ch.uzh.ifi.seal.bachelorthesis.ui.activities.menu.ScanMenuActivity;
-import ch.uzh.ifi.seal.bachelorthesis.model.PreferenceManager;
+import ch.uzh.ifi.seal.bachelorthesis.model.PreferencesFacade;
 import ch.uzh.ifi.seal.bachelorthesis.rest.GetUserTask;
 
 /**
@@ -36,8 +36,8 @@ public class ScanDeveloperActivityTest extends ActivityInstrumentationTestCase2<
         Instrumentation.ActivityMonitor monitor = new Instrumentation.ActivityMonitor(ScanMenuActivity.class.getName(), null, false);
         getInstrumentation().addMonitor(monitor);
         ScanDeveloperActivity activity = getActivity();
-        PreferenceManager.getInstance(activity.getApplicationContext()).saveUserName("erosfricker@gmail.com");
-        PreferenceManager.getInstance(activity.getApplicationContext()).saveServerURL("http://macaw.ifi.uzh.ch/bugzilla");
+        PreferencesFacade.getInstance(activity.getApplicationContext()).saveUserName("erosfricker@gmail.com");
+        PreferencesFacade.getInstance(activity.getApplicationContext()).saveServerURL("http://macaw.ifi.uzh.ch/bugzilla");
         activity.loadDeveloperName("erosfricker@gmail.com");
         getInstrumentation().waitForMonitor(monitor);
     }

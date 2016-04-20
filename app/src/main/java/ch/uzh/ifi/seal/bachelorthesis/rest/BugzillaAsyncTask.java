@@ -1,19 +1,11 @@
 package ch.uzh.ifi.seal.bachelorthesis.rest;
 
 import android.content.Context;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.AsyncTask;
-import android.widget.Toast;
 
 import java.io.*;
 import java.net.HttpURLConnection;
-import java.net.InetSocketAddress;
-import java.net.Socket;
-import java.net.SocketAddress;
 import java.net.URL;
-
-import ch.uzh.ifi.seal.bachelorthesis.model.PreferenceManager;
 
 /**
  * Created by erosfricker on 23.02.16.

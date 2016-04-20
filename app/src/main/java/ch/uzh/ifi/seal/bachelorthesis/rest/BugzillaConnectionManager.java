@@ -5,12 +5,9 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
 import java.net.HttpURLConnection;
-import java.net.InetSocketAddress;
-import java.net.Socket;
-import java.net.SocketAddress;
 import java.net.URL;
 
-import ch.uzh.ifi.seal.bachelorthesis.model.PreferenceManager;
+import ch.uzh.ifi.seal.bachelorthesis.model.PreferencesFacade;
 
 /**
  * Created by Eros Fricker on 04/07/16.
@@ -38,8 +35,8 @@ public class BugzillaConnectionManager {
     public boolean isServerReachable() {
         boolean isReachable = false;
         try {
-            PreferenceManager preferenceManager = PreferenceManager.getInstance(context);
-            URL url = new URL(preferenceManager.getServerURL());
+            PreferencesFacade preferencesFacade = PreferencesFacade.getInstance(context);
+            URL url = new URL(preferencesFacade.getServerURL());
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             int code = connection.getResponseCode();
 

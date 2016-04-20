@@ -7,7 +7,7 @@ import android.view.View;
 import android.widget.ProgressBar;
 import ch.uzh.ifi.seal.bachelorthesis.R;
 import ch.uzh.ifi.seal.bachelorthesis.ui.activities.menu.ScanMenuActivity;
-import ch.uzh.ifi.seal.bachelorthesis.model.PreferenceManager;
+import ch.uzh.ifi.seal.bachelorthesis.model.PreferencesFacade;
 import ch.uzh.ifi.seal.bachelorthesis.model.User;
 import ch.uzh.ifi.seal.bachelorthesis.model.UserResult;
 import ch.uzh.ifi.seal.bachelorthesis.rest.*;
@@ -53,7 +53,7 @@ public abstract class ScanActivity extends Activity implements AsyncDelegate{
 
     void loadDeveloperName(String email) {
 
-        GetUserTask task = new GetUserTask(getApplicationContext(), email, PreferenceManager.getInstance(this).getServerURL());
+        GetUserTask task = new GetUserTask(getApplicationContext(), email, PreferencesFacade.getInstance(this).getServerURL());
         task.setAsyncDelegate(this);
         try {
             task.execute().get();
@@ -76,7 +76,7 @@ public abstract class ScanActivity extends Activity implements AsyncDelegate{
         Gson gson = new Gson();
         UserResult userResult = gson.fromJson(result, UserResult.class);
         User user = userResult.getUsers().get(0);
-        this.developerName = user.getReal_name();
+        this.developerName = user.getRealName();
         showScanMenu(user.getName());
 
 

@@ -7,7 +7,7 @@ import com.reconinstruments.ui.carousel.CarouselActivity;
 
 import ch.uzh.ifi.seal.bachelorthesis.R;
 import ch.uzh.ifi.seal.bachelorthesis.ui.activities.SettingsActivity;
-import ch.uzh.ifi.seal.bachelorthesis.model.PreferenceManager;
+import ch.uzh.ifi.seal.bachelorthesis.model.PreferencesFacade;
 import ch.uzh.ifi.seal.bachelorthesis.ui.list.MainMenuItem;
 
 public class MainActivity extends CarouselActivity {
@@ -30,7 +30,7 @@ public class MainActivity extends CarouselActivity {
      * Checks if server connection configuration has already been done. If not, routes the user to the {@link SettingsActivity} in order to configure the connection settings
      */
     private void checkServerSettings() {
-        PreferenceManager manager = PreferenceManager.getInstance(this);
+        PreferencesFacade manager = PreferencesFacade.getInstance(this);
         if (manager.getPassword().isEmpty()) {
             Intent intent = new Intent(this, SettingsActivity.class);
             startActivity(intent);

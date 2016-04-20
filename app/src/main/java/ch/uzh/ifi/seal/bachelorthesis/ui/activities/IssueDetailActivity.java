@@ -22,7 +22,7 @@ import java.util.List;
  */
 public class IssueDetailActivity extends SimpleListActivity {
 
-    static final String EXTRA_SELECTED_BUG = "selectedbug";
+    public static final String EXTRA_SELECTED_BUG = "selectedbug";
     private final IssueDetailInformation issueDetailInformation = new IssueDetailInformation();
 
     @Override
@@ -48,13 +48,13 @@ public class IssueDetailActivity extends SimpleListActivity {
         this.issueDetailInformation.insertInformation("Product", currentIssue.getProduct());
         this.issueDetailInformation.insertInformation("Creator", currentIssue.getCreator());
         this.issueDetailInformation.insertInformation("Priority", currentIssue.getPriority());
-        String creationDate = currentIssue.getCreation_time() == null ? "N/A" : dateFormat.format(currentIssue.getCreation_time());
+        String creationDate = currentIssue.getCreationTime() == null ? "N/A" : dateFormat.format(currentIssue.getCreationTime());
         this.issueDetailInformation.insertInformation("Created On", creationDate);
         this.issueDetailInformation.insertInformation("Severity", currentIssue.getSeverity());
         this.issueDetailInformation.insertInformation("Component", currentIssue.getComponent());
         String deadline = currentIssue.getDeadline() == null ? "N/A" : dateFormat.format(currentIssue.getDeadline());
         this.issueDetailInformation.insertInformation("Deadline", deadline);
-        String lastChangedTime = currentIssue.getLast_change_time() == null ? "N/A" : dateFormat.format(currentIssue.getLast_change_time());
+        String lastChangedTime = currentIssue.getLastChangeTime() == null ? "N/A" : dateFormat.format(currentIssue.getLastChangeTime());
         this.issueDetailInformation.insertInformation("Last Changed", lastChangedTime);
 
     }

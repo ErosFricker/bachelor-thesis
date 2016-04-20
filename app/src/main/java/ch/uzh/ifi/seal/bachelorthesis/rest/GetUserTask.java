@@ -19,10 +19,6 @@ public class GetUserTask extends BugzillaAsyncTask {
 
     private AsyncDelegate asyncDelegate;
 
-    public AsyncDelegate getAsyncDelegate() {
-        return asyncDelegate;
-    }
-
     public void setAsyncDelegate(AsyncDelegate asyncDelegate) {
         this.asyncDelegate = asyncDelegate;
     }

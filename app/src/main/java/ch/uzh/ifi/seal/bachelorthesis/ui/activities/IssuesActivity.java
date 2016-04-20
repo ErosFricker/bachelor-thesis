@@ -28,7 +28,7 @@ import ch.uzh.ifi.seal.bachelorthesis.R;
 import ch.uzh.ifi.seal.bachelorthesis.model.issue.Issue;
 import ch.uzh.ifi.seal.bachelorthesis.model.issue.IssueRestResult;
 import ch.uzh.ifi.seal.bachelorthesis.model.issue.IssueStatus;
-import ch.uzh.ifi.seal.bachelorthesis.model.PreferenceManager;
+import ch.uzh.ifi.seal.bachelorthesis.model.PreferencesFacade;
 import ch.uzh.ifi.seal.bachelorthesis.ui.list.sorting.SortType;
 import ch.uzh.ifi.seal.bachelorthesis.rest.AsyncDelegate;
 import ch.uzh.ifi.seal.bachelorthesis.rest.BugzillaAsyncTask;
@@ -121,7 +121,7 @@ public class IssuesActivity extends SimpleListActivity implements AsyncDelegate 
         setContentView(R.layout.activity_issues);
         String userEmail = getIntent().getStringExtra(EXTRA_USER_EMAIL);
         fillSelections();
-        GetIssuesTask task = new GetIssuesTask(getApplicationContext(), userEmail, PreferenceManager.getInstance(getApplicationContext()).getServerURL(), this);
+        GetIssuesTask task = new GetIssuesTask(getApplicationContext(), userEmail, PreferencesFacade.getInstance(getApplicationContext()).getServerURL(), this);
         task.setAsyncDelegate(this);
         task.execute();
     }
@@ -228,7 +228,7 @@ public class IssuesActivity extends SimpleListActivity implements AsyncDelegate 
         final List<SimpleListItem> listItems = new ArrayList<>();
         for (Issue b : this.issueList) {
             IssueStatus status = IssueStatus.fromString(b.getStatus());
-            listItems.add(new BugListItem(b.getSummary(), status, b.getLast_change_time()));
+            listItems.add(new BugListItem(b.getSummary(), status, b.getLastChangeTime()));
         }
         runOnUiThread(new Runnable() {
             @Override
