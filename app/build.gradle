@@ -42,6 +42,8 @@ dependencies {
     compile 'com.google.zxing:core:3.2.0'
     compile 'com.android.support:support-v4:23.1.1'
     compile 'com.google.code.gson:gson:2.5'
+    compile files('libs/ews-android-api.jar')
+    compile 'joda-time:joda-time:2.8'
     androidTestCompile 'com.android.support:support-annotations:23.1.1'
     androidTestCompile 'com.android.support.test:runner:0.4.1'
     androidTestCompile 'com.android.support.test:rules:0.4.1'

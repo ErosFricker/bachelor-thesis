@@ -6,14 +6,10 @@ import android.test.ActivityInstrumentationTestCase2;
 import com.journeyapps.barcodescanner.CaptureActivity;
 
 import org.junit.Test;
-import org.mockito.Mock;
 
 import ch.uzh.ifi.seal.bachelorthesis.activities.menu.ScanMenuActivity;
 import ch.uzh.ifi.seal.bachelorthesis.model.PreferenceManager;
 import ch.uzh.ifi.seal.bachelorthesis.rest.GetUserTask;
-
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.when;
 
 /**
  * Created by Eros Fricker on 04/05/16.
@@ -42,7 +38,7 @@ public class ScanDeveloperActivityTest extends ActivityInstrumentationTestCase2<
         ScanDeveloperActivity activity = getActivity();
         PreferenceManager.getInstance(activity.getApplicationContext()).saveUserName("erosfricker@gmail.com");
         PreferenceManager.getInstance(activity.getApplicationContext()).saveServerURL("http://macaw.ifi.uzh.ch/bugzilla");
-        activity.getDeveloperName("erosfricker@gmail.com");
+        activity.loadDeveloperName("erosfricker@gmail.com");
         getInstrumentation().waitForMonitor(monitor);
     }
 

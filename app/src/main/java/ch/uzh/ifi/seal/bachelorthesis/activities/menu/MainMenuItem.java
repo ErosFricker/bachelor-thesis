@@ -11,6 +11,10 @@ import ch.uzh.ifi.seal.bachelorthesis.model.PreferenceManager;
 /**
  * Created by erosfricker on 25.02.16.
  */
+
+/**
+ * Class for the Main Menu Item, defining the onClick() behaviour
+ */
 class MainMenuItem extends MenuItem {
 
     public MainMenuItem(String title, Integer image, Integer position) {

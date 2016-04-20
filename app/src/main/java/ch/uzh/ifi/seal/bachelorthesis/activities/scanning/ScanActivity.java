@@ -36,6 +36,12 @@ public abstract class ScanActivity extends Activity implements AsyncDelegate{
 
     }
 
+    /**
+     * Abstract method, to be implemented by the extending classes
+     * @param requestCode
+     * @param resultCode
+     * @param intent
+     */
     public abstract void onActivityResult(int requestCode, int resultCode, Intent intent);
 
     private void showScanMenu(String email) {
@@ -46,7 +52,7 @@ public abstract class ScanActivity extends Activity implements AsyncDelegate{
         this.finish();
     }
 
-    void getDeveloperName(String email) {
+    void loadDeveloperName(String email) {
 
         GetUserTask task = new GetUserTask(email, PreferenceManager.getInstance(this).getServerURL());
         task.setAsyncDelegate(this);
