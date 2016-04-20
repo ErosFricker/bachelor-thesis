@@ -7,6 +7,9 @@ import com.reconinstruments.ui.carousel.CarouselActivity;
 
 import ch.uzh.ifi.seal.bachelorthesis.R;
 
+/**
+ * Activity for the menu view, after a developer has been scanned.
+ */
 public class ScanMenuActivity extends CarouselActivity {
 
     public static final String EXTRA_DEVELOPER_NAME = "developername";

@@ -16,7 +16,7 @@ public class ScanDeveloperActivity extends ScanActivity {
         IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, intent);
         String value = result.getContents();
         this.progressBar.setVisibility(View.VISIBLE);
-        getDeveloperName(value);
+        loadDeveloperName(value);
         if(value == null){
             finish();
         }
