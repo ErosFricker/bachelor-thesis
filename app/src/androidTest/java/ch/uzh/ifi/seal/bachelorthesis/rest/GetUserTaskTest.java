@@ -17,8 +17,8 @@ public class GetUserTaskTest extends ActivityInstrumentationTestCase2<MainActivi
 
     @Test
     public void testDoInBackground() throws Exception {
-        GetUserTask task = new GetUserTask(getActivity().getApplicationContext(), "erosfricker@gmail.com", "http://macaw.ifi.uzh.ch/bugzilla");
-        String result = task.doInBackground(null);
+        GetUserTask task = new GetUserTask(getActivity(), "erosfricker@gmail.com", "http://macaw.ifi.uzh.ch/bugzilla");
+        String result = task.doInBackground();
         assertNotNull(result);
         assertTrue(result.length() > 0);
     }

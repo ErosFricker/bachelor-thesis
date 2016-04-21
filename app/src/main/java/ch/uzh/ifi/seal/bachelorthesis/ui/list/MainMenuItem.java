@@ -2,11 +2,11 @@ package ch.uzh.ifi.seal.bachelorthesis.ui.list;
 
 import android.content.Context;
 import android.content.Intent;
-import ch.uzh.ifi.seal.bachelorthesis.ui.activities.CalendarActivity;
-import ch.uzh.ifi.seal.bachelorthesis.ui.activities.IssuesActivity;
+import ch.uzh.ifi.seal.bachelorthesis.ui.activities.calendar.CalendarActivity;
+import ch.uzh.ifi.seal.bachelorthesis.ui.activities.issues.IssuesActivity;
 import ch.uzh.ifi.seal.bachelorthesis.ui.activities.scanning.ScanDeveloperActivity;
-import ch.uzh.ifi.seal.bachelorthesis.ui.activities.SettingsActivity;
-import ch.uzh.ifi.seal.bachelorthesis.model.PreferencesFacade;
+import ch.uzh.ifi.seal.bachelorthesis.ui.activities.preferences.PreferencesActivity;
+import ch.uzh.ifi.seal.bachelorthesis.model.preferences.PreferencesFacade;
 
 /**
  * Created by erosfricker on 25.02.16.
@@ -38,7 +38,7 @@ public class MainMenuItem extends MenuItem {
                 intent = new Intent(context, ScanDeveloperActivity.class);
                 break;
             case 3:
-                intent = new Intent(context, SettingsActivity.class);
+                intent = new Intent(context, PreferencesActivity.class);
                 break;
             default:
                 break;

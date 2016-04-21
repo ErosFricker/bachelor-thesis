@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName;
 import java.io.Serializable;
 import java.util.Date;
 
-import ch.uzh.ifi.seal.bachelorthesis.model.User;
+import ch.uzh.ifi.seal.bachelorthesis.model.user.User;
 
 /**
  * Created by erosfricker on 10.02.16.

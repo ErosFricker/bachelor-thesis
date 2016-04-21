@@ -4,18 +4,19 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
+import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-import ch.uzh.ifi.seal.bachelorthesis.model.PreferencesFacade;
+import ch.uzh.ifi.seal.bachelorthesis.model.preferences.PreferencesFacade;
 
 /**
  * Created by Eros Fricker on 04/07/16.
  */
-public class BugzillaConnectionManager {
+public class BugzillaConnector {
 
-    Context context;
-    public BugzillaConnectionManager(Context context) {
+    private final Context context;
+    public BugzillaConnector(Context context) {
         this.context = context;
     }
 
@@ -24,12 +25,7 @@ public class BugzillaConnectionManager {
         NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
         boolean connected = networkInfo.isConnected();
         boolean isWifi = networkInfo.getType() == ConnectivityManager.TYPE_WIFI;
-        if (connected && isWifi) {
-            return true;
-        }else {
-
-            return false;
-        }
+        return connected && isWifi;
     }
 
     public boolean isServerReachable() {
@@ -47,5 +43,11 @@ public class BugzillaConnectionManager {
             exception.printStackTrace();
         }
         return isReachable;
+    }
+    public boolean isServerReachable(String serverURL) throws IOException {
+        URL url = new URL(serverURL);
+        HttpURLConnection connection = (HttpURLConnection)url.openConnection();
+        int code = connection.getResponseCode();
+        return code == HttpURLConnection.HTTP_OK;
     }
 }

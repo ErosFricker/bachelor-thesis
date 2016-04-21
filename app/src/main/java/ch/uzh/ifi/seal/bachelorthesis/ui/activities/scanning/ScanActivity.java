@@ -7,9 +7,9 @@ import android.view.View;
 import android.widget.ProgressBar;
 import ch.uzh.ifi.seal.bachelorthesis.R;
 import ch.uzh.ifi.seal.bachelorthesis.ui.activities.menu.ScanMenuActivity;
-import ch.uzh.ifi.seal.bachelorthesis.model.PreferencesFacade;
-import ch.uzh.ifi.seal.bachelorthesis.model.User;
-import ch.uzh.ifi.seal.bachelorthesis.model.UserResult;
+import ch.uzh.ifi.seal.bachelorthesis.model.preferences.PreferencesFacade;
+import ch.uzh.ifi.seal.bachelorthesis.model.user.User;
+import ch.uzh.ifi.seal.bachelorthesis.model.user.UserRestResult;
 import ch.uzh.ifi.seal.bachelorthesis.rest.*;
 import com.google.gson.Gson;
 import com.google.zxing.integration.android.IntentIntegrator;
@@ -37,9 +37,6 @@ public abstract class ScanActivity extends Activity implements AsyncDelegate{
 
     /**
      * Abstract method, to be implemented by the extending classes
-     * @param requestCode
-     * @param resultCode
-     * @param intent
      */
     public abstract void onActivityResult(int requestCode, int resultCode, Intent intent);
 
@@ -53,7 +50,7 @@ public abstract class ScanActivity extends Activity implements AsyncDelegate{
 
     void loadDeveloperName(String email) {
 
-        GetUserTask task = new GetUserTask(getApplicationContext(), email, PreferencesFacade.getInstance(this).getServerURL());
+        GetUserTask task = new GetUserTask(this, email, PreferencesFacade.getInstance(this).getServerURL());
         task.setAsyncDelegate(this);
         try {
             task.execute().get();
@@ -66,16 +63,15 @@ public abstract class ScanActivity extends Activity implements AsyncDelegate{
     /**
      * Implementation of delegate method defined in {@link AsyncDelegate}
      * @param result The returned String result from the executing {@link BugzillaAsyncTask} class
-     * @param asyncTask The {@link BugzillaAsyncTask} class that produced the result
      */
     @Override
-    public void onPostExecuteFinished(String result, BugzillaAsyncTask asyncTask) {
+    public void onPostExecuteFinished(String result) {
         if(result == null) {
             return;
         }
         Gson gson = new Gson();
-        UserResult userResult = gson.fromJson(result, UserResult.class);
-        User user = userResult.getUsers().get(0);
+        UserRestResult userRestResult = gson.fromJson(result, UserRestResult.class);
+        User user = userRestResult.getUsers().get(0);
         this.developerName = user.getRealName();
         showScanMenu(user.getName());
 

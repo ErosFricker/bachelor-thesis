@@ -2,8 +2,8 @@ package ch.uzh.ifi.seal.bachelorthesis.ui.list;
 
 import android.content.Context;
 import android.content.Intent;
-import ch.uzh.ifi.seal.bachelorthesis.ui.activities.CalendarActivity;
-import ch.uzh.ifi.seal.bachelorthesis.ui.activities.IssuesActivity;
+import ch.uzh.ifi.seal.bachelorthesis.ui.activities.calendar.CalendarActivity;
+import ch.uzh.ifi.seal.bachelorthesis.ui.activities.issues.IssuesActivity;
 
 /**
  * Created by erosfricker on 21/03/16.

@@ -8,7 +8,7 @@ import com.journeyapps.barcodescanner.CaptureActivity;
 import org.junit.Test;
 
 import ch.uzh.ifi.seal.bachelorthesis.ui.activities.menu.ScanMenuActivity;
-import ch.uzh.ifi.seal.bachelorthesis.model.PreferencesFacade;
+import ch.uzh.ifi.seal.bachelorthesis.model.preferences.PreferencesFacade;
 import ch.uzh.ifi.seal.bachelorthesis.rest.GetUserTask;
 
 /**
@@ -25,7 +25,7 @@ public class ScanDeveloperActivityTest extends ActivityInstrumentationTestCase2<
     public void testOnCreate() throws Exception {
         Instrumentation.ActivityMonitor monitor = new Instrumentation.ActivityMonitor(CaptureActivity.class.getName(), null, false);
         getInstrumentation().addMonitor(monitor);
-        ScanDeveloperActivity activity = getActivity();
+        getActivity();
         getInstrumentation().waitForMonitor(monitor);
 
     }
@@ -46,7 +46,7 @@ public class ScanDeveloperActivityTest extends ActivityInstrumentationTestCase2<
 
     @Test
     public void testOnPostExecuteFinished() throws Exception {
-        GetUserTask task = new GetUserTask(getActivity().getApplicationContext(), "erosfricker@gmail.com", "http://macaw.ifi.uzh.ch/bugzilla");
+        new GetUserTask(getActivity(), "erosfricker@gmail.com", "http://macaw.ifi.uzh.ch/bugzilla");
         Instrumentation.ActivityMonitor monitor = new Instrumentation.ActivityMonitor(ScanMenuActivity.class.getName(), null, false);
         getInstrumentation().addMonitor(monitor);
         ScanDeveloperActivity activity = getActivity();
@@ -59,7 +59,7 @@ public class ScanDeveloperActivityTest extends ActivityInstrumentationTestCase2<
                 "      }\n" +
                 "   ]\n" +
                 "}";
-        activity.onPostExecuteFinished(result, task);
+        activity.onPostExecuteFinished(result);
         getInstrumentation().waitForMonitor(monitor);
 
     }

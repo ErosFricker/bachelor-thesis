@@ -1,4 +1,4 @@
-package ch.uzh.ifi.seal.bachelorthesis.ui.activities;
+package ch.uzh.ifi.seal.bachelorthesis.ui.activities.issues;
 
 import android.content.Context;
 import android.content.Intent;
@@ -28,10 +28,9 @@ import ch.uzh.ifi.seal.bachelorthesis.R;
 import ch.uzh.ifi.seal.bachelorthesis.model.issue.Issue;
 import ch.uzh.ifi.seal.bachelorthesis.model.issue.IssueRestResult;
 import ch.uzh.ifi.seal.bachelorthesis.model.issue.IssueStatus;
-import ch.uzh.ifi.seal.bachelorthesis.model.PreferencesFacade;
+import ch.uzh.ifi.seal.bachelorthesis.model.preferences.PreferencesFacade;
 import ch.uzh.ifi.seal.bachelorthesis.ui.list.sorting.SortType;
 import ch.uzh.ifi.seal.bachelorthesis.rest.AsyncDelegate;
-import ch.uzh.ifi.seal.bachelorthesis.rest.BugzillaAsyncTask;
 import ch.uzh.ifi.seal.bachelorthesis.rest.GetIssuesTask;
 import ch.uzh.ifi.seal.bachelorthesis.ui.list.sorting.SortingByLastChangeDate;
 import ch.uzh.ifi.seal.bachelorthesis.ui.list.sorting.SortingByName;
@@ -121,13 +120,13 @@ public class IssuesActivity extends SimpleListActivity implements AsyncDelegate 
         setContentView(R.layout.activity_issues);
         String userEmail = getIntent().getStringExtra(EXTRA_USER_EMAIL);
         fillSelections();
-        GetIssuesTask task = new GetIssuesTask(getApplicationContext(), userEmail, PreferencesFacade.getInstance(getApplicationContext()).getServerURL(), this);
+        GetIssuesTask task = new GetIssuesTask(this, userEmail, PreferencesFacade.getInstance(getApplicationContext()).getServerURL(), this);
         task.setAsyncDelegate(this);
         task.execute();
     }
 
     @Override
-    public void onPostExecuteFinished(String result, BugzillaAsyncTask asyncTask) {
+    public void onPostExecuteFinished(String result) {
         Gson gson = new Gson();
         IssueRestResult issueRestResult = new IssueRestResult();
         try {

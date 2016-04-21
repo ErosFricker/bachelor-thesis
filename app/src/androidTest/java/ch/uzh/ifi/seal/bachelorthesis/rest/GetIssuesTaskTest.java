@@ -17,8 +17,8 @@ public class GetIssuesTaskTest extends ActivityInstrumentationTestCase2<MainActi
 
     @Test
     public void testDoInBackground() throws Exception {
-        GetIssuesTask task = new GetIssuesTask(getActivity().getApplicationContext(), "erosfricker@gmail.com", "http://macaw.ifi.uzh.ch/bugzilla", null);
-        String result = task.doInBackground(null);
+        GetIssuesTask task = new GetIssuesTask(getActivity(), "erosfricker@gmail.com", "http://macaw.ifi.uzh.ch/bugzilla", null);
+        String result = task.doInBackground();
         assertNotNull(result);
         assertTrue(result.length() > 0);
 

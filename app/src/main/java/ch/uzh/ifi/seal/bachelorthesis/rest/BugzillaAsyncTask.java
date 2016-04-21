@@ -1,6 +1,6 @@
 package ch.uzh.ifi.seal.bachelorthesis.rest;
 
-import android.content.Context;
+import android.app.Activity;
 import android.os.AsyncTask;
 
 import java.io.*;
@@ -10,17 +10,17 @@ import java.net.URL;
 /**
  * Created by erosfricker on 23.02.16.
  */
-public abstract class BugzillaAsyncTask extends AsyncTask<URL, Integer, String> {
+abstract class BugzillaAsyncTask extends AsyncTask<Void, Integer, String> {
 
-    private Context context;
+    final Activity activity;
 
-    public BugzillaAsyncTask(Context context) {
-        this.context = context;
+    BugzillaAsyncTask(Activity activity) {
+        this.activity = activity;
     }
 
-    protected String callRestService(URL bugsURL) throws IOException {
-        BugzillaConnectionManager connectionManager = new BugzillaConnectionManager(context);
-     //   if(connectionManager.isWifiConnected() && connectionManager.isServerReachable()) {
+    String callRestService(URL bugsURL) throws IOException {
+        BugzillaConnector connectionManager = new BugzillaConnector(activity);
+        if(connectionManager.isWifiConnected() && connectionManager.isServerReachable()) {
 
             HttpURLConnection connection = (HttpURLConnection) bugsURL.openConnection();
             connection.setRequestMethod("GET");
@@ -33,13 +33,10 @@ public abstract class BugzillaAsyncTask extends AsyncTask<URL, Integer, String> 
                 sb.append(line);
             }
             return sb.toString();
-     //   }else {
-            //TODO: Fix this!
-            //Toast.makeText(context, "The server is not reachable. Please check your settings.", Toast.LENGTH_LONG).show();
-      //      throw new java.net.ConnectException("The server is not reachable");
-     //   }
+        }else {
+
+            return null;
+        }
     }
-
-
 
 }

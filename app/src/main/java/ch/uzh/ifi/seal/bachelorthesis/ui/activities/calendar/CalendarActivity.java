@@ -1,4 +1,4 @@
-package ch.uzh.ifi.seal.bachelorthesis.ui.activities;
+package ch.uzh.ifi.seal.bachelorthesis.ui.activities.calendar;
 
 import android.app.Activity;
 import android.os.Bundle;

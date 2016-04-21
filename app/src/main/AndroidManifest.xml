@@ -11,6 +11,7 @@
         android:fullBackupContent="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:supportsRtl="false"
         android:theme="@style/ReconTheme.Fullscreen">
         <activity
             android:name=".ui.activities.menu.MainActivity"
@@ -34,10 +35,10 @@
             android:label="@string/title_activity_scanning"
             android:theme="@style/ReconTheme.Fullscreen"/>
         <activity
-            android:name=".ui.activities.IssuesActivity"
+            android:name=".ui.activities.issues.IssuesActivity"
             android:theme="@style/ReconTheme.Fullscreen" />
         <activity
-            android:name=".ui.activities.IssueDetailActivity"
+            android:name=".ui.activities.issues.IssueDetailActivity"
             android:label="@string/title_activity_show_bug_detail"
             android:theme="@style/ReconTheme.Fullscreen" />
 
@@ -47,12 +48,12 @@
             android:theme="@style/ReconTheme.Fullscreen" />
 
         <activity
-            android:name=".ui.activities.CalendarActivity"
+            android:name=".ui.activities.calendar.CalendarActivity"
             android:label="@string/title_activity_calendar"
             android:theme="@style/ReconTheme.Fullscreen" />
 
         <activity
-            android:name=".ui.activities.SettingsActivity"
+            android:name=".ui.activities.preferences.PreferencesActivity"
             android:label="@string/title_activity_settings"
             android:theme="@style/ReconTheme.Fullscreen" />
 

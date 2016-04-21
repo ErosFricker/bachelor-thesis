@@ -6,7 +6,7 @@ import android.view.View;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
-import ch.uzh.ifi.seal.bachelorthesis.model.PreferencesFacade;
+import ch.uzh.ifi.seal.bachelorthesis.model.preferences.PreferencesFacade;
 
 /**
  * Created by Eros Fricker on 04/05/16.

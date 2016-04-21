@@ -6,10 +6,8 @@ import android.view.KeyEvent;
 
 import org.junit.Test;
 
-import ch.uzh.ifi.seal.bachelorthesis.model.PreferencesFacade;
-import ch.uzh.ifi.seal.bachelorthesis.ui.activities.IssuesActivity;
-
-import static org.mockito.Mockito.mock;
+import ch.uzh.ifi.seal.bachelorthesis.model.preferences.PreferencesFacade;
+import ch.uzh.ifi.seal.bachelorthesis.ui.activities.issues.IssuesActivity;
 
 /**
  * Created by Eros Fricker on 04/05/16.
@@ -109,7 +107,7 @@ public class IssuesActivityTest extends ActivityInstrumentationTestCase2<IssuesA
                 "   ],\n" +
                 "   \"faults\" : []\n" +
                 "}";
-        activity.onPostExecuteFinished(result, null);
+        activity.onPostExecuteFinished(result);
         assertTrue(activity.getIssueArray().length > 0);
     }
 }

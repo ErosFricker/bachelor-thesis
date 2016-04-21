@@ -7,14 +7,13 @@ import android.widget.TextView;
 
 import org.junit.Test;
 
-import ch.uzh.ifi.seal.bachelorthesis.model.PreferencesFacade;
+import ch.uzh.ifi.seal.bachelorthesis.model.preferences.PreferencesFacade;
 
 /**
  * Created by Eros Fricker on 04/05/16.
  */
 public class MainActivityTest extends ActivityInstrumentationTestCase2<MainActivity> {
 
-    MainActivity mainActivity = null;
     public MainActivityTest() {
         super(MainActivity.class);
     }
@@ -22,7 +21,7 @@ public class MainActivityTest extends ActivityInstrumentationTestCase2<MainActiv
     @Test
     public void testOnCreate() throws Exception {
 
-        mainActivity = getActivity();
+        MainActivity mainActivity = getActivity();
         assertTrue(mainActivity.getCarousel().getCarouselAdapter().getCount() == 4);
         assertTrue(((TextView) mainActivity.getCarousel().getCarouselAdapter().getView(0).findViewById(com.reconinstruments.ui.R.id.title)).getText().toString().equals("My Issues"));
         assertTrue(((TextView) mainActivity.getCarousel().getCarouselAdapter().getView(1).findViewById(com.reconinstruments.ui.R.id.title)).getText().toString().equals("My Calendar"));

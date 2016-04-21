@@ -4,8 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical"
-    xmlns:auto="http://schemas.android.com/apk/res-auto"
-    tools:context=".ui.activities.IssuesActivity">
+    tools:context=".ui.activities.issues.IssuesActivity">
 
     <com.reconinstruments.ui.list.ReconListView
         android:id="@android:id/list"

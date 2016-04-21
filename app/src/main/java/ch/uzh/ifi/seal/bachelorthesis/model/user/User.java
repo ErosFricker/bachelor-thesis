@@ -1,4 +1,4 @@
-package ch.uzh.ifi.seal.bachelorthesis.model;
+package ch.uzh.ifi.seal.bachelorthesis.model.user;
 
 import com.google.gson.annotations.SerializedName;
 
@@ -23,7 +23,4 @@ public class User implements Serializable{
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
 }
