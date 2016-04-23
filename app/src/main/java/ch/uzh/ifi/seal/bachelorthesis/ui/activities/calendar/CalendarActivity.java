@@ -1,4 +1,4 @@
-package ch.uzh.ifi.seal.bachelorthesis.ui.activities;
+package ch.uzh.ifi.seal.bachelorthesis.ui.activities.calendar;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -14,9 +14,9 @@ public class CalendarActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calendar);
-        ExchangeService service = new ExchangeService(ExchangeVersion.Exchange2010_SP2);
+     /*   ExchangeService service = new ExchangeService(ExchangeVersion.Exchange2010_SP2);
         ExchangeCredentials credentials = new WebCredentials("e.fricker@hotmail.com", "test");
-        service.setCredentials(credentials);
+        service.setCredentials(credentials);*/
     }
 
 }

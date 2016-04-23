@@ -3,14 +3,17 @@ package ch.uzh.ifi.seal.bachelorthesis.ui.activities.menu;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.reconinstruments.os.hardware.glance.GlanceDetectionListener;
 import com.reconinstruments.ui.carousel.CarouselActivity;
 
 import ch.uzh.ifi.seal.bachelorthesis.R;
-import ch.uzh.ifi.seal.bachelorthesis.ui.activities.SettingsActivity;
-import ch.uzh.ifi.seal.bachelorthesis.model.PreferenceManager;
+import ch.uzh.ifi.seal.bachelorthesis.ui.activities.preferences.PreferencesActivity;
+import ch.uzh.ifi.seal.bachelorthesis.model.preferences.PreferencesFacade;
 import ch.uzh.ifi.seal.bachelorthesis.ui.list.MainMenuItem;
 
-public class MainActivity extends CarouselActivity {
+public class MainMenuActivity extends CarouselActivity implements GlanceDetectionListener {
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,14 +30,18 @@ public class MainActivity extends CarouselActivity {
     }
 
     /***
-     * Checks if server connection configuration has already been done. If not, routes the user to the {@link SettingsActivity} in order to configure the connection settings
+     * Checks if server connection configuration has already been done. If not, routes the user to the {@link PreferencesActivity} in order to configure the connection settings
      */
     private void checkServerSettings() {
-        PreferenceManager manager = PreferenceManager.getInstance(this);
+        PreferencesFacade manager = PreferencesFacade.getInstance(this);
         if (manager.getPassword().isEmpty()) {
-            Intent intent = new Intent(this, SettingsActivity.class);
+            Intent intent = new Intent(this, PreferencesActivity.class);
             startActivity(intent);
         }
     }
 
+    @Override
+    public void onDetectEvent(boolean b) {
+
+    }
 }

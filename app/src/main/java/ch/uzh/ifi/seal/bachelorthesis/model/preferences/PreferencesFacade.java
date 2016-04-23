@@ -1,4 +1,4 @@
-package ch.uzh.ifi.seal.bachelorthesis.model;
+package ch.uzh.ifi.seal.bachelorthesis.model.preferences;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -8,19 +8,19 @@ import ch.uzh.ifi.seal.bachelorthesis.R;
 /**
  * Created by efric on 04.04.2016.
  */
-public class PreferenceManager {
+public class PreferencesFacade {
 
-    private static PreferenceManager instance;
+    private static PreferencesFacade instance;
     private SharedPreferences sharedPreferences;
     private String KEY_SERVER_URL;
     private String KEY_USERNAME;
     private String KEY_PASSWORD;
 
-    private PreferenceManager() {
+    private PreferencesFacade() {
     }
-    public static PreferenceManager getInstance(Context context){
+    public static PreferencesFacade getInstance(Context context){
         if (instance == null) {
-            instance = new PreferenceManager();
+            instance = new PreferencesFacade();
             instance.sharedPreferences = context.getSharedPreferences(context.getString(R.string.shared_preferences_name), Context.MODE_PRIVATE);
             instance.KEY_SERVER_URL = context.getString(R.string.preference_server_url);
             instance.KEY_USERNAME = context.getString(R.string.preference_username);

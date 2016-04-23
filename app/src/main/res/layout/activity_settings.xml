@@ -8,7 +8,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:orientation="vertical"
-    tools:context=".ui.activities.SettingsActivity">
+    tools:context=".ui.activities.preferences.PreferencesActivity">
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"

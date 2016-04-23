@@ -1,17 +1,24 @@
 package ch.uzh.ifi.seal.bachelorthesis.ui.activities.scanning;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.View;
 
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
-import ch.uzh.ifi.seal.bachelorthesis.model.PreferenceManager;
+import ch.uzh.ifi.seal.bachelorthesis.model.preferences.PreferencesFacade;
 
 /**
  * Created by Eros Fricker on 04/05/16.
  */
 public class ScanSettingsActivity extends ScanActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        this.scanningIntentIntegrator.initiateScan();
+    }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent intent) {
@@ -20,10 +27,10 @@ public class ScanSettingsActivity extends ScanActivity {
         this.progressBar.setVisibility(View.VISIBLE);
         if(value != null) {
             String[] results = value.split(";");
-            PreferenceManager preferenceManager = PreferenceManager.getInstance(this);
-            preferenceManager.saveServerURL(results[0]);
-            preferenceManager.saveUserName(results[1]);
-            preferenceManager.savePassword(results[2]);
+            PreferencesFacade preferencesFacade = PreferencesFacade.getInstance(this);
+            preferencesFacade.saveServerURL(results[0]);
+            preferencesFacade.saveUserName(results[1]);
+            preferencesFacade.savePassword(results[2]);
         }
         finish();
 
