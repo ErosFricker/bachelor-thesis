@@ -6,7 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ProgressBar;
 import ch.uzh.ifi.seal.bachelorthesis.R;
-import ch.uzh.ifi.seal.bachelorthesis.ui.activities.menu.ScanMenuActivity;
+import ch.uzh.ifi.seal.bachelorthesis.ui.activities.menu.DeveloperInformationActivity;
 import ch.uzh.ifi.seal.bachelorthesis.model.preferences.PreferencesFacade;
 import ch.uzh.ifi.seal.bachelorthesis.model.user.User;
 import ch.uzh.ifi.seal.bachelorthesis.model.user.UserRestResult;
@@ -20,6 +20,7 @@ public abstract class ScanActivity extends Activity implements AsyncDelegate{
 
     private String developerName = "";
     ProgressBar progressBar;
+    IntentIntegrator scanningIntentIntegrator;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,11 +29,13 @@ public abstract class ScanActivity extends Activity implements AsyncDelegate{
         this.progressBar = (ProgressBar)findViewById(R.id.progress_bar);
         this.progressBar.setVisibility(View.INVISIBLE);
 
-        IntentIntegrator intentIntegrator = new IntentIntegrator(this);
-        intentIntegrator.setDesiredBarcodeFormats(IntentIntegrator.QR_CODE_TYPES);
-        intentIntegrator.setPrompt("Scanning for QR Codes...");
-        intentIntegrator.initiateScan();
+        this.scanningIntentIntegrator = new IntentIntegrator(this);
+        scanningIntentIntegrator.setDesiredBarcodeFormats(IntentIntegrator.QR_CODE_TYPES);
+        scanningIntentIntegrator.setPrompt("Scanning for QR Codes...");
 
+    }
+    protected void startScanning() {
+        this.scanningIntentIntegrator.initiateScan();
     }
 
     /**
@@ -41,9 +44,9 @@ public abstract class ScanActivity extends Activity implements AsyncDelegate{
     public abstract void onActivityResult(int requestCode, int resultCode, Intent intent);
 
     private void showScanMenu(String email) {
-        Intent intent = new Intent(ScanActivity.this, ScanMenuActivity.class);
-        intent.putExtra(ScanMenuActivity.EXTRA_DEVELOPER_NAME, developerName);
-        intent.putExtra(ScanMenuActivity.EXTRA_DEVELOPER_EMAIL, email);
+        Intent intent = new Intent(ScanActivity.this, DeveloperInformationActivity.class);
+        intent.putExtra(DeveloperInformationActivity.EXTRA_DEVELOPER_NAME, developerName);
+        intent.putExtra(DeveloperInformationActivity.EXTRA_DEVELOPER_EMAIL, email);
         startActivity(intent);
         this.finish();
     }

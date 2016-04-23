@@ -15,5 +15,13 @@
             android:layout_centerVertical="true"
             android:indeterminate="true"
             android:layout_height="wrap_content"/>
+    <TextView
+        style="@style/recon_jet_text_primary"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:layout_centerInParent="true"
+        android:id="@+id/glancing_textview"
+        android:text="@string/glancing_mode"/>
 
 </RelativeLayout>

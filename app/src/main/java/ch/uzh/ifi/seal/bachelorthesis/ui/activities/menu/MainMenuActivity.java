@@ -3,6 +3,7 @@ package ch.uzh.ifi.seal.bachelorthesis.ui.activities.menu;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.reconinstruments.os.hardware.glance.GlanceDetectionListener;
 import com.reconinstruments.ui.carousel.CarouselActivity;
 
 import ch.uzh.ifi.seal.bachelorthesis.R;
@@ -10,7 +11,9 @@ import ch.uzh.ifi.seal.bachelorthesis.ui.activities.preferences.PreferencesActiv
 import ch.uzh.ifi.seal.bachelorthesis.model.preferences.PreferencesFacade;
 import ch.uzh.ifi.seal.bachelorthesis.ui.list.MainMenuItem;
 
-public class MainActivity extends CarouselActivity {
+public class MainMenuActivity extends CarouselActivity implements GlanceDetectionListener {
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,4 +40,8 @@ public class MainActivity extends CarouselActivity {
         }
     }
 
+    @Override
+    public void onDetectEvent(boolean b) {
+
+    }
 }

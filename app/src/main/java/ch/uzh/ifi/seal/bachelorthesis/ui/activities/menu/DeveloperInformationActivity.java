@@ -6,12 +6,12 @@ import android.widget.Toast;
 import com.reconinstruments.ui.carousel.CarouselActivity;
 
 import ch.uzh.ifi.seal.bachelorthesis.R;
-import ch.uzh.ifi.seal.bachelorthesis.ui.list.ScanMenuItem;
+import ch.uzh.ifi.seal.bachelorthesis.ui.list.DeveloperInformationMenuItem;
 
 /**
  * Activity for the menu view, after a developer has been scanned.
  */
-public class ScanMenuActivity extends CarouselActivity {
+public class DeveloperInformationActivity extends CarouselActivity {
 
     public static final String EXTRA_DEVELOPER_NAME = "developername";
     public static final String EXTRA_DEVELOPER_EMAIL = "email";
@@ -25,8 +25,8 @@ public class ScanMenuActivity extends CarouselActivity {
         this.developerName = getIntent().getStringExtra(EXTRA_DEVELOPER_NAME);
         String developerEmail = getIntent().getStringExtra(EXTRA_DEVELOPER_EMAIL);
         String developerFirstName = this.developerName.substring(0, this.developerName.indexOf(" "));
-        getCarousel().setContents(new ScanMenuItem(developerFirstName + "'s Issues", R.mipmap.bug, 0, developerEmail),
-                new ScanMenuItem(developerFirstName+"'s Calendar", R.mipmap.calendar, 1, developerEmail));
+        getCarousel().setContents(new DeveloperInformationMenuItem(developerFirstName + "'s Issues", R.mipmap.bug, 0, developerEmail),
+                new DeveloperInformationMenuItem(developerFirstName+"'s Calendar", R.mipmap.calendar, 1, developerEmail));
         notifyDeveloperFound();
     }
 

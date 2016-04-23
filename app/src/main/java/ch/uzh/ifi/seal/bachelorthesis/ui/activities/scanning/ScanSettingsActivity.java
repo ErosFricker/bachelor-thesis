@@ -1,6 +1,7 @@
 package ch.uzh.ifi.seal.bachelorthesis.ui.activities.scanning;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.View;
 
 import com.google.zxing.integration.android.IntentIntegrator;
@@ -12,6 +13,12 @@ import ch.uzh.ifi.seal.bachelorthesis.model.preferences.PreferencesFacade;
  * Created by Eros Fricker on 04/05/16.
  */
 public class ScanSettingsActivity extends ScanActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        this.scanningIntentIntegrator.initiateScan();
+    }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent intent) {

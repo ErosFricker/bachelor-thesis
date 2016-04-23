@@ -2,37 +2,34 @@ package ch.uzh.ifi.seal.bachelorthesis.ui.list;
 
 import android.content.Context;
 import android.content.Intent;
-import ch.uzh.ifi.seal.bachelorthesis.ui.activities.calendar.CalendarActivity;
-import ch.uzh.ifi.seal.bachelorthesis.ui.activities.issues.IssuesActivity;
+
+import ch.uzh.ifi.seal.bachelorthesis.ui.activities.scanning.ScanDeveloperActivity;
+import ch.uzh.ifi.seal.bachelorthesis.ui.activities.scanning.ScanMode;
 
 /**
- * Created by erosfricker on 21/03/16.
+ * Created by erosfricker on 23/04/16.
  */
-public class ScanMenuItem extends MenuItem {
+public class ScanMenuItem extends BasicMenuItem {
 
-    private String emailAddress = "";
-
-    public ScanMenuItem(String title, Integer image, Integer position, String emailAddress) {
+    public ScanMenuItem(String title, Integer image, Integer position) {
         super(title, image, position);
-        this.emailAddress = emailAddress;
     }
 
     @Override
-    public void onClick(Context context) {
-        Intent intent = new Intent();
+    Intent getIntentFromPosition(Context context, int position) {
+        Intent intent = new Intent(context, ScanDeveloperActivity.class);
+
         switch (position){ //Sets the onClick action based on the item's position in the menu
             case 0:
-                intent = new Intent(context, IssuesActivity.class);
-                intent.putExtra(IssuesActivity.EXTRA_USER_EMAIL, this.emailAddress);
+                intent.putExtra(ScanDeveloperActivity.EXTRA_SCAN_MODE, ScanMode.QUICKSCAN.ordinal());
                 break;
             case 1:
-                intent = new Intent(context, CalendarActivity.class);
+                intent.putExtra(ScanDeveloperActivity.EXTRA_SCAN_MODE, ScanMode.GLANCE.ordinal());
                 break;
             default:
                 break;
 
         }
-        context.startActivity(intent);
-
+        return intent;
     }
 }

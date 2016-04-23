@@ -23,4 +23,7 @@
     <string name="hint_password">my password</string>
     <string name="scan_settings_button">Scan Settings</string>
     <string name="save">Save</string>
+    <string name="title_activity_developer_capture">DeveloperCaptureActivity</string>
+    <string name="title_activity_scan_menu">ScanMenuActivity</string>
+    <string name="glancing_mode">In scanning mode...</string>
 </resources>
