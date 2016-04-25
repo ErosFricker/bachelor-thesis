@@ -26,4 +26,5 @@
     <string name="title_activity_developer_capture">DeveloperCaptureActivity</string>
     <string name="title_activity_scan_menu">ScanMenuActivity</string>
     <string name="glancing_mode">In scanning mode...</string>
+    <string name="title_activity_calendar_list">CalendarListActivity</string>
 </resources>

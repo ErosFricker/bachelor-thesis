@@ -59,7 +59,7 @@
             android:label="@string/title_activity_developer_capture" />
         <activity
             android:name=".ui.activities.scanning.ScanMenuActivity"
-            android:label="@string/title_activity_scan_menu"></activity>
+            android:label="@string/title_activity_scan_menu" />
     </application>
 
 </manifest>
