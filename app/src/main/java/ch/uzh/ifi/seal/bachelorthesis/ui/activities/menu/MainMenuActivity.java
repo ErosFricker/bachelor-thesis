@@ -25,8 +25,13 @@ public class MainMenuActivity extends CarouselActivity implements GlanceDetectio
                 new MainMenuItem("My Calendar", R.mipmap.calendar, 1),
                 new MainMenuItem("Scan Developers", R.mipmap.scan, 2),
                 new MainMenuItem("Settings", R.mipmap.settings, 3));
-        checkServerSettings();
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        checkServerSettings();
     }
 
     /***
@@ -34,7 +39,7 @@ public class MainMenuActivity extends CarouselActivity implements GlanceDetectio
      */
     private void checkServerSettings() {
         PreferencesFacade manager = PreferencesFacade.getInstance(this);
-        if (manager.getPassword().isEmpty()) {
+        if (!manager.arePreferencesFilled()) {
             Intent intent = new Intent(this, PreferencesActivity.class);
             startActivity(intent);
         }

@@ -3,6 +3,7 @@ package ch.uzh.ifi.seal.bachelorthesis.ui.activities.scanning;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
@@ -27,10 +28,23 @@ public class ScanSettingsActivity extends ScanActivity {
         this.progressBar.setVisibility(View.VISIBLE);
         if(value != null) {
             String[] results = value.split(";");
-            PreferencesFacade preferencesFacade = PreferencesFacade.getInstance(this);
-            preferencesFacade.saveServerURL(results[0]);
-            preferencesFacade.saveUserName(results[1]);
-            preferencesFacade.savePassword(results[2]);
+            if (results.length == 6) {
+                PreferencesFacade preferencesFacade = PreferencesFacade.getInstance(this);
+                preferencesFacade.saveServerURL(results[0]);
+                preferencesFacade.saveUserName(results[1]);
+                preferencesFacade.savePassword(results[2]);
+                preferencesFacade.saveExchangeURL(results[3]);
+                preferencesFacade.saveExchangeUser(results[4]);
+                preferencesFacade.saveExchangePassword(results[5]);
+            }
+            else {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(getApplicationContext(), "Token could not be scanned!", Toast.LENGTH_LONG).show();
+                    }
+                });
+            }
         }
         finish();
 

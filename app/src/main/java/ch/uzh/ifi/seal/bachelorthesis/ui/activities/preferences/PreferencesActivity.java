@@ -16,7 +16,7 @@ import ch.uzh.ifi.seal.bachelorthesis.ui.activities.scanning.ScanSettingsActivit
 import ch.uzh.ifi.seal.bachelorthesis.model.preferences.PreferencesFacade;
 
 public class PreferencesActivity extends Activity {
-    private EditText serverURLEditText, usernameEditText, passwordEditText;
+    private EditText serverURLEditText, usernameEditText, passwordEditText, exchangeURLEditText, exchangeUserEditText, exchangePasswordEditText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,12 +57,16 @@ public class PreferencesActivity extends Activity {
     private void scanSettingsToken() {
         Intent intent = new Intent(this, ScanSettingsActivity.class);
         startActivity(intent);
+        finish();
     }
 
     private void saveSettings() {
         String serverURL = serverURLEditText.getText().toString();
         String username = usernameEditText.getText().toString();
         String password = passwordEditText.getText().toString();
+        String exchangeURL = exchangeURLEditText.getText().toString();
+        String exchangeUsername = exchangeUserEditText.getText().toString();
+        String exchangePassword = exchangePasswordEditText.getText().toString();
         if(areFieldsFilled()) {
             if(checkServerReachable()) {
 
@@ -70,6 +74,10 @@ public class PreferencesActivity extends Activity {
                 preferencesFacade.saveServerURL(serverURL);
                 preferencesFacade.savePassword(password);
                 preferencesFacade.saveUserName(username);
+                preferencesFacade.saveExchangeURL(exchangeURL);
+                preferencesFacade.saveExchangeUser(exchangeUsername);
+                preferencesFacade.saveExchangePassword(exchangePassword);
+
                 finish();
             }
         }else {
@@ -90,7 +98,12 @@ public class PreferencesActivity extends Activity {
     }
 
     private boolean areFieldsFilled() {
-        return !serverURLEditText.getText().toString().isEmpty() && !usernameEditText.getText().toString().isEmpty() && !passwordEditText.getText().toString().isEmpty();
+        return !serverURLEditText.getText().toString().isEmpty()
+                && !usernameEditText.getText().toString().isEmpty()
+                && !passwordEditText.getText().toString().isEmpty()
+                && !exchangePasswordEditText.getText().toString().isEmpty()
+                && !exchangeURLEditText.getText().toString().isEmpty()
+                && !exchangeUserEditText.getText().toString().isEmpty();
     }
 
     @Override
