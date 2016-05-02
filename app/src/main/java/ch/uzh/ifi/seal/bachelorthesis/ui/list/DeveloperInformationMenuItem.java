@@ -2,7 +2,8 @@ package ch.uzh.ifi.seal.bachelorthesis.ui.list;
 
 import android.content.Context;
 import android.content.Intent;
-import ch.uzh.ifi.seal.bachelorthesis.ui.activities.calendar.CalendarActivity;
+
+import ch.uzh.ifi.seal.bachelorthesis.ui.activities.calendar.DevCalendarActivity;
 import ch.uzh.ifi.seal.bachelorthesis.ui.activities.issues.IssuesActivity;
 
 /**
@@ -26,7 +27,8 @@ public class DeveloperInformationMenuItem extends BasicMenuItem {
                 intent.putExtra(IssuesActivity.EXTRA_USER_EMAIL, this.emailAddress);
                 break;
             case 1:
-                intent = new Intent(context, CalendarActivity.class);
+                intent = new Intent(context, DevCalendarActivity.class);
+                intent.putExtra(DevCalendarActivity.EXTRA_USER_EMAIL, emailAddress);
                 break;
             default:
                 break;

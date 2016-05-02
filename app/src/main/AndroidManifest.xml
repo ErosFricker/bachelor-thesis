@@ -47,7 +47,7 @@
             android:label="@string/title_activity_scanning_menu"
             android:theme="@style/ReconTheme.Fullscreen" />
         <activity
-            android:name=".ui.activities.calendar.CalendarActivity"
+            android:name=".ui.activities.calendar.MyCalendarActivity"
             android:label="@string/title_activity_calendar"
             android:theme="@style/ReconTheme.Fullscreen" />
         <activity
@@ -60,6 +60,9 @@
         <activity
             android:name=".ui.activities.scanning.ScanMenuActivity"
             android:label="@string/title_activity_scan_menu" />
+        <activity
+            android:name=".ui.activities.calendar.DevCalendarActivity"
+            android:label="@string/title_activity_dev_calendar"></activity>
     </application>
 
 </manifest>

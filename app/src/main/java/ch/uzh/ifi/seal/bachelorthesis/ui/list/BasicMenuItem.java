@@ -3,12 +3,6 @@ package ch.uzh.ifi.seal.bachelorthesis.ui.list;
 import android.content.Context;
 import android.content.Intent;
 
-import ch.uzh.ifi.seal.bachelorthesis.model.preferences.PreferencesFacade;
-import ch.uzh.ifi.seal.bachelorthesis.ui.activities.calendar.CalendarActivity;
-import ch.uzh.ifi.seal.bachelorthesis.ui.activities.issues.IssuesActivity;
-import ch.uzh.ifi.seal.bachelorthesis.ui.activities.preferences.PreferencesActivity;
-import ch.uzh.ifi.seal.bachelorthesis.ui.activities.scanning.ScanDeveloperActivity;
-
 /**
  * Created by erosfricker on 23/04/16.
  */
