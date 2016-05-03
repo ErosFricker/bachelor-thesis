@@ -6,10 +6,12 @@
     android:orientation="vertical"
     tools:context=".ui.activities.issues.IssuesActivity">
 
-    <ProgressBar android:id="@android:id/empty"
+    <ProgressBar
+        android:id="@+id/progress_bar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:indeterminate="true" />
+        android:layout_gravity="center"
+        android:indeterminate="true"/>
 
     <com.reconinstruments.ui.list.ReconListView
         android:id="@android:id/list"

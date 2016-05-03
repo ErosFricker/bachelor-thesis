@@ -16,7 +16,7 @@ import com.google.zxing.integration.android.IntentIntegrator;
 
 import java.util.concurrent.ExecutionException;
 
-public abstract class ScanActivity extends Activity implements AsyncDelegate{
+public abstract class ScanActivity extends Activity implements BugzillaAsyncDelegate {
 
     private String developerName = "";
     ProgressBar progressBar;
@@ -34,7 +34,7 @@ public abstract class ScanActivity extends Activity implements AsyncDelegate{
         scanningIntentIntegrator.setPrompt("Scanning for QR Codes...");
 
     }
-    protected void startScanning() {
+    void startScanning() {
         this.scanningIntentIntegrator.initiateScan();
     }
 
@@ -64,7 +64,7 @@ public abstract class ScanActivity extends Activity implements AsyncDelegate{
     }
 
     /**
-     * Implementation of delegate method defined in {@link AsyncDelegate}
+     * Implementation of delegate method defined in {@link BugzillaAsyncDelegate}
      * @param result The returned String result from the executing {@link BugzillaAsyncTask} class
      */
     @Override

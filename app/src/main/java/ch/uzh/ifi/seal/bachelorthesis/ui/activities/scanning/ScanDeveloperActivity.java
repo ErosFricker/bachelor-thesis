@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.google.zxing.integration.android.IntentIntegrator;
@@ -23,12 +24,15 @@ public class ScanDeveloperActivity extends ScanActivity implements GlanceDetecti
     public static final String EXTRA_SCAN_MODE = "scan_mode";
     private ScanMode scanMode;
 
-    HUDGlanceManager glanceManager;
-    TextView glancingTextView;
+    private HUDGlanceManager glanceManager;
+    private TextView glancingTextView;
+    private ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        this.progressBar = (ProgressBar)findViewById(R.id.progress_bar);
+
         glanceManager = (HUDGlanceManager) HUDOS.getHUDService(HUDOS.HUD_GLANCE_SERVICE);
         int scanMode = getIntent().getIntExtra(EXTRA_SCAN_MODE, 0);
         this.scanMode = ScanMode.fromInt(scanMode);
@@ -82,5 +86,15 @@ public class ScanDeveloperActivity extends ScanActivity implements GlanceDetecti
         if (b && this.scanMode == ScanMode.GLANCE) {
             this.scanningIntentIntegrator.initiateScan();
         }
+    }
+
+    @Override
+    public void showProgressBar() {
+        this.progressBar.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void hideProgressBar() {
+        this.progressBar.setVisibility(View.GONE);
     }
 }

@@ -3,14 +3,13 @@ package ch.uzh.ifi.seal.bachelorthesis.model.calendar;
 import org.joda.time.DateTime;
 
 import java.util.Comparator;
-import java.util.Date;
 
 /**
  * Created by Eros Fricker on 04/28/16.
  */
 public class DateRange {
-    DateTime start;
-    DateTime end;
+    private final DateTime start;
+    private final DateTime end;
 
     public DateRange(DateTime start, DateTime end) {
         this.start = start;

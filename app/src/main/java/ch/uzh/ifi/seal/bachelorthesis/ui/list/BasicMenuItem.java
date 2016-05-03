@@ -6,9 +6,9 @@ import android.content.Intent;
 /**
  * Created by erosfricker on 23/04/16.
  */
-public abstract class BasicMenuItem extends MenuItem {
+abstract class BasicMenuItem extends MenuItem {
 
-    public BasicMenuItem(String title, Integer image, Integer position) {
+    BasicMenuItem(String title, Integer image, Integer position) {
         super(title, image, position);
     }
 

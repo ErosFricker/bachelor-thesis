@@ -13,6 +13,7 @@ import java.net.URL;
 abstract class BugzillaAsyncTask extends AsyncTask<Void, Integer, String> {
 
     final Activity activity;
+    BugzillaAsyncDelegate asyncDelegate;
 
     BugzillaAsyncTask(Activity activity) {
         this.activity = activity;

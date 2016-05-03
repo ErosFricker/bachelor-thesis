@@ -3,6 +3,7 @@ package ch.uzh.ifi.seal.bachelorthesis.ui.activities.calendar;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.reconinstruments.ui.list.SimpleArrayAdapter;
@@ -30,16 +31,16 @@ import microsoft.exchange.webservices.data.core.service.item.Item;
 
 public class DevCalendarActivity extends SimpleListActivity implements CalendarAsyncDelegate {
 
-    HashMap<Integer, List<Appointment>> userAppointmentMap = new HashMap<>();
-    HashMap<Integer, List<Appointment>> sharedAppointmentMap = new HashMap<>();
+    private final HashMap<Integer, List<Appointment>> userAppointmentMap = new HashMap<>();
+    private final HashMap<Integer, List<Appointment>> sharedAppointmentMap = new HashMap<>();
     public static final String EXTRA_USER_EMAIL = "developer-name";
+    private ProgressBar progressBar;
 
 
 
     class CalendarTitleItem extends SimpleListItem {
-        TextView titleTextView;
         TextView dateTextView;
-        DateTime date;
+        final DateTime date;
 
 
         public CalendarTitleItem(DateTime date) {
@@ -61,7 +62,7 @@ public class DevCalendarActivity extends SimpleListActivity implements CalendarA
 
     class CalendarEntryItem extends SimpleListItem {
 
-        DateRange range;
+        final DateRange range;
 
         public CalendarEntryItem(DateRange range) {
             this.range = range;
@@ -75,7 +76,6 @@ public class DevCalendarActivity extends SimpleListActivity implements CalendarA
         @Override
         public void updateView(View view) {
             TextView titleTextView = (TextView) view.findViewById(R.id.entry_title);
-            TextView timeTextView = (TextView) view.findViewById(R.id.time_from_to);
             if (this.range != null) {
                 DateTimeFormatter timeFormat = DateTimeFormat.forPattern("HH:mm");
                 String timeText = timeFormat.print(range.getStart()) + " - " + timeFormat.print(range.getEnd());
@@ -83,7 +83,7 @@ public class DevCalendarActivity extends SimpleListActivity implements CalendarA
 
             }
             else {
-                titleTextView.setText("Whole Day");
+                titleTextView.setText(R.string.entry_all_day);
             }
         }
     }
@@ -95,7 +95,11 @@ public class DevCalendarActivity extends SimpleListActivity implements CalendarA
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_dev_calendar);
+
+        this.progressBar = (ProgressBar)findViewById(R.id.progress_bar);
+
         GetCalendarAsyncTask task = new GetCalendarAsyncTask(this, this);
         String developerName = getIntent().getStringExtra(EXTRA_USER_EMAIL);
         task.execute(developerName);
@@ -424,5 +428,17 @@ public class DevCalendarActivity extends SimpleListActivity implements CalendarA
 
     }
 
+    @Override
+    public void showProgressBar() {
+        this.progressBar.setVisibility(View.VISIBLE);
+
+    }
+
+    @Override
+    public void hideProgressBar() {
+        this.progressBar.setVisibility(View.GONE);
+        this.progressBar.setVisibility(View.GONE);
+
+    }
 }
 

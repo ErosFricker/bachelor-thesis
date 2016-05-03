@@ -26,6 +26,9 @@ public class PreferencesActivity extends Activity {
         serverURLEditText = (EditText)findViewById(R.id.setting_server_url);
         usernameEditText = (EditText)findViewById(R.id.setting_login);
         passwordEditText = (EditText)findViewById(R.id.setting_password);
+        exchangeURLEditText = (EditText)findViewById(R.id.exchange_url);
+        exchangeUserEditText = (EditText)findViewById(R.id.exchange_user);
+        exchangePasswordEditText = (EditText)findViewById(R.id.exchange_password);
 
         Button saveButton = (Button) findViewById(R.id.save_button);
         saveButton.setOnClickListener(new View.OnClickListener() {

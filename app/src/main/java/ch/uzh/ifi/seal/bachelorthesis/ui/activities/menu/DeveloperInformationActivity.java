@@ -3,15 +3,13 @@ package ch.uzh.ifi.seal.bachelorthesis.ui.activities.menu;
 import android.os.Bundle;
 import android.widget.Toast;
 
-import com.reconinstruments.ui.carousel.CarouselActivity;
-
 import ch.uzh.ifi.seal.bachelorthesis.R;
 import ch.uzh.ifi.seal.bachelorthesis.ui.list.DeveloperInformationMenuItem;
 
 /**
  * Activity for the menu view, after a developer has been scanned.
  */
-public class DeveloperInformationActivity extends CarouselActivity {
+public class DeveloperInformationActivity extends MenuMovementActivity {
 
     public static final String EXTRA_DEVELOPER_NAME = "developername";
     public static final String EXTRA_DEVELOPER_EMAIL = "email";

@@ -3,11 +3,13 @@ package ch.uzh.ifi.seal.bachelorthesis.ui.activities.scanning;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
+import ch.uzh.ifi.seal.bachelorthesis.R;
 import ch.uzh.ifi.seal.bachelorthesis.model.preferences.PreferencesFacade;
 
 /**
@@ -15,9 +17,12 @@ import ch.uzh.ifi.seal.bachelorthesis.model.preferences.PreferencesFacade;
  */
 public class ScanSettingsActivity extends ScanActivity {
 
+    private ProgressBar progressBar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        this.progressBar = (ProgressBar)findViewById(R.id.progress_bar);
         this.scanningIntentIntegrator.initiateScan();
     }
 
@@ -48,5 +53,15 @@ public class ScanSettingsActivity extends ScanActivity {
         }
         finish();
 
+    }
+
+    @Override
+    public void showProgressBar() {
+        this.progressBar.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void hideProgressBar() {
+        this.progressBar.setVisibility(View.GONE);
     }
 }

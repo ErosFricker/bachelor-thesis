@@ -2,8 +2,13 @@ package ch.uzh.ifi.seal.bachelorthesis.ui.activities.calendar;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.reconinstruments.os.HUDOS;
+import com.reconinstruments.os.metrics.HUDMetricsID;
+import com.reconinstruments.os.metrics.HUDMetricsManager;
+import com.reconinstruments.os.metrics.MetricsValueChangedListener;
 import com.reconinstruments.ui.list.SimpleArrayAdapter;
 import com.reconinstruments.ui.list.SimpleListActivity;
 import com.reconinstruments.ui.list.SimpleListItem;
@@ -24,13 +29,14 @@ import microsoft.exchange.webservices.data.core.exception.service.local.ServiceL
 import microsoft.exchange.webservices.data.core.service.item.Appointment;
 import microsoft.exchange.webservices.data.core.service.item.Item;
 
-public class MyCalendarActivity extends SimpleListActivity implements CalendarAsyncDelegate {
+public class MyCalendarActivity extends SimpleListActivity implements CalendarAsyncDelegate, MetricsValueChangedListener {
 
+    private HUDMetricsManager metricsManager;
+    private ProgressBar progressBar;
 
     class CalendarTitleItem extends SimpleListItem {
-        TextView titleTextView;
         TextView dateTextView;
-        Date date;
+        final Date date;
 
 
         public CalendarTitleItem(Date date) {
@@ -52,7 +58,7 @@ public class MyCalendarActivity extends SimpleListActivity implements CalendarAs
 
     class CalendarEntryItem extends SimpleListItem {
 
-        Appointment appointment;
+        final Appointment appointment;
 
         public CalendarEntryItem(Appointment appointment) {
             this.appointment = appointment;
@@ -79,7 +85,6 @@ public class MyCalendarActivity extends SimpleListActivity implements CalendarAs
         }
     }
 
-    private List<Item> items = new ArrayList<Item>();
     static {
         System.setProperty("android.org.apache.commons.logging.Log",
                 "android.org.apache.commons.logging.impl.SimpleLog");
@@ -88,9 +93,24 @@ public class MyCalendarActivity extends SimpleListActivity implements CalendarAs
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_calendar);
+        this.progressBar = (ProgressBar)findViewById(R.id.progress_bar);
+        this.metricsManager = (HUDMetricsManager) HUDOS.getHUDService(HUDOS.HUD_METRICS_SERVICE);
+
         GetCalendarAsyncTask task = new GetCalendarAsyncTask(this, this);
         String exchangeUsername =PreferencesFacade.getInstance(this).getExchangeUser();
         task.execute(exchangeUsername);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        this.metricsManager.registerMetricsListener(this, HUDMetricsID.SPEED_HORIZONTAL);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        this.metricsManager.unregisterMetricsListener(this, HUDMetricsID.SPEED_HORIZONTAL);
     }
 
     private SimpleArrayAdapter<SimpleListItem> createAdapter(List<Item> appointments) {
@@ -98,7 +118,6 @@ public class MyCalendarActivity extends SimpleListActivity implements CalendarAs
         final List<SimpleListItem> items = new ArrayList<>();
         Calendar lastCal = Calendar.getInstance();
         lastCal.setTime(new Date(0));
-        DateFormat dateformat = SimpleDateFormat.getDateInstance();
         for (Item a : appointments) {
             Appointment appointment = (Appointment)a;
             try {
@@ -140,5 +159,25 @@ public class MyCalendarActivity extends SimpleListActivity implements CalendarAs
         setAdapter(createAdapter(appointments.get(0)));
         getAdapter().notifyDataSetChanged();
         getListView().setEmptyView(null);
+
+
+    }
+
+    @Override
+    public void onMetricsValueChanged(int i, float v, long l, boolean b) {
+        if (v - 1.0f <= 0) {
+            finish();
+        }
+    }
+
+    @Override
+    public void showProgressBar() {
+        this.progressBar.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void hideProgressBar() {
+        this.progressBar.setVisibility(View.GONE);
+
     }
 }
