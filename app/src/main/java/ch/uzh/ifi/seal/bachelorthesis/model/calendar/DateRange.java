@@ -26,6 +26,10 @@ public class DateRange {
     }
 
 
+    /**
+     * Creates a custom comparator for the {@link DateRange} class.
+     * @return The custom comparator
+     */
     public static Comparator<DateRange> getComparator(){
         return new Comparator<DateRange>() {
             @Override

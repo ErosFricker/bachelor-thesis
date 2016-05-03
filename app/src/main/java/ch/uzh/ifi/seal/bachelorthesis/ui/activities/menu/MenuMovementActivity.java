@@ -16,6 +16,7 @@ import ch.uzh.ifi.seal.bachelorthesis.ui.activities.calendar.MyCalendarActivity;
  */
 public abstract class MenuMovementActivity extends CarouselActivity implements MetricsValueChangedListener {
 
+    public static final float WALKING_SPEED = 5.0f;
     private HUDMetricsManager hudMetricsManager = null;
 
     @Override
@@ -38,7 +39,7 @@ public abstract class MenuMovementActivity extends CarouselActivity implements M
 
     @Override
     public void onMetricsValueChanged(int metricID, float value, long changeTime, boolean isValid) {
-        if (value - 5.0f >= 0) {
+        if (value - WALKING_SPEED >= 0) {
             Intent intent = new Intent(this, MyCalendarActivity.class);
             startActivity(intent);
         }

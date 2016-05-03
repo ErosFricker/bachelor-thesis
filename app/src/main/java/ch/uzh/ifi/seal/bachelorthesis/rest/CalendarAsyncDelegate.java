@@ -7,8 +7,6 @@ import microsoft.exchange.webservices.data.core.service.item.Item;
 /**
  * Created by Eros Fricker on 04/27/16.
  */
-public interface CalendarAsyncDelegate {
+public interface CalendarAsyncDelegate extends BasicAsyncDelegate{
     void onPostExecuteFinished(ArrayList<ArrayList<Item>> appointments);
-    void showProgressBar();
-    void hideProgressBar();
 }

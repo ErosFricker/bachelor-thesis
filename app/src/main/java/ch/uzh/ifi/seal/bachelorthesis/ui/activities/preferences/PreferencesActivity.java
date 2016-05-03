@@ -17,7 +17,7 @@ import ch.uzh.ifi.seal.bachelorthesis.model.preferences.PreferencesFacade;
 
 public class PreferencesActivity extends Activity {
     private EditText serverURLEditText, usernameEditText, passwordEditText, exchangeURLEditText, exchangeUserEditText, exchangePasswordEditText;
-
+//TODO: Check if refactoring possible for edittexts...
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

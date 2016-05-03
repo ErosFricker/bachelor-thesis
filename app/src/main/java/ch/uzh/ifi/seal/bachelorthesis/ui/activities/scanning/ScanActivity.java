@@ -78,7 +78,6 @@ public abstract class ScanActivity extends Activity implements BugzillaAsyncDele
         this.developerName = user.getRealName();
         showScanMenu(user.getName());
 
-
     }
 
 

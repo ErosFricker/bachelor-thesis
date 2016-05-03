@@ -38,17 +38,17 @@ public class GetCalendarAsyncTask extends AsyncTask<String,Void, ArrayList<Array
         this.activity = activity;
         this.asyncDelegate = asyncDelegate;
         this.service = new ExchangeService(ExchangeVersion.Exchange2010_SP2);
-        String exchangeURL = PreferencesFacade.getInstance(this.activity).getExchangeURL();
-        String username = PreferencesFacade.getInstance(this.activity).getExchangeUser();
-        String password = PreferencesFacade.getInstance(this.activity).getExchangePassword();
+        final PreferencesFacade preferencesFacade = PreferencesFacade.getInstance(this.activity);
+        String exchangeURL = preferencesFacade.getExchangeURL();
+        String username = preferencesFacade.getExchangeUser();
+        String password = preferencesFacade.getExchangePassword();
         ExchangeCredentials credentials = new WebCredentials(username, password);
         this.service.setCredentials(credentials);
         try {
-            this.service.setUrl(new URI(exchangeURL)); //"https://outlook.office365.com/EWS/Exchange.asmx"
+            this.service.setUrl(new URI(exchangeURL));
         } catch (URISyntaxException e) {
             e.printStackTrace();
         }
-
     }
 
     @Override
@@ -57,6 +57,11 @@ public class GetCalendarAsyncTask extends AsyncTask<String,Void, ArrayList<Array
         return getCalendar(params[0]);
     }
 
+    /**
+     * Thread-safe access to get the calendar events
+     * @param username The username to get the events from
+     * @return A list of event-lists (one for the user and eventually one for the shared calendar events)
+     */
     private synchronized ArrayList<ArrayList<Item>> getCalendar(String username) {
         ArrayList<ArrayList<Item>> result = new ArrayList<>();
         ArrayList<Item> userAppointments;
@@ -69,20 +74,23 @@ public class GetCalendarAsyncTask extends AsyncTask<String,Void, ArrayList<Array
         endDate.setTime(calendar.getTime().getTime());
 
         if (username.equals(PreferencesFacade.getInstance(activity).getExchangeUser())) {
-
             userAppointments = getUserCalendar(startDate, endDate);
             result.add(userAppointments);
-
         }else {
             userAppointments = getUserCalendar(startDate, endDate);
             result.add(userAppointments);
             sharedAppointments = getSharedCalendar(startDate, endDate, username);
             result.add(sharedAppointments);
-
         }
         return result;
     }
 
+    /**
+     * Gets the events from the App user (address stored in {@link android.content.SharedPreferences}
+     * @param startDate The start date to get the events
+     * @param endDate The end date to get the events
+     * @return The events from the App user between startDate and (including) endDate
+     */
     private ArrayList<Item> getUserCalendar(Date startDate, Date endDate) {
         ArrayList<Item> appointments = new ArrayList<>();
         CalendarFolder cf;
@@ -99,6 +107,13 @@ public class GetCalendarAsyncTask extends AsyncTask<String,Void, ArrayList<Array
         return appointments;
     }
 
+    /**
+     * Accesses the events from the shared calendar from Microsoft Exchange Server
+     * @param startDate The start date to get the events
+     * @param endDate The end date to get the events
+     * @param eMail The email address of the user to get the events
+     * @return The events in the range from startDate to endDate from the user with the eMail address
+     */
     private ArrayList<Item> getSharedCalendar(Date startDate, Date endDate, String eMail) {
         ArrayList<Item> appointments = new ArrayList<>();
         CalendarFolder cf;
@@ -121,7 +136,6 @@ public class GetCalendarAsyncTask extends AsyncTask<String,Void, ArrayList<Array
         super.onPostExecute(appointments);
         this.asyncDelegate.hideProgressBar();
         asyncDelegate.onPostExecuteFinished(appointments);
-
     }
 
 }

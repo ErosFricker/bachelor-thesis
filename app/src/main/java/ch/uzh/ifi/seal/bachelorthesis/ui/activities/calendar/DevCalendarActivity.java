@@ -25,6 +25,8 @@ import ch.uzh.ifi.seal.bachelorthesis.R;
 import ch.uzh.ifi.seal.bachelorthesis.model.calendar.DateRange;
 import ch.uzh.ifi.seal.bachelorthesis.rest.CalendarAsyncDelegate;
 import ch.uzh.ifi.seal.bachelorthesis.rest.GetCalendarAsyncTask;
+import ch.uzh.ifi.seal.bachelorthesis.ui.list.CalendarEntryItem;
+import ch.uzh.ifi.seal.bachelorthesis.ui.list.CalendarTitleItem;
 import microsoft.exchange.webservices.data.core.exception.service.local.ServiceLocalException;
 import microsoft.exchange.webservices.data.core.service.item.Appointment;
 import microsoft.exchange.webservices.data.core.service.item.Item;
@@ -35,58 +37,6 @@ public class DevCalendarActivity extends SimpleListActivity implements CalendarA
     private final HashMap<Integer, List<Appointment>> sharedAppointmentMap = new HashMap<>();
     public static final String EXTRA_USER_EMAIL = "developer-name";
     private ProgressBar progressBar;
-
-
-
-    class CalendarTitleItem extends SimpleListItem {
-        TextView dateTextView;
-        final DateTime date;
-
-
-        public CalendarTitleItem(DateTime date) {
-            this.date = date;
-        }
-
-        @Override
-        public int getLayoutId() {
-            return R.layout.calendar_row_title;
-        }
-
-        @Override
-        public void updateView(View view) {
-            dateTextView = (TextView)view.findViewById(R.id.date_title);
-            DateTimeFormatter dateFormat = DateTimeFormat.forPattern("dd. MMM yyyy");
-            dateTextView.setText(dateFormat.print(date));
-        }
-    }
-
-    class CalendarEntryItem extends SimpleListItem {
-
-        final DateRange range;
-
-        public CalendarEntryItem(DateRange range) {
-            this.range = range;
-        }
-
-        @Override
-        public int getLayoutId() {
-            return R.layout.calendar_row_entry;
-        }
-
-        @Override
-        public void updateView(View view) {
-            TextView titleTextView = (TextView) view.findViewById(R.id.entry_title);
-            if (this.range != null) {
-                DateTimeFormatter timeFormat = DateTimeFormat.forPattern("HH:mm");
-                String timeText = timeFormat.print(range.getStart()) + " - " + timeFormat.print(range.getEnd());
-                titleTextView.setText(timeText);
-
-            }
-            else {
-                titleTextView.setText(R.string.entry_all_day);
-            }
-        }
-    }
 
     static {
         System.setProperty("android.org.apache.commons.logging.Log",

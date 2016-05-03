@@ -30,6 +30,8 @@ import ch.uzh.ifi.seal.bachelorthesis.model.issue.Issue;
 import ch.uzh.ifi.seal.bachelorthesis.model.issue.IssueRestResult;
 import ch.uzh.ifi.seal.bachelorthesis.model.issue.IssueStatus;
 import ch.uzh.ifi.seal.bachelorthesis.model.preferences.PreferencesFacade;
+import ch.uzh.ifi.seal.bachelorthesis.ui.list.BugListItem;
+import ch.uzh.ifi.seal.bachelorthesis.ui.list.CheckedSelectionItem;
 import ch.uzh.ifi.seal.bachelorthesis.ui.list.sorting.SortType;
 import ch.uzh.ifi.seal.bachelorthesis.rest.BugzillaAsyncDelegate;
 import ch.uzh.ifi.seal.bachelorthesis.rest.GetIssuesTask;
@@ -46,6 +48,11 @@ public class IssuesActivity extends SimpleListActivity implements BugzillaAsyncD
     private CarouselDialog sortingDialog;
     private SortingStrategy sortingStrategy = new SortingByLastChangeDate(0);
     public ProgressBar progressBar;
+
+    public List<Issue> getIssueList() {
+        return issueList;
+    }
+
     /**
      * Overrides the onKeyDown method to support swipe left / right gestures.
      * @param keyCode the keycode used
@@ -60,60 +67,6 @@ public class IssuesActivity extends SimpleListActivity implements BugzillaAsyncD
         return super.onKeyDown(keyCode, event);
     }
 
-    /**
-     * Custom List Item for displaying Bugs
-     */
-    class BugListItem extends SimpleListItem {
-
-        private final String title;
-        private final IssueStatus status;
-        private final Date lastChangeTime;
-
-        BugListItem(String title, IssueStatus status, Date lastChangeTime) {
-            this.title = title;
-            this.status = status;
-            this.lastChangeTime = lastChangeTime;
-        }
-
-        @Override
-        public int getLayoutId() {
-            return R.layout.issue_list_row;
-        }
-
-        @Override
-        public void onClick(Context context) {
-            Intent showDetailIntent = new Intent(context, IssueDetailActivity.class);
-            int position = getAdapter().getPosition(this);
-            showDetailIntent.putExtra(IssueDetailActivity.EXTRA_SELECTED_BUG, issueList.get(position));
-            context.startActivity(showDetailIntent);
-
-        }
-
-        @Override
-        public void updateView(View view) {
-            TextView titleView = (TextView)view.findViewById(R.id.issue_title);
-            titleView.setText(this.title);
-
-            TextView changeDateView = (TextView)view.findViewById(R.id.issue_change_date);
-            DateFormat dateFormat = DateFormat.getDateTimeInstance();
-            changeDateView.setText(dateFormat.format(this.lastChangeTime));
-
-            ImageView imageView = (ImageView)view.findViewById(R.id.issue_icon);
-            switch (this.status) {
-                case CONFIRMED:
-                    imageView.setImageDrawable(getResources().getDrawable(R.mipmap.ic_issue_confirmed));
-                    break;
-                case IN_PROGRESS:
-                    imageView.setImageDrawable(getResources().getDrawable(R.mipmap.ic_issue_in_progress));
-                    break;
-                case RESOLVED:
-                    imageView.setImageDrawable(getResources().getDrawable(R.mipmap.ic_issue_resolved));
-                    break;
-            }
-
-
-        }
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -143,25 +96,7 @@ public class IssuesActivity extends SimpleListActivity implements BugzillaAsyncD
         }
     }
 
-    public class CheckedSelectionItem extends StandardCarouselItem {
-        final int value;
-        public CheckedSelectionItem(String title,int value) {
-            super(title);
-            this.value = value;
-        }
 
-        @Override
-        public void updateView(View view) {
-            super.updateView(view);
-            view.findViewById(R.id.checkmark).setVisibility(value == sortingStrategy.getPosition() ? View.VISIBLE : View.INVISIBLE);
-        }
-
-        @Override
-        public int getLayoutId() {
-            return R.layout.carousel_item_checkmark;
-        }
-
-    }
 
     public List<CarouselItem> getSelections() {
         return selections;
@@ -169,7 +104,7 @@ public class IssuesActivity extends SimpleListActivity implements BugzillaAsyncD
 
     private void fillSelections(){
         for (SortType s : SortType.values()){
-            this.selections.add(new CheckedSelectionItem(s.toString(), s.ordinal()));
+            this.selections.add(new CheckedSelectionItem(s.toString(), s.ordinal(), sortingStrategy));
         }
     }
     private final List<CarouselItem> selections = new ArrayList<>();
@@ -229,7 +164,7 @@ public class IssuesActivity extends SimpleListActivity implements BugzillaAsyncD
         final List<SimpleListItem> listItems = new ArrayList<>();
         for (Issue b : this.issueList) {
             IssueStatus status = IssueStatus.fromString(b.getStatus());
-            listItems.add(new BugListItem(b.getSummary(), status, b.getLastChangeTime()));
+            listItems.add(new BugListItem(b.getSummary(), status, b.getLastChangeTime(), this));
         }
         runOnUiThread(new Runnable() {
             @Override

@@ -24,7 +24,7 @@ public class DeveloperInformationActivity extends MenuMovementActivity {
         String developerEmail = getIntent().getStringExtra(EXTRA_DEVELOPER_EMAIL);
         String developerFirstName = this.developerName.substring(0, this.developerName.indexOf(" "));
         getCarousel().setContents(new DeveloperInformationMenuItem(developerFirstName + "'s Issues", R.mipmap.bug, 0, developerEmail),
-                new DeveloperInformationMenuItem(developerFirstName+"'s Calendar", R.mipmap.calendar, 1, developerEmail));
+                new DeveloperInformationMenuItem(getString(R.string.find_meeting_time), R.mipmap.calendar, 1, developerEmail));
         notifyDeveloperFound();
     }
 
