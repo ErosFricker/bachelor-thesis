@@ -13,6 +13,6 @@ public class SortingByLastChangeDate extends SortingImplementation {
 
     @Override
     public int compare(Issue first, Issue second) {
-        return first.getLast_change_time().compareTo(second.getLast_change_time());
+        return first.getLastChangeTime().compareTo(second.getLastChangeTime());
     }
 }

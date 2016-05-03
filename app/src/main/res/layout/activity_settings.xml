@@ -8,7 +8,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:orientation="vertical"
-    tools:context=".ui.activities.SettingsActivity">
+    tools:context=".ui.activities.preferences.PreferencesActivity">
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
@@ -49,6 +49,46 @@
             android:id="@+id/setting_password"
             android:inputType="textPassword"
             android:hint="@string/hint_password"/>
+
+        <TextView
+            style="@style/recon_jet_text_primary"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/setting_exchange_url"/>
+        <EditText
+            style="@style/recon_jet_text_selectable"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/exchange_url"
+            android:inputType="textUri"
+            android:hint="@string/hint_server_url"/>
+
+        <TextView
+            style="@style/recon_jet_text_primary"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/setting_exchange_user"/>
+        <EditText
+            style="@style/recon_jet_text_selectable"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/exchange_user"
+            android:inputType="textEmailAddress"
+            android:hint="@string/hint_username"/>
+
+        <TextView
+            style="@style/recon_jet_text_primary"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/setting_exchange_password"/>
+        <EditText
+            style="@style/recon_jet_text_selectable"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/exchange_password"
+            android:inputType="textPassword"
+            android:hint="@string/hint_password"/>
+
         <Button
             style="@style/recon_jet_text_selectable"
             android:layout_width="match_parent"

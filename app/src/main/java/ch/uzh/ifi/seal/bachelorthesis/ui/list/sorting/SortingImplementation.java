@@ -6,8 +6,8 @@ import ch.uzh.ifi.seal.bachelorthesis.model.issue.Issue;
  * Created by Eros Fricker on 04/07/16.
  */
 public abstract class SortingImplementation implements SortingStrategy{
-    private int position;
-    public SortingImplementation(int position) {
+    private final int position;
+    SortingImplementation(int position) {
         this.position = position;
     }
 

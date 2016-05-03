@@ -1,8 +1,8 @@
 package ch.uzh.ifi.seal.bachelorthesis.rest;
 
-import android.content.Context;
+import android.app.Activity;
+import android.widget.Toast;
 
-import java.net.HttpURLConnection;
 import java.net.URL;
 
 /**
@@ -12,22 +12,22 @@ public class GetIssuesTask extends BugzillaAsyncTask {
 
     private String userEmail = "";
     private String serverURL = "";
-    private AsyncDelegate asyncDelegate;
 
 
-    public GetIssuesTask(Context context, String userEmail, String serverURL, AsyncDelegate asyncDelegate){
-        super(context);
+    public GetIssuesTask(Activity activity, String userEmail, String serverURL, BugzillaAsyncDelegate asyncDelegate){
+        super(activity);
         this.userEmail = userEmail;
         this.serverURL = serverURL;
         this.asyncDelegate = asyncDelegate;
     }
 
-    public void setAsyncDelegate(AsyncDelegate asyncDelegate) {
+    public void setAsyncDelegate(BugzillaAsyncDelegate asyncDelegate) {
         this.asyncDelegate = asyncDelegate;
     }
 
     @Override
-    protected String doInBackground(URL... params) {
+    protected String doInBackground(Void... params) {
+        this.asyncDelegate.showProgressBar();
         try {
 
             String url = this.serverURL+"/rest.cgi/bug";
@@ -50,8 +50,12 @@ public class GetIssuesTask extends BugzillaAsyncTask {
     @Override
     protected void onPostExecute(String s) {
         super.onPostExecute(s);
-        if(this.asyncDelegate!= null) {
-            this.asyncDelegate.onPostExecuteFinished(s, this);
+        this.asyncDelegate.hideProgressBar();
+        if (s == null) {
+            Toast.makeText(this.activity, "The server is not reachable. Please check your WiFi settings.", Toast.LENGTH_LONG).show();
+
+        }else {
+            this.asyncDelegate.onPostExecuteFinished(s);
         }
 
     }

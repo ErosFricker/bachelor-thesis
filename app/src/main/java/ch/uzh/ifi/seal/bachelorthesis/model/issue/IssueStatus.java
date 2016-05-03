@@ -9,8 +9,14 @@ public enum IssueStatus {
     RESOLVED,
     NONE;
 
+    /**
+     * Returns a string representation of the field
+     * @param status The status to be returned as a String
+     * @return The enum field derived from the status given
+     */
     public static IssueStatus fromString(String status) {
         IssueStatus issueStatus = IssueStatus.NONE;
+
         if(status.equals(IssueStatus.CONFIRMED.name())) {
             issueStatus = IssueStatus.CONFIRMED;
 

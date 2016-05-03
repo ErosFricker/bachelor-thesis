@@ -4,8 +4,14 @@
     android:layout_width="match_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical"
-    xmlns:auto="http://schemas.android.com/apk/res-auto"
-    tools:context=".ui.activities.IssuesActivity">
+    tools:context=".ui.activities.issues.IssuesActivity">
+
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:indeterminate="true"/>
 
     <com.reconinstruments.ui.list.ReconListView
         android:id="@android:id/list"

@@ -9,7 +9,7 @@
     <string name="title_activity_calendar">CalendarActivity</string>
 
     <!--Settings Strings -->
-    <string name="shared_preferences_name">ch.erosfricker.bachelorthesis.settings.SERVER_SETTINGS</string>
+    <string name="shared_preferences_name">ch.uzh.ifi.seal.bachelorthesis.settings.SERVER_SETTINGS</string>
     <string name="preference_server_url">server_url</string>
     <string name="preference_username">username</string>
     <string name="preference_password">password</string>
@@ -20,7 +20,15 @@
     <string name="setting_username">User Name</string>
     <string name="hint_username">user@example.com</string>
     <string name="setting_password">Password</string>
-    <string name="hint_password">mypassword</string>
+    <string name="hint_password">my password</string>
     <string name="scan_settings_button">Scan Settings</string>
     <string name="save">Save</string>
+    <string name="title_activity_developer_capture">DeveloperCaptureActivity</string>
+    <string name="title_activity_scan_menu">ScanMenuActivity</string>
+    <string name="glancing_mode">In scanning mode...</string>
+    <string name="setting_exchange_url">Exchange Server URL</string>
+    <string name="setting_exchange_user">Exchange Username</string>
+    <string name="setting_exchange_password">Exchange Password</string>
+    <string name="title_activity_dev_calendar">DevCalendarActivity</string>
+    <string name="entry_all_day">All Day</string>
 </resources>

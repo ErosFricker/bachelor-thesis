@@ -6,10 +6,8 @@ import android.view.KeyEvent;
 
 import org.junit.Test;
 
-import ch.uzh.ifi.seal.bachelorthesis.model.PreferenceManager;
-import ch.uzh.ifi.seal.bachelorthesis.ui.activities.IssuesActivity;
-
-import static org.mockito.Mockito.mock;
+import ch.uzh.ifi.seal.bachelorthesis.model.preferences.PreferencesFacade;
+import ch.uzh.ifi.seal.bachelorthesis.ui.activities.issues.IssuesActivity;
 
 /**
  * Created by Eros Fricker on 04/05/16.
@@ -29,8 +27,8 @@ public class IssuesActivityTest extends ActivityInstrumentationTestCase2<IssuesA
         intent.putExtra(IssuesActivity.EXTRA_USER_EMAIL, "erosfricker@gmail.com");
         setActivityIntent(intent);
         IssuesActivity activity = getActivity();
-        PreferenceManager.getInstance(activity.getApplicationContext()).saveServerURL("http://macaw.ifi.uzh.ch/bugzilla");
-        PreferenceManager.getInstance(activity.getApplicationContext()).saveUserName("erosfricker@gmail.com");
+        PreferencesFacade.getInstance(activity.getApplicationContext()).saveServerURL("http://macaw.ifi.uzh.ch/bugzilla");
+        PreferencesFacade.getInstance(activity.getApplicationContext()).saveUserName("erosfricker@gmail.com");
         KeyEvent event = new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_DPAD_LEFT);
         activity.onKeyDown(event.getKeyCode(), event);
         assertNotNull(activity.getSortingDialog());
@@ -109,7 +107,7 @@ public class IssuesActivityTest extends ActivityInstrumentationTestCase2<IssuesA
                 "   ],\n" +
                 "   \"faults\" : []\n" +
                 "}";
-        activity.onPostExecuteFinished(result, null);
+        activity.onPostExecuteFinished(result);
         assertTrue(activity.getIssueArray().length > 0);
     }
 }
