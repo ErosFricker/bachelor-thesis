@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
@@ -30,21 +31,21 @@ import ch.uzh.ifi.seal.bachelorthesis.model.issue.IssueRestResult;
 import ch.uzh.ifi.seal.bachelorthesis.model.issue.IssueStatus;
 import ch.uzh.ifi.seal.bachelorthesis.model.preferences.PreferencesFacade;
 import ch.uzh.ifi.seal.bachelorthesis.ui.list.sorting.SortType;
-import ch.uzh.ifi.seal.bachelorthesis.rest.AsyncDelegate;
+import ch.uzh.ifi.seal.bachelorthesis.rest.BugzillaAsyncDelegate;
 import ch.uzh.ifi.seal.bachelorthesis.rest.GetIssuesTask;
 import ch.uzh.ifi.seal.bachelorthesis.ui.list.sorting.SortingByLastChangeDate;
 import ch.uzh.ifi.seal.bachelorthesis.ui.list.sorting.SortingByName;
 import ch.uzh.ifi.seal.bachelorthesis.ui.list.sorting.SortingByStatus;
 import ch.uzh.ifi.seal.bachelorthesis.ui.list.sorting.SortingStrategy;
 
-public class IssuesActivity extends SimpleListActivity implements AsyncDelegate {
+public class IssuesActivity extends SimpleListActivity implements BugzillaAsyncDelegate {
 
     private Issue[] issueArray;
     private List<Issue> issueList;
     public static final String EXTRA_USER_EMAIL = "useremail";
     private CarouselDialog sortingDialog;
     private SortingStrategy sortingStrategy = new SortingByLastChangeDate(0);
-
+    public ProgressBar progressBar;
     /**
      * Overrides the onKeyDown method to support swipe left / right gestures.
      * @param keyCode the keycode used
@@ -118,6 +119,7 @@ public class IssuesActivity extends SimpleListActivity implements AsyncDelegate 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_issues);
+        this.progressBar = (ProgressBar)findViewById(R.id.progress_bar);
         String userEmail = getIntent().getStringExtra(EXTRA_USER_EMAIL);
         fillSelections();
         GetIssuesTask task = new GetIssuesTask(this, userEmail, PreferencesFacade.getInstance(getApplicationContext()).getServerURL(), this);
@@ -253,5 +255,15 @@ public class IssuesActivity extends SimpleListActivity implements AsyncDelegate 
 
 
         };
+    }
+
+    @Override
+    public void showProgressBar() {
+        this.progressBar.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void hideProgressBar() {
+        this.progressBar.setVisibility(View.GONE);
     }
 }

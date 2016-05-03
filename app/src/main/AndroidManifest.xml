@@ -62,7 +62,7 @@
             android:label="@string/title_activity_scan_menu" />
         <activity
             android:name=".ui.activities.calendar.DevCalendarActivity"
-            android:label="@string/title_activity_dev_calendar"></activity>
+            android:label="@string/title_activity_dev_calendar"/>
     </application>
 
 </manifest>

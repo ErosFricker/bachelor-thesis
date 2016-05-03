@@ -1,8 +1,6 @@
 package ch.uzh.ifi.seal.bachelorthesis.ui.activities.scanning;
 
-import android.app.Activity;
 import android.os.Bundle;
-import android.util.Log;
 
 import com.journeyapps.barcodescanner.CaptureActivity;
 import com.reconinstruments.os.HUDOS;
@@ -13,7 +11,7 @@ import com.reconinstruments.os.hardware.glance.HUDGlanceManager;
  * Created by erosfricker on 22.04.16.
  */
 public class DeveloperCaptureActivity extends CaptureActivity implements GlanceDetectionListener{
-    HUDGlanceManager glanceManager;
+    private HUDGlanceManager glanceManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

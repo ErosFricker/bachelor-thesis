@@ -2,11 +2,9 @@ package ch.uzh.ifi.seal.bachelorthesis.rest;
 
 import android.app.Activity;
 import android.os.AsyncTask;
-import android.util.Log;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -17,7 +15,6 @@ import microsoft.exchange.webservices.data.core.ExchangeService;
 import microsoft.exchange.webservices.data.core.PropertySet;
 import microsoft.exchange.webservices.data.core.enumeration.misc.ExchangeVersion;
 import microsoft.exchange.webservices.data.core.enumeration.property.WellKnownFolderName;
-import microsoft.exchange.webservices.data.core.exception.service.local.ServiceLocalException;
 import microsoft.exchange.webservices.data.core.service.folder.CalendarFolder;
 import microsoft.exchange.webservices.data.core.service.item.Appointment;
 import microsoft.exchange.webservices.data.core.service.item.Item;
@@ -33,9 +30,9 @@ import microsoft.exchange.webservices.data.search.FindItemsResults;
  */
 public class GetCalendarAsyncTask extends AsyncTask<String,Void, ArrayList<ArrayList<Item>>> {
 
-    Activity activity;
-    CalendarAsyncDelegate asyncDelegate;
-    ExchangeService service;
+    private final Activity activity;
+    private final CalendarAsyncDelegate asyncDelegate;
+    private final ExchangeService service;
 
     public GetCalendarAsyncTask(Activity activity, CalendarAsyncDelegate asyncDelegate) {
         this.activity = activity;
@@ -56,13 +53,14 @@ public class GetCalendarAsyncTask extends AsyncTask<String,Void, ArrayList<Array
 
     @Override
     protected ArrayList<ArrayList<Item>> doInBackground(String... params) {
+        this.asyncDelegate.showProgressBar();
         return getCalendar(params[0]);
     }
 
     private synchronized ArrayList<ArrayList<Item>> getCalendar(String username) {
         ArrayList<ArrayList<Item>> result = new ArrayList<>();
-        ArrayList<Item> userAppointments = new ArrayList<Item>();
-        ArrayList<Item> sharedAppointments = new ArrayList<>();
+        ArrayList<Item> userAppointments;
+        ArrayList<Item> sharedAppointments;
         Date startDate = new Date();
         Date endDate = (Date)startDate.clone();
         GregorianCalendar calendar = new GregorianCalendar();
@@ -86,8 +84,8 @@ public class GetCalendarAsyncTask extends AsyncTask<String,Void, ArrayList<Array
     }
 
     private ArrayList<Item> getUserCalendar(Date startDate, Date endDate) {
-        ArrayList<Item> appointments = new ArrayList<Item>();
-        CalendarFolder cf= null;
+        ArrayList<Item> appointments = new ArrayList<>();
+        CalendarFolder cf;
         try {
             cf = CalendarFolder.bind(service, WellKnownFolderName.Calendar);
             FindItemsResults<Appointment> findResults = cf.findAppointments(new CalendarView(startDate, endDate));
@@ -102,8 +100,8 @@ public class GetCalendarAsyncTask extends AsyncTask<String,Void, ArrayList<Array
     }
 
     private ArrayList<Item> getSharedCalendar(Date startDate, Date endDate, String eMail) {
-        ArrayList<Item> appointments = new ArrayList<Item>();
-        CalendarFolder cf= null;
+        ArrayList<Item> appointments = new ArrayList<>();
+        CalendarFolder cf;
         try {
             cf = CalendarFolder.bind(service, new FolderId(WellKnownFolderName.Calendar, new Mailbox(eMail)));
             FindItemsResults<Appointment> findResults = cf.findAppointments(new CalendarView(startDate, endDate));
@@ -121,6 +119,7 @@ public class GetCalendarAsyncTask extends AsyncTask<String,Void, ArrayList<Array
     @Override
     protected void onPostExecute(ArrayList<ArrayList<Item>> appointments) {
         super.onPostExecute(appointments);
+        this.asyncDelegate.hideProgressBar();
         asyncDelegate.onPostExecuteFinished(appointments);
 
     }

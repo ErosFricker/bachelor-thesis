@@ -18,9 +18,8 @@ public class GetUserTask extends BugzillaAsyncTask {
         this.serverURL = serverURL;
     }
 
-    private AsyncDelegate asyncDelegate;
 
-    public void setAsyncDelegate(AsyncDelegate asyncDelegate) {
+    public void setAsyncDelegate(BugzillaAsyncDelegate asyncDelegate) {
         this.asyncDelegate = asyncDelegate;
     }
 
