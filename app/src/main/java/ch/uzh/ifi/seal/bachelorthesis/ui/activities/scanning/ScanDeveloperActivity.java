@@ -64,7 +64,7 @@ public class ScanDeveloperActivity extends ScanActivity implements GlanceDetecti
                 this.progressBar.setVisibility(View.VISIBLE);
                 loadDeveloperName(value);
             }
-        }else if(resultCode == 1000){ //TODO: Extract Constant
+        }else if(resultCode == ScanningConstants.RESULT_CODE_BACK_PRESSED){
             finish();
         }else {
             Log.e("RESULT_CODE", String.valueOf(resultCode));

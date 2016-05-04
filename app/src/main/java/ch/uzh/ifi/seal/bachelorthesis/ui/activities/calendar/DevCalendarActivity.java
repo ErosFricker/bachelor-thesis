@@ -73,7 +73,6 @@ public class DevCalendarActivity extends SimpleListActivity implements CalendarA
                         return 0;
                     }
                 }
-
             };
 
 

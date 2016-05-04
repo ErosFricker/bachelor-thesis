@@ -34,7 +34,6 @@ public class ScanSettingsActivity extends ScanActivity {
         if(value != null) {
             String[] results = value.split(";");
             if (results.length == 6) {
-                //TODO: Check if refactoring possible
                 PreferencesFacade preferencesFacade = PreferencesFacade.getInstance(this);
                 preferencesFacade.saveServerURL(results[0]);
                 preferencesFacade.saveUserName(results[1]);

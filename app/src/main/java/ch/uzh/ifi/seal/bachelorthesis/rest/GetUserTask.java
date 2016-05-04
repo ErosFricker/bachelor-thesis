@@ -26,8 +26,7 @@ public class GetUserTask extends BugzillaAsyncTask {
     @Override
     protected String doInBackground(Void... params) {
         try {
-
-            URL bugsURL = new URL(this.serverURL+"/rest.cgi/user/"+this.email);
+            URL bugsURL = new URL(this.serverURL+BUG_PATH+this.email);
             return callRestService(bugsURL);
 
         } catch (Exception e){
