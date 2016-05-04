@@ -1,4 +1,4 @@
-package ch.uzh.ifi.seal.bachelorthesis.ui;
+package ch.uzh.ifi.seal.bachelorthesis.ui.activities.issues;
 
 import android.content.Intent;
 import android.test.ActivityInstrumentationTestCase2;
