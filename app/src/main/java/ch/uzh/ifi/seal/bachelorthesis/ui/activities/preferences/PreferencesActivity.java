@@ -16,8 +16,9 @@ import ch.uzh.ifi.seal.bachelorthesis.ui.activities.scanning.ScanSettingsActivit
 import ch.uzh.ifi.seal.bachelorthesis.model.preferences.PreferencesFacade;
 
 public class PreferencesActivity extends Activity {
-    private EditText serverURLEditText, usernameEditText, passwordEditText, exchangeURLEditText, exchangeUserEditText, exchangePasswordEditText;
-
+    private EditText serverURLEditText, usernameEditText,
+            passwordEditText, exchangeURLEditText,
+            exchangeUserEditText, exchangePasswordEditText;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -10,7 +10,7 @@ import ch.uzh.ifi.seal.bachelorthesis.ui.activities.preferences.PreferencesActiv
 import ch.uzh.ifi.seal.bachelorthesis.model.preferences.PreferencesFacade;
 import ch.uzh.ifi.seal.bachelorthesis.ui.list.MainMenuItem;
 
-public class MainMenuActivity extends MenuMovementActivity implements GlanceDetectionListener {
+public class MainMenuActivity extends MenuMovementActivity {
 
 
 
@@ -44,8 +44,4 @@ public class MainMenuActivity extends MenuMovementActivity implements GlanceDete
         }
     }
 
-    @Override
-    public void onDetectEvent(boolean b) {
-
-    }
 }

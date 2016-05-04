@@ -12,8 +12,14 @@ public class DateRange {
     private final DateTime end;
 
     public DateRange(DateTime start, DateTime end) {
-        this.start = start;
-        this.end = end;
+        if (start.isBefore(end)){
+            this.start = start;
+            this.end = end;
+        }else {
+            this.start = end;
+            this.end = start;
+        }
+
     }
 
     public DateTime getStart() {
@@ -26,6 +32,10 @@ public class DateRange {
     }
 
 
+    /**
+     * Creates a custom comparator for the {@link DateRange} class.
+     * @return The custom comparator
+     */
     public static Comparator<DateRange> getComparator(){
         return new Comparator<DateRange>() {
             @Override

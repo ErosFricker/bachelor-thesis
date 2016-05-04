@@ -25,7 +25,6 @@ public class ScanDeveloperActivity extends ScanActivity implements GlanceDetecti
     private ScanMode scanMode;
 
     private HUDGlanceManager glanceManager;
-    private TextView glancingTextView;
     private ProgressBar progressBar;
 
     @Override
@@ -38,8 +37,8 @@ public class ScanDeveloperActivity extends ScanActivity implements GlanceDetecti
         this.scanMode = ScanMode.fromInt(scanMode);
         if (this.scanMode == ScanMode.GLANCE) {
             this.scanningIntentIntegrator.setCaptureActivity(DeveloperCaptureActivity.class);
-            this.glancingTextView = (TextView)findViewById(R.id.glancing_textview);
-            this.glancingTextView.setVisibility(View.VISIBLE);
+            TextView glancingTextView = (TextView) findViewById(R.id.glancing_textview);
+            glancingTextView.setVisibility(View.VISIBLE);
 
         }
         startScanning();
@@ -65,7 +64,7 @@ public class ScanDeveloperActivity extends ScanActivity implements GlanceDetecti
                 this.progressBar.setVisibility(View.VISIBLE);
                 loadDeveloperName(value);
             }
-        }else if(resultCode == 1000){
+        }else if(resultCode == ScanningConstants.RESULT_CODE_BACK_PRESSED){
             finish();
         }else {
             Log.e("RESULT_CODE", String.valueOf(resultCode));

@@ -1,4 +1,4 @@
-package ch.uzh.ifi.seal.bachelorthesis.model;
+package ch.uzh.ifi.seal.bachelorthesis.model.issue;
 
 import org.junit.Test;
 

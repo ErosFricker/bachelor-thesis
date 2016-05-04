@@ -29,7 +29,7 @@ public class DeveloperCaptureActivity extends CaptureActivity implements GlanceD
 
     @Override
     public void onBackPressed() {
-        setResult(1000);
+        setResult(ScanningConstants.RESULT_CODE_BACK_PRESSED);
         finish();
     }
 
@@ -42,7 +42,7 @@ public class DeveloperCaptureActivity extends CaptureActivity implements GlanceD
     @Override
     public void onDetectEvent(boolean b) {
         if (!b) {
-            setResult(1001);
+            setResult(ScanningConstants.RESULT_CODE_GLANCING_RETURNED);
             finish();
         }
     }

@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import ch.uzh.ifi.seal.bachelorthesis.R;
 
 /**
+ * Singleton Preferences Facade for accessing Android's {@link SharedPreferences}
  * Created by efric on 04.04.2016.
  */
 public class PreferencesFacade {
