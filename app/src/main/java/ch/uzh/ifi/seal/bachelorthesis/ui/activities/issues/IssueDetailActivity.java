@@ -56,7 +56,11 @@ public class IssueDetailActivity extends SimpleListActivity {
         this.issueDetailInformation.insertInformation("Created On", creationDate);
         this.issueDetailInformation.insertInformation("Severity", currentIssue.getSeverity());
         this.issueDetailInformation.insertInformation("Component", currentIssue.getComponent());
-        String deadline = dateFormat.format(currentIssue.getDeadline());
+
+        String deadline = "N/A";
+        if (currentIssue.getDeadline()!= null) {
+            deadline = dateFormat.format(currentIssue.getDeadline());
+        }
         this.issueDetailInformation.insertInformation("Deadline", deadline);
         String lastChangedTime = dateFormat.format(currentIssue.getLastChangeTime());
         this.issueDetailInformation.insertInformation("Last Changed", lastChangedTime);

@@ -17,9 +17,11 @@ import ch.uzh.ifi.seal.bachelorthesis.model.calendar.DateRange;
 public class CalendarEntryItem extends SimpleListItem {
 
     final DateRange range;
+    private final String summary;
 
-    public CalendarEntryItem(DateRange range) {
+    public CalendarEntryItem(DateRange range, String summary) {
         this.range = range;
+        this.summary = summary;
     }
 
     @Override
@@ -33,7 +35,15 @@ public class CalendarEntryItem extends SimpleListItem {
         if (this.range != null) {
             DateTimeFormatter timeFormat = DateTimeFormat.forPattern("HH:mm");
             String timeText = timeFormat.print(range.getStart()) + " - " + timeFormat.print(range.getEnd());
-            titleTextView.setText(timeText);
+            if (summary!=null) {
+                titleTextView.setText(summary);
+                TextView timeTextView = (TextView)view.findViewById(R.id.time_from_to);
+                timeTextView.setText(timeText);
+
+            }else {
+                 titleTextView.setText(timeText);
+
+            }
 
         }
         else {
