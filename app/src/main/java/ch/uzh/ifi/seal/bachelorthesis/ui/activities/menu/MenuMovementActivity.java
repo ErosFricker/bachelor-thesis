@@ -45,4 +45,8 @@ public abstract class MenuMovementActivity extends CarouselActivity implements M
         }
 
     }
+
+    public HUDMetricsManager getHudMetricsManager() {
+        return hudMetricsManager;
+    }
 }

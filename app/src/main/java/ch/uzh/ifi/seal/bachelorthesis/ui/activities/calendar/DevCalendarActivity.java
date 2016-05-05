@@ -389,5 +389,13 @@ public class DevCalendarActivity extends SimpleListActivity implements CalendarA
         this.progressBar.setVisibility(View.GONE);
 
     }
+
+    public HashMap<Integer, List<Appointment>> getUserAppointmentMap() {
+        return userAppointmentMap;
+    }
+
+    public HashMap<Integer, List<Appointment>> getSharedAppointmentMap() {
+        return sharedAppointmentMap;
+    }
 }
 

@@ -45,7 +45,6 @@ public class MyCalendarActivity extends SimpleListActivity implements CalendarAs
         System.setProperty("android.org.apache.commons.logging.Log",
                 "android.org.apache.commons.logging.impl.SimpleLog");
     }
-    //TODO: Check if this is needed at runtime
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -138,5 +137,9 @@ public class MyCalendarActivity extends SimpleListActivity implements CalendarAs
     public void hideProgressBar() {
         this.progressBar.setVisibility(View.GONE);
 
+    }
+
+    public HUDMetricsManager getMetricsManager() {
+        return metricsManager;
     }
 }
