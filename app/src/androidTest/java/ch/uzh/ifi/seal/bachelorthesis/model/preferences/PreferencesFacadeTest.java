@@ -14,7 +14,7 @@ import ch.uzh.ifi.seal.bachelorthesis.ui.activities.preferences.PreferencesActiv
  */
 public class PreferencesFacadeTest extends ActivityInstrumentationTestCase2<PreferencesActivity> {
 
-    PreferencesFacade preferencesFacade = PreferencesFacade.getInstance(getActivity());
+    PreferencesFacade preferencesFacade;
     public PreferencesFacadeTest() {
         super(PreferencesActivity.class);
     }
@@ -22,6 +22,7 @@ public class PreferencesFacadeTest extends ActivityInstrumentationTestCase2<Pref
     @Override
     public void setUp() throws Exception {
         super.setUp();
+        preferencesFacade = PreferencesFacade.getInstance(getActivity());
 
     }
 

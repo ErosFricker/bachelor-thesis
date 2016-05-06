@@ -35,7 +35,6 @@ configurations.all {
 dependencies {
     testCompile 'junit:junit:4.12'
     compile fileTree(include: ['*.jar'], dir: 'libs')
-    androidTestCompile 'org.mockito:mockito-core:1.8.4'
     compile 'com.reconinstruments.app:recon-application:4.4.0'
     compile 'com.reconinstruments.ui:recon-ui:4.4.0'
     provided 'com.reconinstruments.os:recon-platform:4.4.0'
@@ -49,6 +48,8 @@ dependencies {
     compile 'com.google.code.gson:gson:2.5'
     compile files('libs/ews-android-api.jar')
     compile 'joda-time:joda-time:2.8'
+    androidTestCompile 'org.mockito:mockito-core:1.10.19'
+    androidTestCompile 'com.google.dexmaker:dexmaker-mockito:1.1'
     androidTestCompile 'com.android.support:support-annotations:23.1.1'
     androidTestCompile 'com.android.support.test:runner:0.4.1'
     androidTestCompile 'com.android.support.test:rules:0.4.1'

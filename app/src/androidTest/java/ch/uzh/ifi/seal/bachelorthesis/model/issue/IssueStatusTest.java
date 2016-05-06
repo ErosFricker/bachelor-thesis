@@ -13,7 +13,7 @@ public class IssueStatusTest {
     public void testFromString() throws Exception {
         IssueStatus issueStatus = IssueStatus.fromString("CONFIRMED");
         assertTrue(issueStatus == IssueStatus.CONFIRMED);
-        issueStatus = IssueStatus.fromString("IN PROGRESS");
+        issueStatus = IssueStatus.fromString("IN_PROGRESS");
         assertTrue(issueStatus == IssueStatus.IN_PROGRESS);
         issueStatus = IssueStatus.fromString("RESOLVED");
         assertTrue(issueStatus == IssueStatus.RESOLVED);
