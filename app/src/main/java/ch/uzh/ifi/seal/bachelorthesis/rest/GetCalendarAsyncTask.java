@@ -100,7 +100,9 @@ public class GetCalendarAsyncTask extends AsyncTask<String,Void, ArrayList<Array
             for (Appointment appt : findResults.getItems()) {
                 appointments.add(appt);
             }
-            service.loadPropertiesForItems(appointments, PropertySet.FirstClassProperties);
+            if(appointments.size() > 0) {
+                service.loadPropertiesForItems(appointments, PropertySet.FirstClassProperties);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -123,7 +125,9 @@ public class GetCalendarAsyncTask extends AsyncTask<String,Void, ArrayList<Array
             for (Appointment appt : findResults.getItems()) {
                 appointments.add(appt);
             }
-            service.loadPropertiesForItems(appointments, PropertySet.FirstClassProperties);
+            if (appointments.size() > 0) {
+                service.loadPropertiesForItems(appointments, PropertySet.FirstClassProperties);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
