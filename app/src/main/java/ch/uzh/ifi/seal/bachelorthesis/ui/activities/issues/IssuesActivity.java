@@ -194,11 +194,22 @@ public class IssuesActivity extends SimpleListActivity implements BugzillaAsyncD
 
     @Override
     public void showProgressBar() {
-        this.progressBar.setVisibility(View.VISIBLE);
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                progressBar.setVisibility(View.VISIBLE);
+            }
+        });
+
     }
 
     @Override
     public void hideProgressBar() {
-        this.progressBar.setVisibility(View.GONE);
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                progressBar.setVisibility(View.GONE);
+            }
+        });
     }
 }

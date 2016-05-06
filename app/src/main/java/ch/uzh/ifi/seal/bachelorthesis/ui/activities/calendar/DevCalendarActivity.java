@@ -105,7 +105,7 @@ public class DevCalendarActivity extends SimpleListActivity implements CalendarA
             if (!userAppointmentMap.containsKey(currentDay)) {
                 if(!sharedAppointmentMap.containsKey(currentDay)) { //Both do not have any appointment on that day
                     items.add(new CalendarTitleItem(new DateTime(start.getTime())));
-                    items.add(new CalendarEntryItem(null));
+                    items.add(new CalendarEntryItem(null, null));
                 }else { //The scanned dev does have one or more appointments on that day, but the user not
                     List<Appointment> sharedAppointments = sharedAppointmentMap.get(currentDay);
                     List<DateRange> possibleDates = getPossibleDates(sharedAppointments);
@@ -249,7 +249,7 @@ public class DevCalendarActivity extends SimpleListActivity implements CalendarA
         if (possibleDates.size()!= 0) {
             listItems.add(new CalendarTitleItem(possibleDates.get(0).getStart()));
             for (int i = 0; i < possibleDates.size() - 1; i++) {
-                listItems.add(new CalendarEntryItem(possibleDates.get(i)));
+                listItems.add(new CalendarEntryItem(possibleDates.get(i), null));
                 Calendar calendar = Calendar.getInstance();
                 calendar.setTime(possibleDates.get(i).getStart().toDate());
                 int dayOfCurrent = calendar.get(Calendar.DAY_OF_YEAR);
@@ -262,7 +262,7 @@ public class DevCalendarActivity extends SimpleListActivity implements CalendarA
                 }
             }
             if (possibleDates.size() > 1) {
-                listItems.add(new CalendarEntryItem(possibleDates.get(possibleDates.size() - 1)));
+                listItems.add(new CalendarEntryItem(possibleDates.get(possibleDates.size() - 1), null));
             }
         }
         return listItems;
@@ -388,6 +388,14 @@ public class DevCalendarActivity extends SimpleListActivity implements CalendarA
         this.progressBar.setVisibility(View.GONE);
         this.progressBar.setVisibility(View.GONE);
 
+    }
+
+    public HashMap<Integer, List<Appointment>> getUserAppointmentMap() {
+        return userAppointmentMap;
+    }
+
+    public HashMap<Integer, List<Appointment>> getSharedAppointmentMap() {
+        return sharedAppointmentMap;
     }
 }
 

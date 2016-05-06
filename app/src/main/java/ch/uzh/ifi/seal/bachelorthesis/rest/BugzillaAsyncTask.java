@@ -13,6 +13,7 @@ import java.net.URL;
 abstract class BugzillaAsyncTask extends AsyncTask<Void, Integer, String> {
 
     public static final String BUG_PATH = "/rest.cgi/bug";
+    public static final String USER_PATH = "/rest.cgi/user/";
     final Activity activity;
     BugzillaAsyncDelegate asyncDelegate;
 

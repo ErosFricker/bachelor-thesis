@@ -41,11 +41,10 @@ public class MyCalendarActivity extends SimpleListActivity implements CalendarAs
     private HUDMetricsManager metricsManager;
     private ProgressBar progressBar;
 
-    /*static {
+    static {
         System.setProperty("android.org.apache.commons.logging.Log",
                 "android.org.apache.commons.logging.impl.SimpleLog");
-    }*/
-    //TODO: Check if this is needed at runtime
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -84,10 +83,10 @@ public class MyCalendarActivity extends SimpleListActivity implements CalendarAs
                 DateTime end = new DateTime(appointment.getEnd());
                 DateRange dateRange = new DateRange(start, end);
                 if (appointmentCal.get(Calendar.DAY_OF_YEAR) == lastCal.get(Calendar.DAY_OF_YEAR) && appointmentCal.get(Calendar.YEAR) == lastCal.get(Calendar.YEAR)) {
-                    items.add(new CalendarEntryItem(dateRange));
+                    items.add(new CalendarEntryItem(dateRange, appointment.getSubject()));
                 }else {
                     items.add(new CalendarTitleItem(start));
-                    items.add(new CalendarEntryItem(dateRange));
+                    items.add(new CalendarEntryItem(dateRange, appointment.getSubject()));
                     lastCal.setTime(appointment.getStart());
                 }
             } catch (ServiceLocalException e) {
@@ -131,12 +130,27 @@ public class MyCalendarActivity extends SimpleListActivity implements CalendarAs
 
     @Override
     public void showProgressBar() {
-        this.progressBar.setVisibility(View.VISIBLE);
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                progressBar.setVisibility(View.VISIBLE);
+            }
+        });
+
     }
 
     @Override
     public void hideProgressBar() {
-        this.progressBar.setVisibility(View.GONE);
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                progressBar.setVisibility(View.GONE);
+            }
+        });
 
+    }
+
+    public HUDMetricsManager getMetricsManager() {
+        return metricsManager;
     }
 }

@@ -102,4 +102,59 @@ public class Issue implements Serializable {
         return summary;
     }
 
+    public void setLastChangeTime(Date lastChangeTime) {
+        this.lastChangeTime = lastChangeTime;
+    }
+
+    public void setAssignedToDetail(User assignedToDetail) {
+        this.assignedToDetail = assignedToDetail;
+    }
+
+    public void setCreatorDetail(User creatorDetail) {
+        this.creatorDetail = creatorDetail;
+    }
+
+    public void setSummary(String summary) {
+        this.summary = summary;
+    }
+
+    public void setCreator(String creator) {
+        this.creator = creator;
+    }
+
+    public void setDeadline(Date deadline) {
+        this.deadline = deadline;
+    }
+
+    public void setKeywords(String[] keywords) {
+        this.keywords = keywords;
+    }
+
+    public void setPriority(String priority) {
+        this.priority = priority;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setProduct(String product) {
+        this.product = product;
+    }
+
+    public void setCreationTime(Date creationTime) {
+        this.creationTime = creationTime;
+    }
+
+    public void setSeverity(String severity) {
+        this.severity = severity;
+    }
+
+    public void setComponent(String component) {
+        this.component = component;
+    }
 }

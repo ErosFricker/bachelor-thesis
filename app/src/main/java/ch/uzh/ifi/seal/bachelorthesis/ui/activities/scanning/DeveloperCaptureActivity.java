@@ -46,4 +46,8 @@ public class DeveloperCaptureActivity extends CaptureActivity implements GlanceD
             finish();
         }
     }
+
+    public HUDGlanceManager getGlanceManager() {
+        return glanceManager;
+    }
 }

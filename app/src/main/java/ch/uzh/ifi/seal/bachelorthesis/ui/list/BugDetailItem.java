@@ -28,7 +28,7 @@ public class BugDetailItem extends SimpleListItem {
 
     @Override
     public void onClick(Context context) {
-
+        //Overridden to not do anything on click
     }
 
     @Override
