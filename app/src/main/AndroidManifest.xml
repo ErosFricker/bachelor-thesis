@@ -1,49 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="ch.uzh.ifi.seal.bachelorthesis">
+    package="ch.uzh.ifi.seal.bachelorthesis">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
-            android:allowBackup="true"
-            android:fullBackupContent="true"
-            android:icon="@mipmap/ic_launcher"
+        android:allowBackup="true"
+        android:fullBackupContent="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="false"
+        android:theme="@style/ReconTheme.Fullscreen">
+        <activity
+            android:name=".ui.activities.menu.MainMenuActivity"
             android:label="@string/app_name"
             android:theme="@style/ReconTheme.Fullscreen">
-        <activity
-                android:name=".activities.menu.MainActivity"
-                android:label="@string/app_name"
-                android:theme="@style/ReconTheme.Fullscreen">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
-        <uses-library android:name="com.reconinstruments.os"/>
-        <uses-library android:name="com.reconinstruments.lib"/>
+        <uses-library android:name="com.reconinstruments.os" />
+        <uses-library android:name="com.reconinstruments.lib" />
 
         <activity
-                android:name=".activities.ScanActivity"
-                android:label="@string/title_activity_scanning"
-                android:theme="@style/ReconTheme.Fullscreen"/>
+            android:name=".ui.activities.scanning.ScanSettingsActivity"
+            android:label="@string/title_activity_scanning"
+            android:theme="@style/ReconTheme.Fullscreen" />
         <activity
-                android:name=".activities.IssuesActivity"
-                android:theme="@style/ReconTheme.Fullscreen"/>
+            android:name=".ui.activities.scanning.ScanDeveloperActivity"
+            android:label="@string/title_activity_scanning"
+            android:theme="@style/ReconTheme.Fullscreen" />
         <activity
-                android:name=".activities.ShowBugDetailActivity"
-                android:label="@string/title_activity_show_bug_detail">
-        </activity>
+            android:name=".ui.activities.issues.IssuesActivity"
+            android:theme="@style/ReconTheme.Fullscreen" />
         <activity
-                android:name=".activities.menu.ScanMenuActivity"
-                android:label="@string/title_activity_scanning_menu">
-        </activity>
+            android:name=".ui.activities.issues.IssueDetailActivity"
+            android:label="@string/title_activity_show_bug_detail"
+            android:theme="@style/ReconTheme.Fullscreen" />
         <activity
-                android:name=".activities.CalendarActivity"
-                android:label="@string/title_activity_calendar">
-        </activity>
+            android:name=".ui.activities.menu.DeveloperInformationActivity"
+            android:label="@string/title_activity_scanning_menu"
+            android:theme="@style/ReconTheme.Fullscreen" />
+        <activity
+            android:name=".ui.activities.calendar.MyCalendarActivity"
+            android:label="@string/title_activity_calendar"
+            android:theme="@style/ReconTheme.Fullscreen" />
+        <activity
+            android:name=".ui.activities.preferences.PreferencesActivity"
+            android:label="@string/title_activity_settings"
+            android:theme="@style/ReconTheme.Fullscreen" />
+        <activity
+            android:name=".ui.activities.scanning.DeveloperCaptureActivity"
+            android:label="@string/title_activity_developer_capture" />
+        <activity
+            android:name=".ui.activities.scanning.ScanMenuActivity"
+            android:label="@string/title_activity_scan_menu" />
+        <activity
+            android:name=".ui.activities.calendar.DevCalendarActivity"
+            android:label="@string/title_activity_dev_calendar"/>
     </application>
 
 </manifest>

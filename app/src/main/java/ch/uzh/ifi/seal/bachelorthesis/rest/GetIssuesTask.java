@@ -1,6 +1,8 @@
 package ch.uzh.ifi.seal.bachelorthesis.rest;
 
-import java.net.HttpURLConnection;
+import android.app.Activity;
+import android.widget.Toast;
+
 import java.net.URL;
 
 /**
@@ -10,27 +12,27 @@ public class GetIssuesTask extends BugzillaAsyncTask {
 
     private String userEmail = "";
     private String serverURL = "";
-    private AsyncDelegate asyncDelegate;
 
 
-    public GetIssuesTask(String userEmail, String serverURL){
+    public GetIssuesTask(Activity activity, String userEmail, String serverURL, BugzillaAsyncDelegate asyncDelegate){
+        super(activity);
         this.userEmail = userEmail;
         this.serverURL = serverURL;
+        this.asyncDelegate = asyncDelegate;
     }
 
-    public void setAsyncDelegate(AsyncDelegate asyncDelegate) {
+    public void setAsyncDelegate(BugzillaAsyncDelegate asyncDelegate) {
         this.asyncDelegate = asyncDelegate;
     }
 
     @Override
-    protected String doInBackground(URL... params) {
-        HttpURLConnection connection = null;
-
+    protected String doInBackground(Void... params) {
+        this.asyncDelegate.showProgressBar();
         try {
 
-            String url = this.serverURL+"/rest.cgi/bug";
+            String url = this.serverURL+ BUG_PATH;
             if(!this.userEmail.equals("")){
-                url = "?assigned_to="+this.userEmail;
+                url += "?assigned_to="+this.userEmail;
             }
             URL bugsURL = new URL(url);
 
@@ -48,8 +50,12 @@ public class GetIssuesTask extends BugzillaAsyncTask {
     @Override
     protected void onPostExecute(String s) {
         super.onPostExecute(s);
-        if(this.asyncDelegate!= null) {
-            this.asyncDelegate.onPostExecuteFinished(s, this);
+        this.asyncDelegate.hideProgressBar();
+        if (s == null) {
+            Toast.makeText(this.activity, "The server is not reachable. Please check your WiFi settings.", Toast.LENGTH_LONG).show();
+
+        }else {
+            this.asyncDelegate.onPostExecuteFinished(s);
         }
 
     }

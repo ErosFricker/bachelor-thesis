@@ -1,9 +1,9 @@
 {
-   "bugs" : [
+   "issues" : [
       {
          "alias" : [],
          "assigned_to" : "erosfricker@gmail.com",
-         "assigned_to_detail" : {
+         "assignedToDetail" : {
             "email" : "erosfricker@gmail.com",
             "id" : 1,
             "name" : "erosfricker@gmail.com",
@@ -37,7 +37,7 @@
          "op_sys" : "Mac OS",
          "platform" : "PC",
          "priority" : "---",
-         "product" : "TestProduct",
+         "lastChangeTime" : "TestProduct",
          "qa_contact" : "",
          "resolution" : "",
          "see_also" : [],
@@ -52,7 +52,7 @@
       {
          "alias" : [],
          "assigned_to" : "erosfricker@gmail.com",
-         "assigned_to_detail" : {
+         "assignedToDetail" : {
             "email" : "erosfricker@gmail.com",
             "id" : 1,
             "name" : "erosfricker@gmail.com",
@@ -86,7 +86,7 @@
          "op_sys" : "Mac OS",
          "platform" : "PC",
          "priority" : "---",
-         "product" : "TestProduct",
+         "lastChangeTime" : "TestProduct",
          "qa_contact" : "",
          "resolution" : "",
          "see_also" : [],
@@ -101,7 +101,7 @@
       {
          "alias" : [],
          "assigned_to" : "erosfricker@gmail.com",
-         "assigned_to_detail" : {
+         "assignedToDetail" : {
             "email" : "erosfricker@gmail.com",
             "id" : 1,
             "name" : "erosfricker@gmail.com",
@@ -135,7 +135,7 @@
          "op_sys" : "Mac OS",
          "platform" : "PC",
          "priority" : "---",
-         "product" : "TestProduct",
+         "lastChangeTime" : "TestProduct",
          "qa_contact" : "",
          "resolution" : "",
          "see_also" : [],
@@ -150,7 +150,7 @@
       {
          "alias" : [],
          "assigned_to" : "e.fricker@hotmail.com",
-         "assigned_to_detail" : {
+         "assignedToDetail" : {
             "email" : "e.fricker@hotmail.com",
             "id" : 2,
             "name" : "e.fricker@hotmail.com",
@@ -184,7 +184,7 @@
          "op_sys" : "Mac OS",
          "platform" : "PC",
          "priority" : "---",
-         "product" : "TestProduct",
+         "lastChangeTime" : "TestProduct",
          "qa_contact" : "",
          "resolution" : "",
          "see_also" : [],
@@ -199,7 +199,7 @@
       {
          "alias" : [],
          "assigned_to" : "erosfricker@gmail.com",
-         "assigned_to_detail" : {
+         "assignedToDetail" : {
             "email" : "erosfricker@gmail.com",
             "id" : 1,
             "name" : "erosfricker@gmail.com",
@@ -233,7 +233,7 @@
          "op_sys" : "Mac OS",
          "platform" : "PC",
          "priority" : "---",
-         "product" : "TestProduct",
+         "lastChangeTime" : "TestProduct",
          "qa_contact" : "",
          "resolution" : "",
          "see_also" : [],
@@ -248,7 +248,7 @@
       {
          "alias" : [],
          "assigned_to" : "erosfricker@gmail.com",
-         "assigned_to_detail" : {
+         "assignedToDetail" : {
             "email" : "erosfricker@gmail.com",
             "id" : 1,
             "name" : "erosfricker@gmail.com",
@@ -282,7 +282,7 @@
          "op_sys" : "Mac OS",
          "platform" : "PC",
          "priority" : "---",
-         "product" : "TestProduct",
+         "lastChangeTime" : "TestProduct",
          "qa_contact" : "",
          "resolution" : "",
          "see_also" : [],
@@ -297,7 +297,7 @@
       {
          "alias" : [],
          "assigned_to" : "erosfricker@gmail.com",
-         "assigned_to_detail" : {
+         "assignedToDetail" : {
             "email" : "erosfricker@gmail.com",
             "id" : 1,
             "name" : "erosfricker@gmail.com",
@@ -331,7 +331,7 @@
          "op_sys" : "Mac OS",
          "platform" : "PC",
          "priority" : "---",
-         "product" : "TestProduct",
+         "lastChangeTime" : "TestProduct",
          "qa_contact" : "",
          "resolution" : "",
          "see_also" : [],

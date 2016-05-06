@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:orientation="vertical"
+    tools:context=".ui.activities.preferences.PreferencesActivity">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            style="@style/recon_jet_text_primary"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/setting_server_url"/>
+        <EditText
+            style="@style/recon_jet_text_selectable"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/hint_server_url"
+            android:id="@+id/setting_server_url"
+            android:inputType="textUri"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/setting_username"
+            style="@style/recon_jet_text_primary"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/setting_login"
+            style="@style/recon_jet_text_selectable"
+            android:hint="@string/hint_username" />
+
+        <TextView
+            style="@style/recon_jet_text_primary"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/setting_password"/>
+        <EditText
+            style="@style/recon_jet_text_selectable"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/setting_password"
+            android:inputType="textPassword"
+            android:hint="@string/hint_password"/>
+
+        <TextView
+            style="@style/recon_jet_text_primary"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/setting_exchange_url"/>
+        <EditText
+            style="@style/recon_jet_text_selectable"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/exchange_url"
+            android:inputType="textUri"
+            android:hint="@string/hint_server_url"/>
+
+        <TextView
+            style="@style/recon_jet_text_primary"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/setting_exchange_user"/>
+        <EditText
+            style="@style/recon_jet_text_selectable"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/exchange_user"
+            android:inputType="textEmailAddress"
+            android:hint="@string/hint_username"/>
+
+        <TextView
+            style="@style/recon_jet_text_primary"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/setting_exchange_password"/>
+        <EditText
+            style="@style/recon_jet_text_selectable"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/exchange_password"
+            android:inputType="textPassword"
+            android:hint="@string/hint_password"/>
+
+        <Button
+            style="@style/recon_jet_text_selectable"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/scan_settings_token_button"
+            android:text="@string/scan_settings_button"/>
+        <Button
+            style="@style/recon_jet_text_selectable"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/save"
+            android:id="@+id/save_button"/>
+    </LinearLayout>
+
+</ScrollView>
