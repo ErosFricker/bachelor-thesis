@@ -41,9 +41,11 @@ public class GetUserTask extends BugzillaAsyncTask {
     protected void onPostExecute(String result) {
         super.onPostExecute(result);
         if (result == null) {
-            Toast.makeText(activity, "The server is not reachable. Please check your WiFi settings.", Toast.LENGTH_LONG).show();
-        }else {
-            this.asyncDelegate.onPostExecuteFinished(result);
+            Toast.makeText(activity, "Could not find developer. Please check if the QR code is correct.", Toast.LENGTH_LONG).show();
+
         }
+
+        this.asyncDelegate.onPostExecuteFinished(result);
+
     }
 }

@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -19,6 +20,7 @@ public class PreferencesActivity extends Activity {
     private EditText serverURLEditText, usernameEditText,
             passwordEditText, exchangeURLEditText,
             exchangeUserEditText, exchangePasswordEditText;
+    private CheckBox movementDetectionCheckBox;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,6 +32,7 @@ public class PreferencesActivity extends Activity {
         exchangeURLEditText = (EditText)findViewById(R.id.exchange_url);
         exchangeUserEditText = (EditText)findViewById(R.id.exchange_user);
         exchangePasswordEditText = (EditText)findViewById(R.id.exchange_password);
+        movementDetectionCheckBox = (CheckBox)findViewById(R.id.movement_detection_checkbox);
 
         Button saveButton = (Button) findViewById(R.id.save_button);
         saveButton.setOnClickListener(new View.OnClickListener() {
@@ -55,7 +58,9 @@ public class PreferencesActivity extends Activity {
         serverURLEditText.setText(preferencesFacade.getServerURL());
         usernameEditText.setText(preferencesFacade.getUsername());
         passwordEditText.setText(preferencesFacade.getPassword());
-
+        exchangeURLEditText.setText(preferencesFacade.getExchangeURL());
+        exchangeUserEditText.setText(preferencesFacade.getExchangeUser());
+        exchangePasswordEditText.setText(preferencesFacade.getExchangePassword());
     }
 
     private void scanSettingsToken() {
@@ -71,6 +76,7 @@ public class PreferencesActivity extends Activity {
         String exchangeURL = exchangeURLEditText.getText().toString();
         String exchangeUsername = exchangeUserEditText.getText().toString();
         String exchangePassword = exchangePasswordEditText.getText().toString();
+        boolean movementDetection = movementDetectionCheckBox.isChecked();
         if(areFieldsFilled()) {
             if(checkServerReachable()) {
 
@@ -81,6 +87,7 @@ public class PreferencesActivity extends Activity {
                 preferencesFacade.saveExchangeURL(exchangeURL);
                 preferencesFacade.saveExchangeUser(exchangeUsername);
                 preferencesFacade.saveExchangePassword(exchangePassword);
+                preferencesFacade.saveMovementDetectionOn(movementDetection);
 
                 finish();
             }

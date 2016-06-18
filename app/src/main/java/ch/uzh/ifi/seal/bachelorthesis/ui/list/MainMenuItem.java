@@ -7,7 +7,7 @@ import ch.uzh.ifi.seal.bachelorthesis.model.preferences.PreferencesFacade;
 import ch.uzh.ifi.seal.bachelorthesis.ui.activities.calendar.MyCalendarActivity;
 import ch.uzh.ifi.seal.bachelorthesis.ui.activities.issues.IssuesActivity;
 import ch.uzh.ifi.seal.bachelorthesis.ui.activities.preferences.PreferencesActivity;
-import ch.uzh.ifi.seal.bachelorthesis.ui.activities.scanning.ScanMenuActivity;
+import ch.uzh.ifi.seal.bachelorthesis.ui.activities.menu.ScanMenuActivity;
 
 /**
  * Created by erosfricker on 25.02.16.

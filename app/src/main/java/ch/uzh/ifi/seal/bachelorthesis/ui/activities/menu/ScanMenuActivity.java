@@ -1,4 +1,4 @@
-package ch.uzh.ifi.seal.bachelorthesis.ui.activities.scanning;
+package ch.uzh.ifi.seal.bachelorthesis.ui.activities.menu;
 
 import android.os.Bundle;
 

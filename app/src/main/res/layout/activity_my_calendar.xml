@@ -11,6 +11,13 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:indeterminate="true"/>
+    <TextView
+        android:id="@+id/no_events_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="@string/no_calendar_events"
+        android:visibility="gone"/>
 
     <com.reconinstruments.ui.list.ReconListView
         android:id="@android:id/list"

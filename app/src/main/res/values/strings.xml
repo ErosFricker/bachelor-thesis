@@ -32,4 +32,6 @@
     <string name="title_activity_dev_calendar">DevCalendarActivity</string>
     <string name="entry_all_day">All Day</string>
     <string name="find_meeting_time">Find Meeting Time</string>
+    <string name="setting_movement_detection">Movement Detection</string>
+    <string name="no_calendar_events">No Calendar Events</string>
 </resources>

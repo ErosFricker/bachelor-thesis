@@ -26,6 +26,7 @@ android {
         exclude 'META-INF/NOTICE.txt'
     }
 }
+//Taken from http://stackoverflow.com/questions/32600204/warningconflict-with-dependency-com-android-supportsupport-annotations
 configurations.all {
     resolutionStrategy {
         force 'com.android.support:support-annotations:23.1.1'
@@ -53,6 +54,4 @@ dependencies {
     androidTestCompile 'com.android.support:support-annotations:23.1.1'
     androidTestCompile 'com.android.support.test:runner:0.4.1'
     androidTestCompile 'com.android.support.test:rules:0.4.1'
-    androidTestCompile 'org.hamcrest:hamcrest-library:1.3'
-    androidTestCompile 'com.android.support.test.espresso:espresso-core:2.2.1'
 }

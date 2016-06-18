@@ -46,7 +46,7 @@ public class ScanSettingsActivity extends ScanActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        Toast.makeText(getApplicationContext(), "Token could not be scanned!", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(), "Token could not be scanned. Please check the token's QR code", Toast.LENGTH_LONG).show();
                     }
                 });
             }

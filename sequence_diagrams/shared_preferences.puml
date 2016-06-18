@@ -1,0 +1,70 @@
+@startuml
+
+hide footbox
+
+autonumber
+
+skinparam sequence {
+    ParticipantBorderColor grey
+    ParticipantBackgroundColor #EFEFEF
+    ParticipantFontName Futura
+    ParticipantFontSize 15
+
+    ActorBackgroundColor #EFEFEF
+    ActorBorderColor black
+
+    ArrowFontName Futura
+}
+
+actor User
+participant PreferencesActivity
+participant PreferencesFacade
+participant SharedPreferences.Editor
+
+
+activate User
+User -> PreferencesActivity: saveSettings()
+activate PreferencesActivity
+alt arePreferencesFilled() == true
+    PreferencesActivity -> PreferencesFacade: getInstance(context)
+    activate PreferencesFacade
+    PreferencesFacade --> PreferencesActivity: instance
+    PreferencesActivity -> PreferencesFacade:saveServerURL(serverURL)
+    PreferencesFacade -> SharedPreferences.Editor: putString(serverUrl)
+    activate SharedPreferences.Editor
+    PreferencesFacade -> SharedPreferences.Editor: apply()
+
+    PreferencesActivity -> PreferencesFacade:savePassword(password)
+    PreferencesFacade -> SharedPreferences.Editor: putString(password)
+PreferencesFacade -> SharedPreferences.Editor: apply()
+    PreferencesActivity -> PreferencesFacade:saveUserName(username)
+    PreferencesFacade -> SharedPreferences.Editor: putString(username)
+PreferencesFacade -> SharedPreferences.Editor: apply()
+    PreferencesActivity -> PreferencesFacade:saveExchangeURL(exchangeURL)
+    PreferencesFacade -> SharedPreferences.Editor: putString(exchangeURL)
+PreferencesFacade -> SharedPreferences.Editor: apply()
+    PreferencesActivity -> PreferencesFacade:saveExchangeUser(exchangeUsername)
+    PreferencesFacade -> SharedPreferences.Editor: putString(exchangeUsername)
+PreferencesFacade -> SharedPreferences.Editor: apply()
+    PreferencesActivity -> PreferencesFacade:saveExchangePassword(exchangePassword)
+    PreferencesFacade -> SharedPreferences.Editor: putString(exchangePassword)
+PreferencesFacade -> SharedPreferences.Editor: apply()
+    PreferencesActivity -> PreferencesFacade:saveMovementDetectionOn(movementDetection)
+    PreferencesFacade -> SharedPreferences.Editor: putBoolean(movementDetection)
+PreferencesFacade -> SharedPreferences.Editor: apply()
+    PreferencesActivity -> PreferencesActivity: finish()
+    deactivate SharedPreferences.Editor
+    deactivate PreferencesFacade
+
+
+else arePreferencesFilled() == false
+    PreferencesActivity -> PreferencesActivity:showToast()
+
+end
+
+PreferencesActivity --> User: view
+
+
+
+
+@enduml

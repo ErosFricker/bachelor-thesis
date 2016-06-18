@@ -70,6 +70,7 @@ public abstract class ScanActivity extends Activity implements BugzillaAsyncDele
     @Override
     public void onPostExecuteFinished(String result) {
         if(result == null) {
+            finish();
             return;
         }
         Gson gson = new Gson();

@@ -20,6 +20,7 @@ public class BugzillaConnector {
         this.context = context;
     }
 
+    //Adapted from http://stackoverflow.com/questions/3841317/how-to-see-if-wifi-is-connected-in-android
     public boolean isWifiConnected() {
         ConnectivityManager connectivityManager = (ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
@@ -28,6 +29,7 @@ public class BugzillaConnector {
         return connected && isWifi;
     }
 
+    //Adapted from http://stackoverflow.com/questions/7845743/how-to-check-server-avaibility-in-android
     public boolean isServerReachable() {
         boolean isReachable = false;
         try {

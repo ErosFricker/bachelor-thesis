@@ -5,6 +5,7 @@ import org.joda.time.DateTime;
 import java.util.Comparator;
 
 /**
+ * Custom class representing date ranges for the calendar event functionality.
  * Created by Eros Fricker on 04/28/16.
  */
 public class DateRange {

@@ -40,7 +40,9 @@ public class MyCalendarActivity extends SimpleListActivity implements CalendarAs
     public static final float STANDING_SPEED = 1.0f;
     private HUDMetricsManager metricsManager;
     private ProgressBar progressBar;
+    private TextView noEventsTextView;
 
+    //Taken from https://github.com/alipov/ews-android-api/issues/2
     static {
         System.setProperty("android.org.apache.commons.logging.Log",
                 "android.org.apache.commons.logging.impl.SimpleLog");
@@ -51,7 +53,7 @@ public class MyCalendarActivity extends SimpleListActivity implements CalendarAs
         setContentView(R.layout.activity_my_calendar);
         this.progressBar = (ProgressBar)findViewById(R.id.progress_bar);
         this.metricsManager = (HUDMetricsManager) HUDOS.getHUDService(HUDOS.HUD_METRICS_SERVICE);
-
+        this.noEventsTextView = (TextView)findViewById(R.id.no_events_view);
         GetCalendarAsyncTask task = new GetCalendarAsyncTask(this, this);
         String exchangeUsername =PreferencesFacade.getInstance(this).getExchangeUser();
         task.execute(exchangeUsername);
@@ -117,13 +119,21 @@ public class MyCalendarActivity extends SimpleListActivity implements CalendarAs
         setAdapter(createAdapter(appointments.get(0)));
         getAdapter().notifyDataSetChanged();
         getListView().setEmptyView(null);
+        if (getAdapter().getCount() == 0) {
+            noEventsTextView.setVisibility(View.VISIBLE);
+        }else {
+            noEventsTextView.setVisibility(View.GONE);
+        }
 
 
     }
 
     @Override
     public void onMetricsValueChanged(int id, float value, long l, boolean isValid) {
-        if (value - STANDING_SPEED <= 0) {
+        PreferencesFacade facade = PreferencesFacade.getInstance(this);
+        boolean isMovementDetectionOn = facade.isMovementDetectionOn();
+
+        if (value - STANDING_SPEED <= 0 && isMovementDetectionOn) {
             finish();
         }
     }

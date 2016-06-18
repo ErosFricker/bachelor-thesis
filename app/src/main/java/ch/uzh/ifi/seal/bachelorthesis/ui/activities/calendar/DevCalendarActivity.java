@@ -32,12 +32,13 @@ import microsoft.exchange.webservices.data.core.service.item.Appointment;
 import microsoft.exchange.webservices.data.core.service.item.Item;
 
 public class DevCalendarActivity extends SimpleListActivity implements CalendarAsyncDelegate {
-
+//TODO: Refactor if possible (too big of a class)
     private final HashMap<Integer, List<Appointment>> userAppointmentMap = new HashMap<>();
     private final HashMap<Integer, List<Appointment>> sharedAppointmentMap = new HashMap<>();
     public static final String EXTRA_USER_EMAIL = "developer-name";
     private ProgressBar progressBar;
 
+    //Taken from https://github.com/alipov/ews-android-api/issues/2
     static {
         System.setProperty("android.org.apache.commons.logging.Log",
                 "android.org.apache.commons.logging.impl.SimpleLog");
@@ -62,7 +63,7 @@ public class DevCalendarActivity extends SimpleListActivity implements CalendarA
             return new SimpleArrayAdapter<SimpleListItem>(this, items) {
                 @Override
                 public int getViewTypeCount() {
-                    return 2; //We only have one View Type (custom ones)
+                    return 2;
                 }
 
                 @Override
@@ -82,7 +83,7 @@ public class DevCalendarActivity extends SimpleListActivity implements CalendarA
         return new SimpleArrayAdapter<SimpleListItem>(this, new ArrayList<SimpleListItem>(0)) {
             @Override
             public int getViewTypeCount() {
-                return 2; //We only have one View Type (custom ones)
+                return 2;
             }
 
             @Override
@@ -330,19 +331,6 @@ public class DevCalendarActivity extends SimpleListActivity implements CalendarA
     public void onPostExecuteFinished(ArrayList<ArrayList<Item>> appointments) {
         try {
             fillAppointmentMaps(appointments);
-            Log.d("", "USER APPOINTMENTS =========");
-            for (List<Appointment> l : userAppointmentMap.values()){
-                for (Appointment a : l) {
-                    Log.d("", a.getStart().toString() + " - "+a.getEnd().toString());
-                }
-            }
-            Log.d("", "SHARED APPOINTMENTS =========");
-            for (List<Appointment> l : sharedAppointmentMap.values()){
-                for (Appointment a : l) {
-                    Log.d("", a.getStart().toString() + " - "+a.getEnd().toString());
-                }
-            }
-
         } catch (ServiceLocalException e) {
             e.printStackTrace();
         }

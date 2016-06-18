@@ -19,6 +19,7 @@ public class PreferencesFacade {
     private String KEY_EXCHANGE_URL;
     private String KEY_EXCHANGE_USER;
     private String KEY_EXCHANGE_PASSWORD;
+    private String KEY_MOVEMENT_DETECTION_ON;
 
     private PreferencesFacade() {
     }
@@ -32,6 +33,7 @@ public class PreferencesFacade {
             instance.KEY_EXCHANGE_PASSWORD = "exchange-password";
             instance.KEY_EXCHANGE_URL = "exchange-url";
             instance.KEY_EXCHANGE_USER = "exchange-user";
+            instance.KEY_MOVEMENT_DETECTION_ON = "movement-detection-on";
         }
         return instance;
 
@@ -76,6 +78,12 @@ public class PreferencesFacade {
 
     }
 
+    public void saveMovementDetectionOn(boolean isOn){
+        SharedPreferences.Editor prefEditor = instance.sharedPreferences.edit();
+        prefEditor.putBoolean(instance.KEY_MOVEMENT_DETECTION_ON, isOn);
+        prefEditor.apply();
+    }
+
 
     public String getServerURL() {
         return instance.sharedPreferences.getString(instance.KEY_SERVER_URL, "");
@@ -101,4 +109,9 @@ public class PreferencesFacade {
     public boolean arePreferencesFilled() {
         return !getServerURL().isEmpty() && !getUsername().isEmpty() && !getPassword().isEmpty() && !getExchangePassword().isEmpty() && !getExchangeUser().isEmpty() && !getExchangeURL().isEmpty();
     }
+
+    public boolean isMovementDetectionOn() {
+        return instance.sharedPreferences.getBoolean(instance.KEY_MOVEMENT_DETECTION_ON, false);
+    }
+
 }

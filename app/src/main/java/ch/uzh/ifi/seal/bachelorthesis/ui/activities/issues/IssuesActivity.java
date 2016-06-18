@@ -1,13 +1,9 @@
 package ch.uzh.ifi.seal.bachelorthesis.ui.activities.issues;
 
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.reconinstruments.ui.carousel.CarouselItem;
@@ -18,11 +14,9 @@ import com.reconinstruments.ui.list.SimpleArrayAdapter;
 import com.reconinstruments.ui.list.SimpleListActivity;
 import com.reconinstruments.ui.list.SimpleListItem;
 
-import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.Date;
 import java.util.List;
 
 import ch.uzh.ifi.seal.bachelorthesis.R;
@@ -30,11 +24,10 @@ import ch.uzh.ifi.seal.bachelorthesis.model.issue.Issue;
 import ch.uzh.ifi.seal.bachelorthesis.model.issue.IssueRestResult;
 import ch.uzh.ifi.seal.bachelorthesis.model.issue.IssueStatus;
 import ch.uzh.ifi.seal.bachelorthesis.model.preferences.PreferencesFacade;
-import ch.uzh.ifi.seal.bachelorthesis.ui.list.BugListItem;
-import ch.uzh.ifi.seal.bachelorthesis.ui.list.CheckedSelectionItem;
-import ch.uzh.ifi.seal.bachelorthesis.ui.list.sorting.SortType;
 import ch.uzh.ifi.seal.bachelorthesis.rest.BugzillaAsyncDelegate;
 import ch.uzh.ifi.seal.bachelorthesis.rest.GetIssuesTask;
+import ch.uzh.ifi.seal.bachelorthesis.ui.list.BugListItem;
+import ch.uzh.ifi.seal.bachelorthesis.ui.list.sorting.SortType;
 import ch.uzh.ifi.seal.bachelorthesis.ui.list.sorting.SortingByLastChangeDate;
 import ch.uzh.ifi.seal.bachelorthesis.ui.list.sorting.SortingByName;
 import ch.uzh.ifi.seal.bachelorthesis.ui.list.sorting.SortingByStatus;
@@ -104,10 +97,13 @@ public class IssuesActivity extends SimpleListActivity implements BugzillaAsyncD
 
     private void fillSelections(){
         for (SortType s : SortType.values()){
-            this.selections.add(new CheckedSelectionItem(s.toString(), s.ordinal(), sortingStrategy));
+            this.selections.add(new CheckedSelectionItem(s.toString(), s.ordinal()));
         }
     }
     private final List<CarouselItem> selections = new ArrayList<>();
+
+
+
 
     private void createSelectionDialog() {
         if(sortingDialog == null) {
@@ -115,6 +111,7 @@ public class IssuesActivity extends SimpleListActivity implements BugzillaAsyncD
             sortingDialog = builder.createSelectionDialog(selections, sortingStrategy.getPosition(), new CarouselDialog.OnItemSelectedListener() {
                 @Override
                 public void onItemSelected(CarouselDialog dialog, CarouselItem item, int position) {
+                    sortingDialog.getCarousel().setSelection(position);
                     switch (position) {
                         case 0:
                             sortingStrategy = new SortingByLastChangeDate(position);
@@ -211,5 +208,26 @@ public class IssuesActivity extends SimpleListActivity implements BugzillaAsyncD
                 progressBar.setVisibility(View.GONE);
             }
         });
+    }
+
+    //Adapted from https://github.com/ReconInstruments/sdk/blob/master/Samples/ReconUIExamples/reconUIExamples/src/main/java/com/reconinstruments/ui/examples/dialog/DialogExamples.java
+    public class CheckedSelectionItem extends StandardCarouselItem {
+        final int value;
+        public CheckedSelectionItem(String title,int value) {
+            super(title);
+            this.value = value;
+        }
+
+        @Override
+        public void updateView(View view) {
+            super.updateView(view);
+            view.findViewById(R.id.checkmark).setVisibility(value == sortingStrategy.getPosition() ? View.VISIBLE : View.INVISIBLE);
+        }
+
+        @Override
+        public int getLayoutId() {
+            return R.layout.carousel_item_checkmark;
+        }
+
     }
 }

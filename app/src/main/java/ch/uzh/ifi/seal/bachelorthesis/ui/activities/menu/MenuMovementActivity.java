@@ -9,6 +9,7 @@ import com.reconinstruments.os.metrics.HUDMetricsManager;
 import com.reconinstruments.os.metrics.MetricsValueChangedListener;
 import com.reconinstruments.ui.carousel.CarouselActivity;
 
+import ch.uzh.ifi.seal.bachelorthesis.model.preferences.PreferencesFacade;
 import ch.uzh.ifi.seal.bachelorthesis.ui.activities.calendar.MyCalendarActivity;
 
 /**
@@ -18,23 +19,29 @@ public abstract class MenuMovementActivity extends CarouselActivity implements M
 
     public static final float WALKING_SPEED = 5.0f;
     private HUDMetricsManager hudMetricsManager = null;
+    private boolean shouldDetectMovement = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        this.shouldDetectMovement = PreferencesFacade.getInstance(this).isMovementDetectionOn();
         hudMetricsManager = (HUDMetricsManager) HUDOS.getHUDService(HUDOS.HUD_METRICS_SERVICE);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        hudMetricsManager.registerMetricsListener(this, HUDMetricsID.SPEED_HORIZONTAL);
+        if (shouldDetectMovement) {
+            hudMetricsManager.registerMetricsListener(this, HUDMetricsID.SPEED_HORIZONTAL);
+        }
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        hudMetricsManager.unregisterMetricsListener(this, HUDMetricsID.SPEED_HORIZONTAL);
+        if (shouldDetectMovement) {
+            hudMetricsManager.unregisterMetricsListener(this, HUDMetricsID.SPEED_HORIZONTAL);
+        }
     }
 
     @Override

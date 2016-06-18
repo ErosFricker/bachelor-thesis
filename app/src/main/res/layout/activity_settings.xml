@@ -88,6 +88,23 @@
             android:id="@+id/exchange_password"
             android:inputType="textPassword"
             android:hint="@string/hint_password"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                style="@style/recon_jet_text_primary"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="@string/setting_movement_detection"/>
+            <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/recon_jet_text_selectable"
+                android:id="@+id/movement_detection_checkbox"
+                />
+        </LinearLayout>
 
         <Button
             style="@style/recon_jet_text_selectable"

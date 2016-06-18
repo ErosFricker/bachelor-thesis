@@ -1,0 +1,75 @@
+@startuml
+
+hide footbox
+
+autonumber
+
+skinparam sequence {
+    ParticipantBorderColor grey
+    ParticipantBackgroundColor #EFEFEF
+    ParticipantFontName Futura
+    ParticipantFontSize 15
+
+    ActorBackgroundColor #EFEFEF
+    ActorBorderColor black
+
+    ArrowFontName Futura
+}
+
+actor User
+participant MainMenuItem
+participant BasicMenuItem
+participant Context
+participant PreferencesFacade
+participant IssuesActivity
+participant GetIssuesTask
+participant BugzillaAsyncTask
+participant Gson
+
+activate User
+User -> MainMenuItem:onClick(this)
+activate MainMenuItem
+MainMenuItem -> BasicMenuItem:onClick(context)
+activate BasicMenuItem
+BasicMenuItem -> MainMenuItem:getIntentFromPosition(position)
+MainMenuItem -> PreferencesFacade:getInstance(context)
+activate PreferencesFacade
+PreferencesFacade --> MainMenuItem: instance
+MainMenuItem -> PreferencesFacade: getUserName()
+PreferencesFacade --> MainMenuItem: username
+MainMenuItem --> BasicMenuItem:intent
+ deactivate MainMenuItem
+
+ BasicMenuItem -> Context:startActivity(intent)
+ deactivate BasicMenuItem
+
+ activate Context
+ Context -> IssuesActivity:onCreate()
+ deactivate Context
+ activate IssuesActivity
+ IssuesActivity -> PreferencesFacade:getServerURL()
+ PreferencesFacade --> IssuesActivity:serverURL
+ deactivate PreferencesFacade
+ IssuesActivity -> GetIssuesTask: new GetIssuesTask(this, username, serverURL, this)
+ activate GetIssuesTask
+ GetIssuesTask --> IssuesActivity:instance
+ IssuesActivity -> GetIssuesTask:setAsyncDelegate(this)
+ IssuesActivity -> GetIssuesTask:execute()
+ GetIssuesTask -> BugzillaAsyncTask:callRestService(serverURL)
+ activate BugzillaAsyncTask
+ BugzillaAsyncTask --> GetIssuesTask:result
+ deactivate BugzillaAsyncTask
+ GetIssuesTask -> IssuesActivity:onPostExecuteFinished(result)
+ deactivate GetIssuesTask
+ IssuesActivity -> Gson:fromJson(result)
+ activate Gson
+ Gson --> IssuesActivity: issues
+ deactivate Gson
+ IssuesActivity -> IssuesActivity:refreshAdapter()
+ IssuesActivity --> User:view
+
+
+
+
+
+@enduml

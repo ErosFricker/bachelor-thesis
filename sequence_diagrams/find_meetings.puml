@@ -1,0 +1,80 @@
+@startuml
+
+hide footbox
+
+autonumber
+
+skinparam sequence {
+    ParticipantBorderColor grey
+    ParticipantBackgroundColor #EFEFEF
+    ParticipantFontName Futura
+    ParticipantFontSize 15
+
+    ActorBackgroundColor #EFEFEF
+    ActorBorderColor black
+
+    ArrowFontName Futura
+}
+
+actor User
+participant DeveloperInformationMenuItem
+participant BasicMenuItem
+participant Context
+participant PreferencesFacade
+participant DevCalendarActivity
+participant GetCalendarAsyncTask
+participant ExchangeService
+participant WebCredentials
+participant CalendarFolder
+
+activate User
+User -> DeveloperInformationMenuItem:onClick(this)
+activate DeveloperInformationMenuItem
+DeveloperInformationMenuItem -> BasicMenuItem:onClick(context)
+activate BasicMenuItem
+BasicMenuItem -> DeveloperInformationMenuItem:getIntentFromPosition(position)
+DeveloperInformationMenuItem --> BasicMenuItem:intent
+ BasicMenuItem -> Context:startActivity(intent)
+ activate Context
+ deactivate DeveloperInformationMenuItem
+ deactivate BasicMenuItem
+ Context -> DevCalendarActivity:onCreate()
+ deactivate Context
+ activate DevCalendarActivity
+ DevCalendarActivity -> GetCalendarAsyncTask: new GetCalendarAsyncTask(this, this)
+   activate GetCalendarAsyncTask
+  GetCalendarAsyncTask --> DevCalendarActivity: asyncTaskInstance
+ DevCalendarActivity -> DevCalendarActivity: getIntent().getDeveloperName()
+ DevCalendarActivity -> GetCalendarAsyncTask: execute(developerName)
+
+ deactivate PreferencesFacade
+ GetCalendarAsyncTask -> WebCredentials: new WebCredentials(exchangeUser, exchangePassword)
+ activate WebCredentials
+ WebCredentials --> GetCalendarAsyncTask: credentials
+ deactivate WebCredentials
+ GetCalendarAsyncTask -> ExchangeService: setCredentials(credentials)
+ activate ExchangeService
+ GetCalendarAsyncTask -> ExchangeService: setURL(exchangeURL)
+ GetCalendarAsyncTask -> CalendarFolder:bind(this.service, WellKnownFolderName.Calendar)
+ activate CalendarFolder
+ GetCalendarAsyncTask -> CalendarFolder: findAppointments(startDate, endDate)
+ CalendarFolder --> GetCalendarAsyncTask: appointments
+ deactivate CalendarFolder
+ GetCalendarAsyncTask -> ExchangeService: loadPropertiesForItems(appointments, PropertySet.FirstClassProperties)
+ deactivate ExchangeService
+ GetCalendarAsyncTask -> DevCalendarActivity: onPostExecuteFinished(appointments)
+ deactivate GetCalendarAsyncTask
+DevCalendarActivity -> DevCalendarActivity: fillAppointmentMaps(appointments)
+DevCalendarActivity -> DevCalendarActivity: createAdapter()
+DevCalendarActivity -> DevCalendarActivity: calculateAvailableAppointments()
+DevCalendarActivity --> User: view
+
+
+
+
+
+
+
+
+
+@enduml

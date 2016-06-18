@@ -1,0 +1,90 @@
+@startuml
+
+hide footbox
+
+autonumber
+
+skinparam sequence {
+    ParticipantBorderColor grey
+    ParticipantBackgroundColor #EFEFEF
+    ParticipantFontName Futura
+    ParticipantFontSize 15
+
+    ActorBackgroundColor #EFEFEF
+    ActorBorderColor black
+
+    ArrowFontName Futura
+}
+
+actor User
+participant MainMenuItem
+participant BasicMenuItem
+participant Context
+participant PreferencesFacade
+participant MyCalendarActivity
+participant GetCalendarAsyncTask
+participant ExchangeService
+participant WebCredentials
+participant CalendarFolder
+
+activate User
+User -> MainMenuItem:onClick(this)
+activate MainMenuItem
+MainMenuItem -> BasicMenuItem:onClick(context)
+activate BasicMenuItem
+BasicMenuItem -> MainMenuItem:getIntentFromPosition(position)
+MainMenuItem --> BasicMenuItem:intent
+ BasicMenuItem -> Context:startActivity(intent)
+ activate Context
+ deactivate MainMenuItem
+ deactivate BasicMenuItem
+ Context -> MyCalendarActivity:onCreate()
+ deactivate Context
+ activate MyCalendarActivity
+ MyCalendarActivity -> GetCalendarAsyncTask: new GetCalendarAsyncTask(this, this)
+  activate GetCalendarAsyncTask
+ GetCalendarAsyncTask --> MyCalendarActivity: asyncTaskInstance
+  MyCalendarActivity -> PreferencesFacade:getInstance(this)
+  activate PreferencesFacade
+ PreferencesFacade --> MyCalendarActivity: instance
+ MyCalendarActivity -> PreferencesFacade: getExchangeUser()
+ PreferencesFacade --> MyCalendarActivity: exchangeUserName
+ MyCalendarActivity -> GetCalendarAsyncTask: execute(exchangeUserName)
+ GetCalendarAsyncTask -> PreferencesFacade: getInstance(this.activity)
+ PreferencesFacade --> GetCalendarAsyncTask: prefInstance
+ GetCalendarAsyncTask -> PreferencesFacade: getExchangeURL()
+ PreferencesFacade --> GetCalendarAsyncTask: exchangeURL
+ GetCalendarAsyncTask -> PreferencesFacade: getExchangeUser()
+ PreferencesFacade --> GetCalendarAsyncTask: exchangeUser
+ GetCalendarAsyncTask -> PreferencesFacade: getExchangePassword()
+ PreferencesFacade --> GetCalendarAsyncTask: exchangePassword
+ deactivate PreferencesFacade
+ GetCalendarAsyncTask -> WebCredentials: new WebCredentials(exchangeUser, exchangePassword)
+ activate WebCredentials
+ WebCredentials --> GetCalendarAsyncTask: credentials
+ deactivate WebCredentials
+ GetCalendarAsyncTask -> ExchangeService: setCredentials(credentials)
+ activate ExchangeService
+ GetCalendarAsyncTask -> ExchangeService: setURL(exchangeURL)
+ GetCalendarAsyncTask -> CalendarFolder:bind(this.service, WellKnownFolderName.Calendar)
+ activate CalendarFolder
+ GetCalendarAsyncTask -> CalendarFolder: findAppointments(startDate, endDate)
+ CalendarFolder --> GetCalendarAsyncTask: appointments
+ deactivate CalendarFolder
+ GetCalendarAsyncTask -> ExchangeService: loadPropertiesForItems(appointments, PropertySet.FirstClassProperties)
+ deactivate ExchangeService
+ GetCalendarAsyncTask -> MyCalendarActivity: onPostExecuteFinished(appointments)
+ deactivate GetCalendarAsyncTask
+ MyCalendarActivity -> MyCalendarActivity: setAdapter(createAdapter(appointments))
+ MyCalendarActivity -> MyCalendarActivity: getAdapter().notifyDataSetChanged()
+ MyCalendarActivity --> User: view
+
+
+
+
+
+
+
+
+
+@enduml
