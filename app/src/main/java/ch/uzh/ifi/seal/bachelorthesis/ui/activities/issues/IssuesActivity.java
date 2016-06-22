@@ -86,6 +86,7 @@ public class IssuesActivity extends SimpleListActivity implements BugzillaAsyncD
             this.issueList = issueRestResult.getIssues();
             issueArray = issueRestResult.getIssues().toArray(new Issue[issueRestResult.getIssues().size()]);
             refreshAdapter();
+            sortBugs();
         }
     }
 
