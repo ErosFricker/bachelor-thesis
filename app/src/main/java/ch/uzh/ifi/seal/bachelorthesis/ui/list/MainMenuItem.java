@@ -6,12 +6,8 @@ import android.content.Intent;
 import ch.uzh.ifi.seal.bachelorthesis.model.preferences.PreferencesFacade;
 import ch.uzh.ifi.seal.bachelorthesis.ui.activities.calendar.MyCalendarActivity;
 import ch.uzh.ifi.seal.bachelorthesis.ui.activities.issues.IssuesActivity;
-import ch.uzh.ifi.seal.bachelorthesis.ui.activities.preferences.PreferencesActivity;
 import ch.uzh.ifi.seal.bachelorthesis.ui.activities.menu.ScanMenuActivity;
-
-/**
- * Created by erosfricker on 25.02.16.
- */
+import ch.uzh.ifi.seal.bachelorthesis.ui.activities.preferences.PreferencesActivity;
 
 /**
  * Class for the Main Menu Item, defining the onClick() behaviour
@@ -25,7 +21,7 @@ public class MainMenuItem extends BasicMenuItem {
     @Override
     Intent getIntentFromPosition(Context context, int position) {
         Intent intent = new Intent();
-        switch (position){ //Sets the onClick action of the item based on its position in the menu
+        switch (position) { //Sets the onClick action of the item based on its position in the menu
             case 0:
                 intent = new Intent(context, IssuesActivity.class);
                 PreferencesFacade manager = PreferencesFacade.getInstance(context);

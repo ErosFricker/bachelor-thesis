@@ -2,19 +2,12 @@ package ch.uzh.ifi.seal.bachelorthesis.model.preferences;
 
 import android.test.ActivityInstrumentationTestCase2;
 
-import junit.framework.TestCase;
-
-import java.util.prefs.Preferences;
-
-import ch.uzh.ifi.seal.bachelorthesis.ui.activities.issues.IssueDetailActivity;
 import ch.uzh.ifi.seal.bachelorthesis.ui.activities.preferences.PreferencesActivity;
 
-/**
- * Created by efric on 04.05.2016.
- */
 public class PreferencesFacadeTest extends ActivityInstrumentationTestCase2<PreferencesActivity> {
 
     PreferencesFacade preferencesFacade;
+
     public PreferencesFacadeTest() {
         super(PreferencesActivity.class);
     }

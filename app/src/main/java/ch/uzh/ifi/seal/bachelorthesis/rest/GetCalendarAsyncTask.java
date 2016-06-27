@@ -28,7 +28,7 @@ import microsoft.exchange.webservices.data.search.FindItemsResults;
 /**
  * Created by Eros Fricker on 04/27/16.
  */
-public class GetCalendarAsyncTask extends AsyncTask<String,Void, ArrayList<ArrayList<Item>>> {
+public class GetCalendarAsyncTask extends AsyncTask<String, Void, ArrayList<ArrayList<Item>>> {
 
     private final Activity activity;
     private final CalendarAsyncDelegate asyncDelegate;
@@ -58,7 +58,8 @@ public class GetCalendarAsyncTask extends AsyncTask<String,Void, ArrayList<Array
     }
 
     /**
-     * Thread-safe access to get the calendar events
+     * Access ews-android-api to get the calendar events from Exchange server
+     *
      * @param username The username to get the events from
      * @return A list of event-lists (one for the user and eventually one for the shared calendar events)
      */
@@ -67,7 +68,7 @@ public class GetCalendarAsyncTask extends AsyncTask<String,Void, ArrayList<Array
         ArrayList<Item> userAppointments;
         ArrayList<Item> sharedAppointments;
         Date startDate = new Date();
-        Date endDate = (Date)startDate.clone();
+        Date endDate = (Date) startDate.clone();
         GregorianCalendar calendar = new GregorianCalendar();
         calendar.setTime(endDate);
         calendar.add(Calendar.DATE, 7);
@@ -76,7 +77,7 @@ public class GetCalendarAsyncTask extends AsyncTask<String,Void, ArrayList<Array
         if (username.equals(PreferencesFacade.getInstance(activity).getExchangeUser())) {
             userAppointments = getUserCalendar(startDate, endDate);
             result.add(userAppointments);
-        }else {
+        } else {
             userAppointments = getUserCalendar(startDate, endDate);
             result.add(userAppointments);
             sharedAppointments = getSharedCalendar(startDate, endDate, username);
@@ -87,8 +88,9 @@ public class GetCalendarAsyncTask extends AsyncTask<String,Void, ArrayList<Array
 
     /**
      * Gets the events from the App user (address stored in {@link android.content.SharedPreferences}
+     *
      * @param startDate The start date to get the events
-     * @param endDate The end date to get the events
+     * @param endDate   The end date to get the events
      * @return The events from the App user between startDate and (including) endDate
      */
     private ArrayList<Item> getUserCalendar(Date startDate, Date endDate) {
@@ -100,7 +102,7 @@ public class GetCalendarAsyncTask extends AsyncTask<String,Void, ArrayList<Array
             for (Appointment appt : findResults.getItems()) {
                 appointments.add(appt);
             }
-            if(appointments.size() > 0) {
+            if (appointments.size() > 0) {
                 service.loadPropertiesForItems(appointments, PropertySet.FirstClassProperties);
             }
         } catch (Exception e) {
@@ -111,9 +113,10 @@ public class GetCalendarAsyncTask extends AsyncTask<String,Void, ArrayList<Array
 
     /**
      * Accesses the events from the shared calendar from Microsoft Exchange Server
+     *
      * @param startDate The start date to get the events
-     * @param endDate The end date to get the events
-     * @param eMail The email address of the user to get the events
+     * @param endDate   The end date to get the events
+     * @param eMail     The email address of the user to get the events
      * @return The events in the range from startDate to endDate from the user with the eMail address
      */
     private ArrayList<Item> getSharedCalendar(Date startDate, Date endDate, String eMail) {

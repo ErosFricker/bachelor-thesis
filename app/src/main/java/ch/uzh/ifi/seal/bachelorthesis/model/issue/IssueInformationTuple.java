@@ -1,7 +1,7 @@
 package ch.uzh.ifi.seal.bachelorthesis.model.issue;
 
 /**
- * Created by erosfricker on 26/03/16.
+ * Created by Eros Fricker on 26/03/16.
  */
 public class IssueInformationTuple {
     private final String title;

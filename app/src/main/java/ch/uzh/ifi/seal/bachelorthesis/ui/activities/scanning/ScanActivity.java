@@ -5,28 +5,35 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ProgressBar;
-import ch.uzh.ifi.seal.bachelorthesis.R;
-import ch.uzh.ifi.seal.bachelorthesis.ui.activities.menu.DeveloperInformationActivity;
-import ch.uzh.ifi.seal.bachelorthesis.model.preferences.PreferencesFacade;
-import ch.uzh.ifi.seal.bachelorthesis.model.user.User;
-import ch.uzh.ifi.seal.bachelorthesis.model.user.UserRestResult;
-import ch.uzh.ifi.seal.bachelorthesis.rest.*;
+
 import com.google.gson.Gson;
 import com.google.zxing.integration.android.IntentIntegrator;
 
 import java.util.concurrent.ExecutionException;
 
+import ch.uzh.ifi.seal.bachelorthesis.R;
+import ch.uzh.ifi.seal.bachelorthesis.model.preferences.PreferencesFacade;
+import ch.uzh.ifi.seal.bachelorthesis.model.user.User;
+import ch.uzh.ifi.seal.bachelorthesis.model.user.UserRestResult;
+import ch.uzh.ifi.seal.bachelorthesis.rest.BugzillaAsyncDelegate;
+import ch.uzh.ifi.seal.bachelorthesis.rest.BugzillaAsyncTask;
+import ch.uzh.ifi.seal.bachelorthesis.rest.GetUserTask;
+import ch.uzh.ifi.seal.bachelorthesis.ui.activities.menu.DeveloperInformationActivity;
+
+/**
+ * Created by Eros Fricker on 22.04.16.
+ */
 public abstract class ScanActivity extends Activity implements BugzillaAsyncDelegate {
 
-    private String developerName = "";
     ProgressBar progressBar;
     IntentIntegrator scanningIntentIntegrator;
+    private String developerName = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scanning);
-        this.progressBar = (ProgressBar)findViewById(R.id.progress_bar);
+        this.progressBar = (ProgressBar) findViewById(R.id.progress_bar);
         this.progressBar.setVisibility(View.INVISIBLE);
 
         this.scanningIntentIntegrator = new IntentIntegrator(this);
@@ -34,6 +41,7 @@ public abstract class ScanActivity extends Activity implements BugzillaAsyncDele
         scanningIntentIntegrator.setPrompt("Scanning for QR Codes...");
 
     }
+
     void startScanning() {
         this.scanningIntentIntegrator.initiateScan();
     }
@@ -65,11 +73,12 @@ public abstract class ScanActivity extends Activity implements BugzillaAsyncDele
 
     /**
      * Implementation of delegate method defined in {@link BugzillaAsyncDelegate}
+     *
      * @param result The returned String result from the executing {@link BugzillaAsyncTask} class
      */
     @Override
     public void onPostExecuteFinished(String result) {
-        if(result == null) {
+        if (result == null) {
             finish();
             return;
         }
@@ -80,7 +89,6 @@ public abstract class ScanActivity extends Activity implements BugzillaAsyncDele
         showScanMenu(user.getName());
 
     }
-
 
 
 }

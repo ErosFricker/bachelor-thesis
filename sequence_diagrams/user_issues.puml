@@ -17,56 +17,56 @@ skinparam sequence {
 }
 
 actor User
-participant MainMenuItem
-participant BasicMenuItem
-participant Context
-participant PreferencesFacade
-participant IssuesActivity
-participant GetIssuesTask
-participant BugzillaAsyncTask
-participant Gson
+participant "__:MainMenuItem__"
+participant "__:BasicMenuItem__"
+participant "__:Context__"
+participant "__:PreferencesFacade__"
+participant "__:IssuesActivity__"
+participant "__:GetIssuesTask__"
+participant "__:BugzillaAsyncTask__"
+participant "__:Gson__"
 
 activate User
-User -> MainMenuItem:onClick(this)
-activate MainMenuItem
-MainMenuItem -> BasicMenuItem:onClick(context)
-activate BasicMenuItem
-BasicMenuItem -> MainMenuItem:getIntentFromPosition(position)
-MainMenuItem -> PreferencesFacade:getInstance(context)
-activate PreferencesFacade
-PreferencesFacade --> MainMenuItem: instance
-MainMenuItem -> PreferencesFacade: getUserName()
-PreferencesFacade --> MainMenuItem: username
-MainMenuItem --> BasicMenuItem:intent
- deactivate MainMenuItem
+User -> "__:MainMenuItem__":onClick(this)
+activate "__:MainMenuItem__"
+"__:MainMenuItem__" -> "__:BasicMenuItem__":onClick(context)
+activate "__:BasicMenuItem__"
+"__:BasicMenuItem__" -> "__:MainMenuItem__":getIntentFromPosition(position)
+"__:MainMenuItem__" -> "__:PreferencesFacade__":getInstance(context)
+activate "__:PreferencesFacade__"
+"__:PreferencesFacade__" --> "__:MainMenuItem__": instance
+"__:MainMenuItem__" -> "__:PreferencesFacade__": getUserName()
+"__:PreferencesFacade__" --> "__:MainMenuItem__": username
+"__:MainMenuItem__" --> "__:BasicMenuItem__":intent
+ deactivate "__:MainMenuItem__"
 
- BasicMenuItem -> Context:startActivity(intent)
- deactivate BasicMenuItem
+ "__:BasicMenuItem__" -> "__:Context__":startActivity(intent)
+ deactivate "__:BasicMenuItem__"
 
- activate Context
- Context -> IssuesActivity:onCreate()
- deactivate Context
- activate IssuesActivity
- IssuesActivity -> PreferencesFacade:getServerURL()
- PreferencesFacade --> IssuesActivity:serverURL
- deactivate PreferencesFacade
- IssuesActivity -> GetIssuesTask: new GetIssuesTask(this, username, serverURL, this)
- activate GetIssuesTask
- GetIssuesTask --> IssuesActivity:instance
- IssuesActivity -> GetIssuesTask:setAsyncDelegate(this)
- IssuesActivity -> GetIssuesTask:execute()
- GetIssuesTask -> BugzillaAsyncTask:callRestService(serverURL)
- activate BugzillaAsyncTask
- BugzillaAsyncTask --> GetIssuesTask:result
- deactivate BugzillaAsyncTask
- GetIssuesTask -> IssuesActivity:onPostExecuteFinished(result)
- deactivate GetIssuesTask
- IssuesActivity -> Gson:fromJson(result)
- activate Gson
- Gson --> IssuesActivity: issues
- deactivate Gson
- IssuesActivity -> IssuesActivity:refreshAdapter()
- IssuesActivity --> User:view
+ activate "__:Context__"
+ "__:Context__" -> "__:IssuesActivity__":onCreate()
+ deactivate "__:Context__"
+ activate "__:IssuesActivity__"
+ "__:IssuesActivity__" -> "__:PreferencesFacade__":getServerURL()
+ "__:PreferencesFacade__" --> "__:IssuesActivity__":serverURL
+ deactivate "__:PreferencesFacade__"
+ "__:IssuesActivity__" -> "__:GetIssuesTask__": new GetIssuesTask(this, username, serverURL, this)
+ activate "__:GetIssuesTask__"
+ "__:GetIssuesTask__" --> "__:IssuesActivity__":instance
+ "__:IssuesActivity__" -> "__:GetIssuesTask__":setAsyncDelegate(this)
+ "__:IssuesActivity__" -> "__:GetIssuesTask__":execute()
+ "__:GetIssuesTask__" ->> "__:BugzillaAsyncTask__":callRestService(serverURL)
+ activate "__:BugzillaAsyncTask__"
+ "__:BugzillaAsyncTask__" -->> "__:GetIssuesTask__":result
+ deactivate "__:BugzillaAsyncTask__"
+ "__:GetIssuesTask__" ->> "__:IssuesActivity__":onPostExecuteFinished(result)
+ deactivate "__:GetIssuesTask__"
+ "__:IssuesActivity__" -> "__:Gson__":fromJson(result)
+ activate "__:Gson__"
+ "__:Gson__" --> "__:IssuesActivity__": issues
+ deactivate "__:Gson__"
+ "__:IssuesActivity__" -> "__:IssuesActivity__":refreshAdapter()
+ "__:IssuesActivity__" --> User:view
 
 
 

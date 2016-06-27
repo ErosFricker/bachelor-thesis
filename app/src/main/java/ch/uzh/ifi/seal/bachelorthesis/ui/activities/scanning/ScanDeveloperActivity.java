@@ -30,7 +30,7 @@ public class ScanDeveloperActivity extends ScanActivity implements GlanceDetecti
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.progressBar = (ProgressBar)findViewById(R.id.progress_bar);
+        this.progressBar = (ProgressBar) findViewById(R.id.progress_bar);
 
         glanceManager = (HUDGlanceManager) HUDOS.getHUDService(HUDOS.HUD_GLANCE_SERVICE);
         int scanMode = getIntent().getIntExtra(EXTRA_SCAN_MODE, 0);
@@ -47,7 +47,7 @@ public class ScanDeveloperActivity extends ScanActivity implements GlanceDetecti
     @Override
     protected void onResume() {
         super.onResume();
-        if(this.scanMode == ScanMode.GLANCE) {
+        if (this.scanMode == ScanMode.GLANCE) {
             int event = glanceManager.registerGlanceDetection(this);
             if (event == HUDGlanceManager.EVENT_UNCALIBRATED) {
                 startActivity(new Intent("com.reconinstruments.jetappsettings.glancecalibrate"));
@@ -64,9 +64,9 @@ public class ScanDeveloperActivity extends ScanActivity implements GlanceDetecti
                 this.progressBar.setVisibility(View.VISIBLE);
                 loadDeveloperName(value);
             }
-        }else if(resultCode == ScanningConstants.RESULT_CODE_BACK_PRESSED){
+        } else if (resultCode == ScanningConstants.RESULT_CODE_BACK_PRESSED) {
             finish();
-        }else {
+        } else {
             Log.e("RESULT_CODE", String.valueOf(resultCode));
         }
 

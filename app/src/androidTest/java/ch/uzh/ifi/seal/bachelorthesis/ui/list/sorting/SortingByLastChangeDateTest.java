@@ -4,13 +4,8 @@ import junit.framework.TestCase;
 
 import org.joda.time.DateTime;
 
-import java.util.Date;
-
 import ch.uzh.ifi.seal.bachelorthesis.model.issue.Issue;
 
-/**
- * Created by efric on 04.05.2016.
- */
 public class SortingByLastChangeDateTest extends TestCase {
     public void testCompare() throws Exception {
         Issue first = new Issue();

@@ -7,5 +7,6 @@ import ch.uzh.ifi.seal.bachelorthesis.model.issue.Issue;
  */
 public interface SortingStrategy {
     int compare(Issue first, Issue second);
+
     int getPosition();
 }

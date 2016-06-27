@@ -1,8 +1,8 @@
 package ch.uzh.ifi.seal.bachelorthesis.rest;
 
 /**
- * Created by erosfricker on 24.02.16.
+ * Created by Eros Fricker on 24.02.16.
  */
-public interface BugzillaAsyncDelegate extends BasicAsyncDelegate{
+public interface BugzillaAsyncDelegate extends BasicAsyncDelegate {
     void onPostExecuteFinished(String result);
 }

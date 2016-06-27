@@ -21,7 +21,7 @@ public class DeveloperInformationMenuItem extends BasicMenuItem {
     @Override
     Intent getIntentFromPosition(Context context, int position) {
         Intent intent = new Intent();
-        switch (position){ //Sets the onClick action based on the item's position in the menu
+        switch (position) { //Sets the onClick action based on the item's position in the menu
             case 0:
                 intent = new Intent(context, IssuesActivity.class);
                 intent.putExtra(IssuesActivity.EXTRA_USER_EMAIL, this.emailAddress);

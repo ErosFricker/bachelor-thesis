@@ -33,8 +33,8 @@ public class BugDetailItem extends SimpleListItem {
 
     @Override
     public void updateView(View view) {
-        TextView titleView = (TextView)view.findViewById(R.id.detail_title);
-        TextView detailView = (TextView)view.findViewById(R.id.detail_text);
+        TextView titleView = (TextView) view.findViewById(R.id.detail_title);
+        TextView detailView = (TextView) view.findViewById(R.id.detail_text);
         titleView.setText(this.title);
         detailView.setText(this.description);
     }

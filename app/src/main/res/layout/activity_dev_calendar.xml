@@ -13,6 +13,7 @@
         android:layout_gravity="center"
         android:indeterminate="true"/>
 
+    <!-- Adapted from https://github.com/ReconInstruments/sdk/tree/master/Samples/ReconUIExamples/reconUIExamples/src/main/java/com/reconinstruments/ui/examples/list -->
     <com.reconinstruments.ui.list.ReconListView
         android:id="@android:id/list"
         android:layout_width="match_parent"

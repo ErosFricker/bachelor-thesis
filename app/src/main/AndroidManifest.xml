@@ -24,6 +24,7 @@
             </intent-filter>
         </activity>
 
+        <!--Taken from http://www.reconinstruments.com/developers/develop/building-first-recon-app/adding-the-recon-sdk/ -->
         <uses-library android:name="com.reconinstruments.os" />
         <uses-library android:name="com.reconinstruments.lib" />
 

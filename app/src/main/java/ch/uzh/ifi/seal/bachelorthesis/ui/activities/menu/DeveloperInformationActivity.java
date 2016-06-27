@@ -8,6 +8,8 @@ import ch.uzh.ifi.seal.bachelorthesis.ui.list.DeveloperInformationMenuItem;
 
 /**
  * Activity for the menu view, after a developer has been scanned.
+ * <p/>
+ * Created by Eros Fricker on 25/04/16.
  */
 public class DeveloperInformationActivity extends MenuMovementActivity {
 
@@ -32,6 +34,6 @@ public class DeveloperInformationActivity extends MenuMovementActivity {
      * Notifies the user, that a developer has been found by showing a Toast with the developer's name
      */
     private void notifyDeveloperFound() {
-        Toast.makeText(getApplicationContext(), "Found developer "+this.developerName, Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), "Found developer " + this.developerName, Toast.LENGTH_SHORT).show();
     }
 }

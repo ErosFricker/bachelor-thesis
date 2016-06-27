@@ -1,7 +1,7 @@
 package ch.uzh.ifi.seal.bachelorthesis.ui.list.sorting;
 
 /**
- * Created by erosfricker on 28/03/16.
+ * Created by Eros Fricker on 28/03/16.
  */
 public enum SortType {
     ByChangeDate, ByName, ByStatus;

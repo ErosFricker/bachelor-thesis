@@ -19,7 +19,7 @@ public class ScanMenuItem extends BasicMenuItem {
     Intent getIntentFromPosition(Context context, int position) {
         Intent intent = new Intent(context, ScanDeveloperActivity.class);
 
-        switch (position){ //Sets the onClick action based on the item's position in the menu
+        switch (position) { //Sets the onClick action based on the item's position in the menu
             case 0:
                 intent.putExtra(ScanDeveloperActivity.EXTRA_SCAN_MODE, ScanMode.QUICKSCAN.ordinal());
                 break;

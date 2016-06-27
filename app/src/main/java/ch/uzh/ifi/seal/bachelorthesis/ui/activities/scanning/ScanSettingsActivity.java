@@ -22,7 +22,7 @@ public class ScanSettingsActivity extends ScanActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.progressBar = (ProgressBar)findViewById(R.id.progress_bar);
+        this.progressBar = (ProgressBar) findViewById(R.id.progress_bar);
         this.scanningIntentIntegrator.initiateScan();
     }
 
@@ -31,7 +31,7 @@ public class ScanSettingsActivity extends ScanActivity {
         IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, intent);
         String value = result.getContents();
         this.progressBar.setVisibility(View.VISIBLE);
-        if(value != null) {
+        if (value != null) {
             String[] results = value.split(";");
             if (results.length == 6) {
                 PreferencesFacade preferencesFacade = PreferencesFacade.getInstance(this);
@@ -41,8 +41,7 @@ public class ScanSettingsActivity extends ScanActivity {
                 preferencesFacade.saveExchangeURL(results[3]);
                 preferencesFacade.saveExchangeUser(results[4]);
                 preferencesFacade.saveExchangePassword(results[5]);
-            }
-            else {
+            } else {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {

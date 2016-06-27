@@ -7,14 +7,12 @@ import com.journeyapps.barcodescanner.CaptureActivity;
 
 import org.junit.Test;
 
-import ch.uzh.ifi.seal.bachelorthesis.ui.activities.menu.DeveloperInformationActivity;
 import ch.uzh.ifi.seal.bachelorthesis.model.preferences.PreferencesFacade;
 import ch.uzh.ifi.seal.bachelorthesis.rest.GetUserTask;
+import ch.uzh.ifi.seal.bachelorthesis.ui.activities.menu.DeveloperInformationActivity;
 
-/**
- * Created by Eros Fricker on 04/05/16.
- */
-public class ScanDeveloperActivityTest extends ActivityInstrumentationTestCase2<ScanDeveloperActivity>{
+
+public class ScanDeveloperActivityTest extends ActivityInstrumentationTestCase2<ScanDeveloperActivity> {
 
 
     public ScanDeveloperActivityTest() {
@@ -41,7 +39,6 @@ public class ScanDeveloperActivityTest extends ActivityInstrumentationTestCase2<
         activity.loadDeveloperName("erosfricker@gmail.com");
         getInstrumentation().waitForMonitor(monitor);
     }
-
 
 
     @Test

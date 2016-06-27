@@ -8,12 +8,8 @@ import com.google.gson.Gson;
 import org.junit.Test;
 
 import ch.uzh.ifi.seal.bachelorthesis.model.issue.Issue;
-import ch.uzh.ifi.seal.bachelorthesis.ui.activities.issues.IssueDetailActivity;
 
-/**
- * Created by Eros Fricker on 04/05/16.
- */
-public class IssueDetailActivityTest extends ActivityInstrumentationTestCase2<IssueDetailActivity>{
+public class IssueDetailActivityTest extends ActivityInstrumentationTestCase2<IssueDetailActivity> {
 
     public IssueDetailActivityTest() {
         super(IssueDetailActivity.class);

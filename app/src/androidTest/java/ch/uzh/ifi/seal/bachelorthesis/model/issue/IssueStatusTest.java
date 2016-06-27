@@ -4,9 +4,7 @@ import org.junit.Test;
 
 import static junit.framework.Assert.assertTrue;
 
-/**
- * Created by Eros Fricker on 04/05/16.
- */
+
 public class IssueStatusTest {
 
     @Test

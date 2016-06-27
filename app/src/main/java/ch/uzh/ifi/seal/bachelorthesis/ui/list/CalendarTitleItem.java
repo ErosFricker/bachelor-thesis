@@ -15,8 +15,8 @@ import ch.uzh.ifi.seal.bachelorthesis.R;
  * Created by efric on 03.05.2016.
  */
 public class CalendarTitleItem extends SimpleListItem {
-    TextView dateTextView;
     final DateTime date;
+    TextView dateTextView;
 
 
     public CalendarTitleItem(DateTime date) {
@@ -30,7 +30,7 @@ public class CalendarTitleItem extends SimpleListItem {
 
     @Override
     public void updateView(View view) {
-        dateTextView = (TextView)view.findViewById(R.id.date_title);
+        dateTextView = (TextView) view.findViewById(R.id.date_title);
         DateTimeFormatter dateFormat = DateTimeFormat.forPattern("dd. MMM yyyy");
         dateTextView.setText(dateFormat.print(date));
     }

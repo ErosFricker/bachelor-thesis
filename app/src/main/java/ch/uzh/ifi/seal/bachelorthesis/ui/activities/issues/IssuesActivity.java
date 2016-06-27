@@ -33,39 +33,43 @@ import ch.uzh.ifi.seal.bachelorthesis.ui.list.sorting.SortingByName;
 import ch.uzh.ifi.seal.bachelorthesis.ui.list.sorting.SortingByStatus;
 import ch.uzh.ifi.seal.bachelorthesis.ui.list.sorting.SortingStrategy;
 
+/**
+ * Created by Eros Fricker on 25/04/16.
+ */
 public class IssuesActivity extends SimpleListActivity implements BugzillaAsyncDelegate {
 
+    public static final String EXTRA_USER_EMAIL = "useremail";
+    private final List<CarouselItem> selections = new ArrayList<>();
+    public ProgressBar progressBar;
     private Issue[] issueArray;
     private List<Issue> issueList;
-    public static final String EXTRA_USER_EMAIL = "useremail";
     private CarouselDialog sortingDialog;
     private SortingStrategy sortingStrategy = new SortingByLastChangeDate(0);
-    public ProgressBar progressBar;
 
     public List<Issue> getIssueList() {
         return issueList;
     }
 
     /**
-     * Overrides the onKeyDown method to support swipe left / right gestures.
+     * Overrides the {@link android.view.KeyEvent.Callback} onKeyDown method to support swipe left / right gestures.
+     *
      * @param keyCode the keycode used
-     * @param event the event of the key
+     * @param event   the event of the key
      * @return returns if the key event should be registered
      */
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if(event.getKeyCode() == KeyEvent.KEYCODE_DPAD_LEFT || event.getKeyCode() == KeyEvent.KEYCODE_DPAD_RIGHT){
+        if (event.getKeyCode() == KeyEvent.KEYCODE_DPAD_LEFT || event.getKeyCode() == KeyEvent.KEYCODE_DPAD_RIGHT) {
             createSelectionDialog();
         }
         return super.onKeyDown(keyCode, event);
     }
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_issues);
-        this.progressBar = (ProgressBar)findViewById(R.id.progress_bar);
+        this.progressBar = (ProgressBar) findViewById(R.id.progress_bar);
         String userEmail = getIntent().getStringExtra(EXTRA_USER_EMAIL);
         fillSelections();
         GetIssuesTask task = new GetIssuesTask(this, userEmail, PreferencesFacade.getInstance(getApplicationContext()).getServerURL(), this);
@@ -79,7 +83,7 @@ public class IssuesActivity extends SimpleListActivity implements BugzillaAsyncD
         IssueRestResult issueRestResult = new IssueRestResult();
         try {
             issueRestResult = gson.fromJson(result, IssueRestResult.class);
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         if (issueRestResult != null) {
@@ -90,24 +94,18 @@ public class IssuesActivity extends SimpleListActivity implements BugzillaAsyncD
         }
     }
 
-
-
     public List<CarouselItem> getSelections() {
         return selections;
     }
 
-    private void fillSelections(){
-        for (SortType s : SortType.values()){
+    private void fillSelections() {
+        for (SortType s : SortType.values()) {
             this.selections.add(new CheckedSelectionItem(s.toString(), s.ordinal()));
         }
     }
-    private final List<CarouselItem> selections = new ArrayList<>();
-
-
-
 
     private void createSelectionDialog() {
-        if(sortingDialog == null) {
+        if (sortingDialog == null) {
             DialogBuilder builder = new DialogBuilder(this).setTitle("Sort List");
             sortingDialog = builder.createSelectionDialog(selections, sortingStrategy.getPosition(), new CarouselDialog.OnItemSelectedListener() {
                 @Override
@@ -183,7 +181,7 @@ public class IssuesActivity extends SimpleListActivity implements BugzillaAsyncD
 
             @Override
             public int getItemViewType(int position) {
-                return 2; //Custom Item ViewType
+                return 2;
             }
 
 
@@ -214,7 +212,8 @@ public class IssuesActivity extends SimpleListActivity implements BugzillaAsyncD
     //Adapted from https://github.com/ReconInstruments/sdk/blob/master/Samples/ReconUIExamples/reconUIExamples/src/main/java/com/reconinstruments/ui/examples/dialog/DialogExamples.java
     public class CheckedSelectionItem extends StandardCarouselItem {
         final int value;
-        public CheckedSelectionItem(String title,int value) {
+
+        public CheckedSelectionItem(String title, int value) {
             super(title);
             this.value = value;
         }

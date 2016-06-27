@@ -1,7 +1,6 @@
 package ch.uzh.ifi.seal.bachelorthesis.ui.activities.calendar;
 
 import android.os.Bundle;
-import android.text.method.DateTimeKeyListener;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -16,13 +15,10 @@ import com.reconinstruments.ui.list.SimpleListItem;
 
 import org.joda.time.DateTime;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 import ch.uzh.ifi.seal.bachelorthesis.R;
 import ch.uzh.ifi.seal.bachelorthesis.model.calendar.DateRange;
@@ -35,27 +31,32 @@ import microsoft.exchange.webservices.data.core.exception.service.local.ServiceL
 import microsoft.exchange.webservices.data.core.service.item.Appointment;
 import microsoft.exchange.webservices.data.core.service.item.Item;
 
+/**
+ * Created by Eros Fricker on 25/04/16.
+ */
 public class MyCalendarActivity extends SimpleListActivity implements CalendarAsyncDelegate, MetricsValueChangedListener {
 
     public static final float STANDING_SPEED = 1.0f;
-    private HUDMetricsManager metricsManager;
-    private ProgressBar progressBar;
-    private TextView noEventsTextView;
 
     //Taken from https://github.com/alipov/ews-android-api/issues/2
     static {
         System.setProperty("android.org.apache.commons.logging.Log",
                 "android.org.apache.commons.logging.impl.SimpleLog");
     }
+
+    private HUDMetricsManager metricsManager;
+    private ProgressBar progressBar;
+    private TextView noEventsTextView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_calendar);
-        this.progressBar = (ProgressBar)findViewById(R.id.progress_bar);
+        this.progressBar = (ProgressBar) findViewById(R.id.progress_bar);
         this.metricsManager = (HUDMetricsManager) HUDOS.getHUDService(HUDOS.HUD_METRICS_SERVICE);
-        this.noEventsTextView = (TextView)findViewById(R.id.no_events_view);
+        this.noEventsTextView = (TextView) findViewById(R.id.no_events_view);
         GetCalendarAsyncTask task = new GetCalendarAsyncTask(this, this);
-        String exchangeUsername =PreferencesFacade.getInstance(this).getExchangeUser();
+        String exchangeUsername = PreferencesFacade.getInstance(this).getExchangeUser();
         task.execute(exchangeUsername);
     }
 
@@ -71,13 +72,19 @@ public class MyCalendarActivity extends SimpleListActivity implements CalendarAs
         this.metricsManager.unregisterMetricsListener(this, HUDMetricsID.SPEED_HORIZONTAL);
     }
 
+    /**
+     * Create the {@link SimpleArrayAdapter<SimpleListItem>} from the given calendar appointments
+     *
+     * @param appointments The user's calendar events
+     * @return The array adapter for the {@link android.widget.ListView}
+     */
     private SimpleArrayAdapter<SimpleListItem> createAdapter(List<Item> appointments) {
 
         final List<SimpleListItem> items = new ArrayList<>();
         Calendar lastCal = Calendar.getInstance();
         lastCal.setTime(new Date(0));
         for (Item a : appointments) {
-            Appointment appointment = (Appointment)a;
+            Appointment appointment = (Appointment) a;
             try {
                 Calendar appointmentCal = Calendar.getInstance();
                 appointmentCal.setTime(appointment.getStart());
@@ -86,7 +93,7 @@ public class MyCalendarActivity extends SimpleListActivity implements CalendarAs
                 DateRange dateRange = new DateRange(start, end);
                 if (appointmentCal.get(Calendar.DAY_OF_YEAR) == lastCal.get(Calendar.DAY_OF_YEAR) && appointmentCal.get(Calendar.YEAR) == lastCal.get(Calendar.YEAR)) {
                     items.add(new CalendarEntryItem(dateRange, appointment.getSubject()));
-                }else {
+                } else {
                     items.add(new CalendarTitleItem(start));
                     items.add(new CalendarEntryItem(dateRange, appointment.getSubject()));
                     lastCal.setTime(appointment.getStart());
@@ -106,7 +113,7 @@ public class MyCalendarActivity extends SimpleListActivity implements CalendarAs
             public int getItemViewType(int position) {
                 if (items.get(position) instanceof CalendarEntryItem) { //return the view type based on the class of the item at this position
                     return 1;
-                }else {
+                } else {
                     return 0;
                 }
             }
@@ -121,7 +128,7 @@ public class MyCalendarActivity extends SimpleListActivity implements CalendarAs
         getListView().setEmptyView(null);
         if (getAdapter().getCount() == 0) {
             noEventsTextView.setVisibility(View.VISIBLE);
-        }else {
+        } else {
             noEventsTextView.setVisibility(View.GONE);
         }
 

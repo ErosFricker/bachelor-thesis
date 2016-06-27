@@ -6,9 +6,10 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * Created by erosfricker on 10.02.16.
+ * Created by Eros Fricker on 10.02.16.
  */
-public class IssueRestResult implements Serializable{
+public class IssueRestResult implements Serializable {
+    //Adapted from https://google.github.io/gson/apidocs/com/google/gson/annotations/SerializedName.html
     @SerializedName("bugs")
     private List<Issue> issues;
 

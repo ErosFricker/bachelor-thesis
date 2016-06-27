@@ -17,7 +17,9 @@ buildscript {
 
 allprojects {
     repositories {
+
         jcenter()
+        //Taken from http://www.reconinstruments.com/developers/develop/building-first-recon-app/adding-the-recon-sdk/
         maven {
             url "http://repo.reconinstruments.com/artifactory/libs-release"
         }

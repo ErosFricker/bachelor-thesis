@@ -6,7 +6,7 @@ import android.widget.Toast;
 import java.net.URL;
 
 /**
- * Created by erosfricker on 22/03/16.
+ * Created by Eros Fricker on 22/03/16.
  */
 public class GetUserTask extends BugzillaAsyncTask {
     private String email = "";
@@ -27,10 +27,10 @@ public class GetUserTask extends BugzillaAsyncTask {
     protected String doInBackground(Void... params) {
         try {
 
-            URL bugsURL = new URL(this.serverURL+ USER_PATH +this.email);
+            URL bugsURL = new URL(this.serverURL + USER_PATH + this.email);
             return callRestService(bugsURL);
 
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
 
         }

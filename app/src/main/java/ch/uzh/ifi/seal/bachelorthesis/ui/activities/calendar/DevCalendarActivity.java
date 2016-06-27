@@ -1,18 +1,14 @@
 package ch.uzh.ifi.seal.bachelorthesis.ui.activities.calendar;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 
 import com.reconinstruments.ui.list.SimpleArrayAdapter;
 import com.reconinstruments.ui.list.SimpleListActivity;
 import com.reconinstruments.ui.list.SimpleListItem;
 
 import org.joda.time.DateTime;
-import org.joda.time.format.DateTimeFormat;
-import org.joda.time.format.DateTimeFormatter;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -31,25 +27,29 @@ import microsoft.exchange.webservices.data.core.exception.service.local.ServiceL
 import microsoft.exchange.webservices.data.core.service.item.Appointment;
 import microsoft.exchange.webservices.data.core.service.item.Item;
 
+/**
+ * Created by Eros Fricker on 28/04/16.
+ */
 public class DevCalendarActivity extends SimpleListActivity implements CalendarAsyncDelegate {
-//TODO: Refactor if possible (too big of a class)
-    private final HashMap<Integer, List<Appointment>> userAppointmentMap = new HashMap<>();
-    private final HashMap<Integer, List<Appointment>> sharedAppointmentMap = new HashMap<>();
     public static final String EXTRA_USER_EMAIL = "developer-name";
-    private ProgressBar progressBar;
 
     //Taken from https://github.com/alipov/ews-android-api/issues/2
     static {
         System.setProperty("android.org.apache.commons.logging.Log",
                 "android.org.apache.commons.logging.impl.SimpleLog");
     }
+
+    private final HashMap<Integer, List<Appointment>> userAppointmentMap = new HashMap<>();
+    private final HashMap<Integer, List<Appointment>> sharedAppointmentMap = new HashMap<>();
+    private ProgressBar progressBar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_dev_calendar);
 
-        this.progressBar = (ProgressBar)findViewById(R.id.progress_bar);
+        this.progressBar = (ProgressBar) findViewById(R.id.progress_bar);
 
         GetCalendarAsyncTask task = new GetCalendarAsyncTask(this, this);
         String developerName = getIntent().getStringExtra(EXTRA_USER_EMAIL);
@@ -64,20 +64,20 @@ public class DevCalendarActivity extends SimpleListActivity implements CalendarA
                 @Override
                 public int getViewTypeCount() {
                     return 2;
-                }
+                } //We have two different view types in the list
 
                 @Override
                 public int getItemViewType(int position) {
-                    if (items.get(position) instanceof CalendarEntryItem) {
+                    if (items.get(position) instanceof CalendarEntryItem) { //return the row's view type based on the class of the item
                         return 1;
-                    }else {
+                    } else {
                         return 0;
                     }
                 }
             };
 
 
-        }catch (ServiceLocalException e) {
+        } catch (ServiceLocalException e) {
             e.printStackTrace();
         }
         return new SimpleArrayAdapter<SimpleListItem>(this, new ArrayList<SimpleListItem>(0)) {
@@ -95,19 +95,25 @@ public class DevCalendarActivity extends SimpleListActivity implements CalendarA
 
     }
 
+    /**
+     * Calculate the available appointments from the shared calendar events and the user calendar events
+     *
+     * @return The possible meeting time ranges
+     * @throws ServiceLocalException
+     */
     private List<SimpleListItem> calculateAvailableAppointments() throws ServiceLocalException {
         List<SimpleListItem> items = new ArrayList<>();
         Calendar start = Calendar.getInstance();
-        Calendar end = (Calendar)start.clone();
+        Calendar end = (Calendar) start.clone();
         end.add(Calendar.DAY_OF_YEAR, 7);
 
         for (; start.before(end); start.add(Calendar.DATE, 1)) {
             Integer currentDay = start.get(Calendar.DAY_OF_YEAR);
             if (!userAppointmentMap.containsKey(currentDay)) {
-                if(!sharedAppointmentMap.containsKey(currentDay)) { //Both do not have any appointment on that day
+                if (!sharedAppointmentMap.containsKey(currentDay)) { //Both do not have any appointment on that day
                     items.add(new CalendarTitleItem(new DateTime(start.getTime())));
                     items.add(new CalendarEntryItem(null, null));
-                }else { //The scanned dev does have one or more appointments on that day, but the user not
+                } else { //The scanned dev does have one or more appointments on that day, but the user not
                     List<Appointment> sharedAppointments = sharedAppointmentMap.get(currentDay);
                     List<DateRange> possibleDates = getPossibleDates(sharedAppointments);
                     List<SimpleListItem> currentItems = getListItemsFromPossibleDates(possibleDates);
@@ -115,7 +121,7 @@ public class DevCalendarActivity extends SimpleListActivity implements CalendarA
                         items.add(i);
                     }
                 }
-            }else {
+            } else {
                 if (!sharedAppointmentMap.containsKey(currentDay)) { //The user has one or more appointments on that day, but the scanned dev does not
                     List<Appointment> userAppointments = userAppointmentMap.get(currentDay);
                     List<DateRange> possibleDates = getPossibleDates(userAppointments);
@@ -123,7 +129,7 @@ public class DevCalendarActivity extends SimpleListActivity implements CalendarA
                     for (SimpleListItem i : currentItems) {
                         items.add(i);
                     }
-                }else { //both have one or more appointments on that day
+                } else { //both have one or more appointments on that day
                     List<Appointment> sharedAppointments = sharedAppointmentMap.get(currentDay);
                     List<Appointment> userAppointments = userAppointmentMap.get(currentDay);
                     List<DateRange> possibleUserDates = getPossibleDates(userAppointments);
@@ -141,6 +147,13 @@ public class DevCalendarActivity extends SimpleListActivity implements CalendarA
 
     }
 
+    /**
+     * Calculate the possible meeting dates from the date ranges given
+     *
+     * @param possibleUserDates   The possible date ranges from the user
+     * @param possibleSharedDates The possible date ranges from the shared calendar (i.e. the scanned developer)
+     * @return The possible date ranges which suit both developers
+     */
     private List<DateRange> getPossibleDates(List<DateRange> possibleUserDates, List<DateRange> possibleSharedDates) {
         Collections.sort(possibleUserDates, DateRange.getComparator());
         Collections.sort(possibleSharedDates, DateRange.getComparator());
@@ -158,64 +171,64 @@ public class DevCalendarActivity extends SimpleListActivity implements CalendarA
             DateRange a;
             DateRange b;
 
-            if (isBefore(currentUserDate.getStart(), currentSharedDate.getStart())){
+            if (isBefore(currentUserDate.getStart(), currentSharedDate.getStart())) {
                 a = currentUserDate;
                 b = currentSharedDate;
 
                 if (isBefore(a.getEnd(), b.getStart())) {
-                    i = i+1;
-                }else if (isAfter(a.getEnd(), b.getStart())) {
+                    i = i + 1;
+                } else if (isAfter(a.getEnd(), b.getStart())) {
                     startDate = b.getStart();
                     endDate = a.getEnd();
                     possibleDates.add(new DateRange(startDate, endDate));
-                    i = i+1;
-                }else if (isBefore(b.getEnd(), a.getEnd())) {
+                    i = i + 1;
+                } else if (isBefore(b.getEnd(), a.getEnd())) {
                     startDate = b.getStart();
                     endDate = b.getEnd();
-                    j = j+1;
+                    j = j + 1;
                     possibleDates.add(new DateRange(startDate, endDate));
-                }else if (isEqual(a.getEnd(), b.getEnd())) {
+                } else if (isEqual(a.getEnd(), b.getEnd())) {
                     startDate = b.getStart();
                     endDate = a.getEnd();
                     possibleDates.add(new DateRange(startDate, endDate));
-                    i = i+1;
-                    j = j+1;
+                    i = i + 1;
+                    j = j + 1;
                 } else if (isEqual(a.getEnd(), b.getStart())) {
-                    i = i+1;
+                    i = i + 1;
                 }
 
-            }else if (isAfter(currentUserDate.getStart(), currentSharedDate.getStart())){
+            } else if (isAfter(currentUserDate.getStart(), currentSharedDate.getStart())) {
                 a = currentSharedDate;
                 b = currentUserDate;
                 if (isBefore(a.getEnd(), b.getStart())) {
-                    j = j+1;
-                }else if (isAfter(a.getEnd(), b.getStart())) {
+                    j = j + 1;
+                } else if (isAfter(a.getEnd(), b.getStart())) {
                     startDate = b.getStart();
                     endDate = a.getEnd();
                     possibleDates.add(new DateRange(startDate, endDate));
-                    j = j+1;
-                }else if (isBefore(b.getEnd(), a.getEnd())) {
+                    j = j + 1;
+                } else if (isBefore(b.getEnd(), a.getEnd())) {
                     startDate = b.getStart();
                     endDate = b.getEnd();
-                    i = i+1;
+                    i = i + 1;
                     possibleDates.add(new DateRange(startDate, endDate));
-                }else if (isEqual(a.getEnd(), b.getEnd())) {
+                } else if (isEqual(a.getEnd(), b.getEnd())) {
                     startDate = b.getStart();
                     endDate = a.getEnd();
                     possibleDates.add(new DateRange(startDate, endDate));
-                    i = i+1;
-                    j = j+1;
+                    i = i + 1;
+                    j = j + 1;
                 } else if (isEqual(a.getEnd(), b.getStart())) {
-                    j = j+1;
+                    j = j + 1;
                 }
 
-            }else if (isEqual(currentUserDate.getStart(), currentSharedDate.getStart())) {
+            } else if (isEqual(currentUserDate.getStart(), currentSharedDate.getStart())) {
                 if (isBefore(currentUserDate.getEnd(), currentSharedDate.getEnd())) {
                     startDate = currentUserDate.getStart();
                     endDate = currentUserDate.getEnd();
                     possibleDates.add(new DateRange(startDate, endDate));
                     i++;
-                }else if (isEqual(currentUserDate.getEnd(), currentSharedDate.getEnd())){
+                } else if (isEqual(currentUserDate.getEnd(), currentSharedDate.getEnd())) {
                     startDate = currentUserDate.getStart();
                     endDate = currentSharedDate.getEnd();
                     possibleDates.add(new DateRange(startDate, endDate));
@@ -239,15 +252,24 @@ public class DevCalendarActivity extends SimpleListActivity implements CalendarA
     private boolean isBefore(DateTime date1, DateTime date2) {
         return date1.compareTo(date2) == -1;
     }
+
     private boolean isAfter(DateTime date1, DateTime date2) {
         return date1.compareTo(date2) == 1;
     }
+
     private boolean isEqual(DateTime date1, DateTime date2) {
         return date1.compareTo(date2) == 0;
     }
+
+    /**
+     * Create the list {@link SimpleListItem} instances from the possible date ranges from both developers
+     *
+     * @param possibleDates The list of possible date ranges from the developers
+     * @return The list view items for the date ranges
+     */
     private List<SimpleListItem> getListItemsFromPossibleDates(List<DateRange> possibleDates) {
         List<SimpleListItem> listItems = new ArrayList<>();
-        if (possibleDates.size()!= 0) {
+        if (possibleDates.size() != 0) {
             listItems.add(new CalendarTitleItem(possibleDates.get(0).getStart()));
             for (int i = 0; i < possibleDates.size() - 1; i++) {
                 listItems.add(new CalendarEntryItem(possibleDates.get(i), null));
@@ -287,8 +309,8 @@ public class DevCalendarActivity extends SimpleListActivity implements CalendarA
                 return -1;
             }
         });
-        for (Appointment a :  appointments) { //If there is an all-day event, return an empty list
-            if (a.getIsAllDayEvent()){
+        for (Appointment a : appointments) { //If there is an all-day event, return an empty list
+            if (a.getIsAllDayEvent()) {
                 possibleDates = new ArrayList<>();
                 return possibleDates;
             }
@@ -306,9 +328,9 @@ public class DevCalendarActivity extends SimpleListActivity implements CalendarA
         }
 
         //Add the time between appointments
-        for (int i = 0; i < appointments.size()-1; i++) {
+        for (int i = 0; i < appointments.size() - 1; i++) {
             Appointment startAppointment = appointments.get(i);
-            Appointment endAppointment = appointments.get(i+1);
+            Appointment endAppointment = appointments.get(i + 1);
             if (startAppointment.getEnd().compareTo(endAppointment.getStart()) == -1) {
                 possibleDates.add(new DateRange(new DateTime(startAppointment.getEnd()), new DateTime(endAppointment.getStart())));
             }
@@ -316,7 +338,7 @@ public class DevCalendarActivity extends SimpleListActivity implements CalendarA
         }
         //Add the time between the last appointments and 23:59
         currentAppointment = appointments.get(appointments.size() - 1);
-        possibleCal= Calendar.getInstance();
+        possibleCal = Calendar.getInstance();
         possibleCal.setTime(currentAppointment.getEnd());
         possibleCal.set(Calendar.HOUR_OF_DAY, 23);
         possibleCal.set(Calendar.MINUTE, 59);
@@ -339,13 +361,19 @@ public class DevCalendarActivity extends SimpleListActivity implements CalendarA
         getAdapter().notifyDataSetChanged();
     }
 
+    /**
+     * Fill the {@link HashMap} instance from the appointments retrieved from the Exchange web service
+     *
+     * @param appointments The appointments retrieved from the Exchange web service
+     * @throws ServiceLocalException
+     */
     private void fillAppointmentMaps(ArrayList<ArrayList<Item>> appointments) throws ServiceLocalException {
         for (Item i : appointments.get(0)) {
-            Appointment appointment = (Appointment)i;
+            Appointment appointment = (Appointment) i;
             addToMap(userAppointmentMap, appointment);
         }
         for (Item i : appointments.get(1)) {
-            Appointment appointment = (Appointment)i;
+            Appointment appointment = (Appointment) i;
             addToMap(sharedAppointmentMap, appointment);
         }
     }
@@ -357,7 +385,7 @@ public class DevCalendarActivity extends SimpleListActivity implements CalendarA
 
         if (appointmentMap.containsKey(dayOfYear)) {
             appointmentMap.get(dayOfYear).add(appointment);
-        }else {
+        } else {
             ArrayList<Appointment> list = new ArrayList<>();
             list.add(appointment);
             appointmentMap.put(dayOfYear, list);
@@ -374,16 +402,7 @@ public class DevCalendarActivity extends SimpleListActivity implements CalendarA
     @Override
     public void hideProgressBar() {
         this.progressBar.setVisibility(View.GONE);
-        this.progressBar.setVisibility(View.GONE);
-
     }
 
-    public HashMap<Integer, List<Appointment>> getUserAppointmentMap() {
-        return userAppointmentMap;
-    }
-
-    public HashMap<Integer, List<Appointment>> getSharedAppointmentMap() {
-        return sharedAppointmentMap;
-    }
 }
 

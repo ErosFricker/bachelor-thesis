@@ -6,7 +6,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- * Created by erosfricker on 10.02.16.
+ * Created by Eros Fricker on 10.02.16.
  */
 public class Issue implements Serializable {
 
@@ -15,11 +15,14 @@ public class Issue implements Serializable {
     private Date deadline;
     private String priority;
     private String status;
+
+    //Adapted from https://google.github.io/gson/apidocs/com/google/gson/annotations/SerializedName.html
     @SerializedName("last_change_time")
     private Date lastChangeTime;
     private String description;
     private String product;
 
+    //Adapted from https://google.github.io/gson/apidocs/com/google/gson/annotations/SerializedName.html
     @SerializedName("creation_time")
     private Date creationTime;
     private String severity;
@@ -54,16 +57,17 @@ public class Issue implements Serializable {
         return lastChangeTime;
     }
 
+    public void setLastChangeTime(Date lastChangeTime) {
+        this.lastChangeTime = lastChangeTime;
+    }
 
     public String getCreator() {
         return creator;
     }
 
-
     public Date getDeadline() {
         return deadline;
     }
-
 
     public String getPriority() {
         return priority;
@@ -73,20 +77,16 @@ public class Issue implements Serializable {
         return status;
     }
 
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
     public String getSummary() {
         return summary;
     }
 
-    public void setLastChangeTime(Date lastChangeTime) {
-        this.lastChangeTime = lastChangeTime;
-    }
-
     public void setSummary(String summary) {
         this.summary = summary;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
     }
 
 }

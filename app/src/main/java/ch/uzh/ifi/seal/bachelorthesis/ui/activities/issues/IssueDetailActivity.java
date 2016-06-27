@@ -2,12 +2,6 @@ package ch.uzh.ifi.seal.bachelorthesis.ui.activities.issues;
 
 import android.os.Bundle;
 
-import ch.uzh.ifi.seal.bachelorthesis.R;
-import ch.uzh.ifi.seal.bachelorthesis.model.issue.Issue;
-import ch.uzh.ifi.seal.bachelorthesis.model.issue.IssueDetailInformation;
-import ch.uzh.ifi.seal.bachelorthesis.model.issue.IssueInformationTuple;
-import ch.uzh.ifi.seal.bachelorthesis.ui.list.BugDetailItem;
-
 import com.reconinstruments.ui.list.SimpleArrayAdapter;
 import com.reconinstruments.ui.list.SimpleListActivity;
 import com.reconinstruments.ui.list.SimpleListItem;
@@ -17,8 +11,16 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+import ch.uzh.ifi.seal.bachelorthesis.R;
+import ch.uzh.ifi.seal.bachelorthesis.model.issue.Issue;
+import ch.uzh.ifi.seal.bachelorthesis.model.issue.IssueDetailInformation;
+import ch.uzh.ifi.seal.bachelorthesis.model.issue.IssueInformationTuple;
+import ch.uzh.ifi.seal.bachelorthesis.ui.list.BugDetailItem;
+
 /**
  * Activity class for displaying bug details selected in {@link IssuesActivity}
+ * <p/>
+ * Created by Eros Fricker on 25/04/16.
  */
 public class IssueDetailActivity extends SimpleListActivity {
 
@@ -32,7 +34,7 @@ public class IssueDetailActivity extends SimpleListActivity {
         Issue currentIssue = (Issue) getIntent().getSerializableExtra(EXTRA_SELECTED_BUG);
         extractInformation(currentIssue);
         List<SimpleListItem> listItems = new ArrayList<>();
-        for(IssueInformationTuple issueInformationTuple : issueDetailInformation.getContents()) {
+        for (IssueInformationTuple issueInformationTuple : issueDetailInformation.getContents()) {
             listItems.add(new BugDetailItem(issueInformationTuple.getTitle(), issueInformationTuple.getDescription()));
         }
         setAdapter(createAdapter(listItems));
@@ -40,6 +42,7 @@ public class IssueDetailActivity extends SimpleListActivity {
 
     /**
      * Extracts the detail information from the given issue. This is needed for the creation of the detail list view texts.
+     *
      * @param currentIssue The issue to extract the information
      */
     private void extractInformation(Issue currentIssue) {
@@ -58,7 +61,7 @@ public class IssueDetailActivity extends SimpleListActivity {
         this.issueDetailInformation.insertInformation("Component", currentIssue.getComponent());
 
         String deadline = "N/A";
-        if (currentIssue.getDeadline()!= null) {
+        if (currentIssue.getDeadline() != null) {
             deadline = dateFormat.format(currentIssue.getDeadline());
         }
         this.issueDetailInformation.insertInformation("Deadline", deadline);

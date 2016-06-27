@@ -3,15 +3,15 @@ package ch.uzh.ifi.seal.bachelorthesis.ui.activities.menu;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.reconinstruments.os.hardware.glance.GlanceDetectionListener;
-
 import ch.uzh.ifi.seal.bachelorthesis.R;
-import ch.uzh.ifi.seal.bachelorthesis.ui.activities.preferences.PreferencesActivity;
 import ch.uzh.ifi.seal.bachelorthesis.model.preferences.PreferencesFacade;
+import ch.uzh.ifi.seal.bachelorthesis.ui.activities.preferences.PreferencesActivity;
 import ch.uzh.ifi.seal.bachelorthesis.ui.list.MainMenuItem;
 
+/**
+ * Created by Eros Fricker on 05/02/16.
+ */
 public class MainMenuActivity extends MenuMovementActivity {
-
 
 
     @Override

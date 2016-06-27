@@ -7,7 +7,7 @@ import ch.uzh.ifi.seal.bachelorthesis.R;
 
 /**
  * Singleton Preferences Facade for accessing Android's {@link SharedPreferences}
- * Created by efric on 04.04.2016.
+ * Created by Eros Fricker on 04.04.2016.
  */
 public class PreferencesFacade {
 
@@ -23,7 +23,8 @@ public class PreferencesFacade {
 
     private PreferencesFacade() {
     }
-    public static PreferencesFacade getInstance(Context context){
+
+    public static PreferencesFacade getInstance(Context context) {
         if (instance == null) {
             instance = new PreferencesFacade();
             instance.sharedPreferences = context.getSharedPreferences(context.getString(R.string.shared_preferences_name), Context.MODE_PRIVATE);
@@ -38,6 +39,7 @@ public class PreferencesFacade {
         return instance;
 
     }
+
     public void saveUserName(String userName) {
         SharedPreferences.Editor prefEditor = instance.sharedPreferences.edit();
         prefEditor.putString(instance.KEY_USERNAME, userName);
@@ -64,6 +66,7 @@ public class PreferencesFacade {
         prefEditor.apply();
 
     }
+
     public void saveExchangeUser(String user) {
         SharedPreferences.Editor prefEditor = instance.sharedPreferences.edit();
         prefEditor.putString(instance.KEY_EXCHANGE_USER, user);
@@ -78,7 +81,7 @@ public class PreferencesFacade {
 
     }
 
-    public void saveMovementDetectionOn(boolean isOn){
+    public void saveMovementDetectionOn(boolean isOn) {
         SharedPreferences.Editor prefEditor = instance.sharedPreferences.edit();
         prefEditor.putBoolean(instance.KEY_MOVEMENT_DETECTION_ON, isOn);
         prefEditor.apply();
@@ -92,6 +95,7 @@ public class PreferencesFacade {
     public String getUsername() {
         return instance.sharedPreferences.getString(instance.KEY_USERNAME, "");
     }
+
     public String getPassword() {
         return instance.sharedPreferences.getString(instance.KEY_PASSWORD, "");
     }
@@ -99,9 +103,11 @@ public class PreferencesFacade {
     public String getExchangeURL() {
         return instance.sharedPreferences.getString(instance.KEY_EXCHANGE_URL, "");
     }
+
     public String getExchangeUser() {
         return instance.sharedPreferences.getString(instance.KEY_EXCHANGE_USER, "");
     }
+
     public String getExchangePassword() {
         return instance.sharedPreferences.getString(instance.KEY_EXCHANGE_PASSWORD, "");
     }

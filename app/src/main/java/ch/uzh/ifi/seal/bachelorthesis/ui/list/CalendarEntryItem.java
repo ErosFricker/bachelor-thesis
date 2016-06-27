@@ -35,18 +35,17 @@ public class CalendarEntryItem extends SimpleListItem {
         if (this.range != null) {
             DateTimeFormatter timeFormat = DateTimeFormat.forPattern("HH:mm");
             String timeText = timeFormat.print(range.getStart()) + " - " + timeFormat.print(range.getEnd());
-            if (summary!=null) {
+            if (summary != null) {
                 titleTextView.setText(summary);
-                TextView timeTextView = (TextView)view.findViewById(R.id.time_from_to);
+                TextView timeTextView = (TextView) view.findViewById(R.id.time_from_to);
                 timeTextView.setText(timeText);
 
-            }else {
-                 titleTextView.setText(timeText);
+            } else {
+                titleTextView.setText(timeText);
 
             }
 
-        }
-        else {
+        } else {
             titleTextView.setText(R.string.entry_all_day);
         }
     }

@@ -8,9 +8,6 @@ import ch.uzh.ifi.seal.bachelorthesis.model.preferences.PreferencesFacade;
 import ch.uzh.ifi.seal.bachelorthesis.ui.activities.calendar.MyCalendarActivity;
 import microsoft.exchange.webservices.data.core.service.item.Item;
 
-/**
- * Created by efric on 04.05.2016.
- */
 public class GetCalendarAsyncTaskTest extends ActivityInstrumentationTestCase2<MyCalendarActivity> {
 
     public GetCalendarAsyncTaskTest() {

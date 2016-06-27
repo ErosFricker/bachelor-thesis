@@ -25,7 +25,7 @@
     <string name="save">Save</string>
     <string name="title_activity_developer_capture">DeveloperCaptureActivity</string>
     <string name="title_activity_scan_menu">ScanMenuActivity</string>
-    <string name="glancing_mode">In scanning mode...</string>
+    <string name="glancing_mode">In scanning mode…</string>
     <string name="setting_exchange_url">Exchange Server URL</string>
     <string name="setting_exchange_user">Exchange Username</string>
     <string name="setting_exchange_password">Exchange Password</string>

@@ -7,12 +7,8 @@ import android.view.KeyEvent;
 import org.junit.Test;
 
 import ch.uzh.ifi.seal.bachelorthesis.model.preferences.PreferencesFacade;
-import ch.uzh.ifi.seal.bachelorthesis.ui.activities.issues.IssuesActivity;
 
-/**
- * Created by Eros Fricker on 04/05/16.
- */
-public class IssuesActivityTest extends ActivityInstrumentationTestCase2<IssuesActivity>{
+public class IssuesActivityTest extends ActivityInstrumentationTestCase2<IssuesActivity> {
 
 
     public IssuesActivityTest() {

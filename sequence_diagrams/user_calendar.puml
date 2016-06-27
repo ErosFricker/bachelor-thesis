@@ -17,67 +17,67 @@ skinparam sequence {
 }
 
 actor User
-participant MainMenuItem
-participant BasicMenuItem
-participant Context
-participant PreferencesFacade
-participant MyCalendarActivity
-participant GetCalendarAsyncTask
-participant ExchangeService
-participant WebCredentials
-participant CalendarFolder
+participant "__:MainMenuItem__"
+participant "__:BasicMenuItem__"
+participant "__:Context__"
+participant "__:PreferencesFacade__"
+participant "__:MyCalendarActivity__"
+participant "__:GetCalendarAsyncTask__"
+participant "__:ExchangeService__"
+participant "__:WebCredentials__"
+participant "__:CalendarFolder__"
 
 activate User
-User -> MainMenuItem:onClick(this)
-activate MainMenuItem
-MainMenuItem -> BasicMenuItem:onClick(context)
-activate BasicMenuItem
-BasicMenuItem -> MainMenuItem:getIntentFromPosition(position)
-MainMenuItem --> BasicMenuItem:intent
- BasicMenuItem -> Context:startActivity(intent)
- activate Context
- deactivate MainMenuItem
- deactivate BasicMenuItem
- Context -> MyCalendarActivity:onCreate()
- deactivate Context
- activate MyCalendarActivity
- MyCalendarActivity -> GetCalendarAsyncTask: new GetCalendarAsyncTask(this, this)
-  activate GetCalendarAsyncTask
- GetCalendarAsyncTask --> MyCalendarActivity: asyncTaskInstance
-  MyCalendarActivity -> PreferencesFacade:getInstance(this)
-  activate PreferencesFacade
- PreferencesFacade --> MyCalendarActivity: instance
- MyCalendarActivity -> PreferencesFacade: getExchangeUser()
- PreferencesFacade --> MyCalendarActivity: exchangeUserName
- MyCalendarActivity -> GetCalendarAsyncTask: execute(exchangeUserName)
- GetCalendarAsyncTask -> PreferencesFacade: getInstance(this.activity)
- PreferencesFacade --> GetCalendarAsyncTask: prefInstance
- GetCalendarAsyncTask -> PreferencesFacade: getExchangeURL()
- PreferencesFacade --> GetCalendarAsyncTask: exchangeURL
- GetCalendarAsyncTask -> PreferencesFacade: getExchangeUser()
- PreferencesFacade --> GetCalendarAsyncTask: exchangeUser
- GetCalendarAsyncTask -> PreferencesFacade: getExchangePassword()
- PreferencesFacade --> GetCalendarAsyncTask: exchangePassword
- deactivate PreferencesFacade
- GetCalendarAsyncTask -> WebCredentials: new WebCredentials(exchangeUser, exchangePassword)
- activate WebCredentials
- WebCredentials --> GetCalendarAsyncTask: credentials
- deactivate WebCredentials
- GetCalendarAsyncTask -> ExchangeService: setCredentials(credentials)
- activate ExchangeService
- GetCalendarAsyncTask -> ExchangeService: setURL(exchangeURL)
- GetCalendarAsyncTask -> CalendarFolder:bind(this.service, WellKnownFolderName.Calendar)
- activate CalendarFolder
- GetCalendarAsyncTask -> CalendarFolder: findAppointments(startDate, endDate)
- CalendarFolder --> GetCalendarAsyncTask: appointments
- deactivate CalendarFolder
- GetCalendarAsyncTask -> ExchangeService: loadPropertiesForItems(appointments, PropertySet.FirstClassProperties)
- deactivate ExchangeService
- GetCalendarAsyncTask -> MyCalendarActivity: onPostExecuteFinished(appointments)
- deactivate GetCalendarAsyncTask
- MyCalendarActivity -> MyCalendarActivity: setAdapter(createAdapter(appointments))
- MyCalendarActivity -> MyCalendarActivity: getAdapter().notifyDataSetChanged()
- MyCalendarActivity --> User: view
+User -> "__:MainMenuItem__":onClick(this)
+activate "__:MainMenuItem__"
+"__:MainMenuItem__" -> "__:BasicMenuItem__":onClick(context)
+activate "__:BasicMenuItem__"
+"__:BasicMenuItem__" -> "__:MainMenuItem__":getIntentFromPosition(position)
+"__:MainMenuItem__" --> "__:BasicMenuItem__":intent
+ "__:BasicMenuItem__" -> "__:Context__":startActivity(intent)
+ activate "__:Context__"
+ deactivate "__:MainMenuItem__"
+ deactivate "__:BasicMenuItem__"
+"__:Context__" -> "__:MyCalendarActivity__":onCreate()
+ deactivate "__:Context__"
+ activate "__:MyCalendarActivity__"
+ "__:MyCalendarActivity__" -> "__:GetCalendarAsyncTask__": new GetCalendarAsyncTask(this, this)
+  activate "__:GetCalendarAsyncTask__"
+ "__:GetCalendarAsyncTask__" --> "__:MyCalendarActivity__": asyncTaskInstance
+  "__:MyCalendarActivity__" -> "__:PreferencesFacade__":getInstance(this)
+  activate "__:PreferencesFacade__"
+ "__:PreferencesFacade__" --> "__:MyCalendarActivity__": instance
+ "__:MyCalendarActivity__" -> "__:PreferencesFacade__": getExchangeUser()
+ "__:PreferencesFacade__" --> "__:MyCalendarActivity__": exchangeUserName
+ "__:MyCalendarActivity__" -> "__:GetCalendarAsyncTask__": execute(exchangeUserName)
+ "__:GetCalendarAsyncTask__" ->> "__:PreferencesFacade__": getInstance(this.activity)
+ "__:PreferencesFacade__" -->> "__:GetCalendarAsyncTask__": prefInstance
+ "__:GetCalendarAsyncTask__" ->> "__:PreferencesFacade__": getExchangeURL()
+ "__:PreferencesFacade__" -->> "__:GetCalendarAsyncTask__": exchangeURL
+ "__:GetCalendarAsyncTask__" ->> "__:PreferencesFacade__": getExchangeUser()
+ "__:PreferencesFacade__" -->> "__:GetCalendarAsyncTask__": exchangeUser
+ "__:GetCalendarAsyncTask__" ->> "__:PreferencesFacade__": getExchangePassword()
+ "__:PreferencesFacade__" -->> "__:GetCalendarAsyncTask__": exchangePassword
+ deactivate "__:PreferencesFacade__"
+ "__:GetCalendarAsyncTask__" ->> "__:WebCredentials__": new WebCredentials(exchangeUser, exchangePassword)
+ activate "__:WebCredentials__"
+ "__:WebCredentials__" -->> "__:GetCalendarAsyncTask__": credentials
+ deactivate "__:WebCredentials__"
+ "__:GetCalendarAsyncTask__" ->> "__:ExchangeService__": setCredentials(credentials)
+ activate "__:ExchangeService__"
+ "__:GetCalendarAsyncTask__" ->> "__:ExchangeService__": setURL(exchangeURL)
+ "__:GetCalendarAsyncTask__" ->> "__:CalendarFolder__":bind(this.service, WellKnownFolderName.Calendar)
+ activate "__:CalendarFolder__"
+ "__:GetCalendarAsyncTask__" ->> "__:CalendarFolder__": findAppointments(startDate, endDate)
+ "__:CalendarFolder__" -->> "__:GetCalendarAsyncTask__": appointments
+ deactivate "__:CalendarFolder__"
+ "__:GetCalendarAsyncTask__" ->> "__:ExchangeService__": loadPropertiesForItems(appointments, PropertySet.FirstClassProperties)
+ deactivate "__:ExchangeService__"
+ "__:GetCalendarAsyncTask__" ->> "__:MyCalendarActivity__": onPostExecuteFinished(appointments)
+ deactivate "__:GetCalendarAsyncTask__"
+ "__:MyCalendarActivity__" -> "__:MyCalendarActivity__": setAdapter(createAdapter(appointments))
+ "__:MyCalendarActivity__" -> "__:MyCalendarActivity__": getAdapter().notifyDataSetChanged()
+ "__:MyCalendarActivity__" --> User: view
 
 
 

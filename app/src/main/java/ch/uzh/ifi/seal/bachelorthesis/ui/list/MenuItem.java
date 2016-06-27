@@ -1,7 +1,8 @@
 package ch.uzh.ifi.seal.bachelorthesis.ui.list;
 
-import ch.uzh.ifi.seal.bachelorthesis.R;
 import com.reconinstruments.ui.carousel.StandardCarouselItem;
+
+import ch.uzh.ifi.seal.bachelorthesis.R;
 
 /**
  * Created by erosfricker on 21/03/16.
@@ -9,11 +10,10 @@ import com.reconinstruments.ui.carousel.StandardCarouselItem;
 abstract class MenuItem extends StandardCarouselItem {
     Integer position = -1;
 
-    MenuItem(String title, Integer image, Integer position){
+    MenuItem(String title, Integer image, Integer position) {
         super(title, image);
         this.position = position;
     }
-
 
 
     @Override

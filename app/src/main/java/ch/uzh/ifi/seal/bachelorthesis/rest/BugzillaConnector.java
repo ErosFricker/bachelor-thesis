@@ -16,13 +16,14 @@ import ch.uzh.ifi.seal.bachelorthesis.model.preferences.PreferencesFacade;
 public class BugzillaConnector {
 
     private final Context context;
+
     public BugzillaConnector(Context context) {
         this.context = context;
     }
 
     //Adapted from http://stackoverflow.com/questions/3841317/how-to-see-if-wifi-is-connected-in-android
     public boolean isWifiConnected() {
-        ConnectivityManager connectivityManager = (ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
         boolean connected = networkInfo.isConnected();
         boolean isWifi = networkInfo.getType() == ConnectivityManager.TYPE_WIFI;
@@ -38,17 +39,19 @@ public class BugzillaConnector {
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             int code = connection.getResponseCode();
 
-            if(code == HttpURLConnection.HTTP_OK) {
+            if (code == HttpURLConnection.HTTP_OK) {
                 isReachable = true;
             }
-        }catch (Exception exception) {
+        } catch (Exception exception) {
             exception.printStackTrace();
         }
         return isReachable;
     }
+
+    //Adapted from http://stackoverflow.com/questions/7845743/how-to-check-server-avaibility-in-android
     public boolean isServerReachable(String serverURL) throws IOException {
         URL url = new URL(serverURL);
-        HttpURLConnection connection = (HttpURLConnection)url.openConnection();
+        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         int code = connection.getResponseCode();
         return code == HttpURLConnection.HTTP_OK;
     }

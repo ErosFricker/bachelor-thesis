@@ -17,52 +17,52 @@ skinparam sequence {
 }
 
 actor User
-participant PreferencesActivity
-participant PreferencesFacade
-participant SharedPreferences.Editor
+participant "__:PreferencesActivity__"
+participant "__:PreferencesFacade__"
+participant "__:SharedPreferences.Editor__"
 
 
 activate User
-User -> PreferencesActivity: saveSettings()
-activate PreferencesActivity
+User -> "__:PreferencesActivity__": saveSettings()
+activate "__:PreferencesActivity__"
 alt arePreferencesFilled() == true
-    PreferencesActivity -> PreferencesFacade: getInstance(context)
-    activate PreferencesFacade
-    PreferencesFacade --> PreferencesActivity: instance
-    PreferencesActivity -> PreferencesFacade:saveServerURL(serverURL)
-    PreferencesFacade -> SharedPreferences.Editor: putString(serverUrl)
-    activate SharedPreferences.Editor
-    PreferencesFacade -> SharedPreferences.Editor: apply()
+    "__:PreferencesActivity__" -> "__:PreferencesFacade__": getInstance(context)
+    activate "__:PreferencesFacade__"
+    "__:PreferencesFacade__" --> "__:PreferencesActivity__": instance
+    "__:PreferencesActivity__" -> "__:PreferencesFacade__":saveServerURL(serverURL)
+    "__:PreferencesFacade__" -> "__:SharedPreferences.Editor__": putString(serverUrl)
+    activate "__:SharedPreferences.Editor__"
+    "__:PreferencesFacade__" -> "__:SharedPreferences.Editor__": apply()
 
-    PreferencesActivity -> PreferencesFacade:savePassword(password)
-    PreferencesFacade -> SharedPreferences.Editor: putString(password)
-PreferencesFacade -> SharedPreferences.Editor: apply()
-    PreferencesActivity -> PreferencesFacade:saveUserName(username)
-    PreferencesFacade -> SharedPreferences.Editor: putString(username)
-PreferencesFacade -> SharedPreferences.Editor: apply()
-    PreferencesActivity -> PreferencesFacade:saveExchangeURL(exchangeURL)
-    PreferencesFacade -> SharedPreferences.Editor: putString(exchangeURL)
-PreferencesFacade -> SharedPreferences.Editor: apply()
-    PreferencesActivity -> PreferencesFacade:saveExchangeUser(exchangeUsername)
-    PreferencesFacade -> SharedPreferences.Editor: putString(exchangeUsername)
-PreferencesFacade -> SharedPreferences.Editor: apply()
-    PreferencesActivity -> PreferencesFacade:saveExchangePassword(exchangePassword)
-    PreferencesFacade -> SharedPreferences.Editor: putString(exchangePassword)
-PreferencesFacade -> SharedPreferences.Editor: apply()
-    PreferencesActivity -> PreferencesFacade:saveMovementDetectionOn(movementDetection)
-    PreferencesFacade -> SharedPreferences.Editor: putBoolean(movementDetection)
-PreferencesFacade -> SharedPreferences.Editor: apply()
-    PreferencesActivity -> PreferencesActivity: finish()
-    deactivate SharedPreferences.Editor
-    deactivate PreferencesFacade
+    "__:PreferencesActivity__" -> "__:PreferencesFacade__":savePassword(password)
+    "__:PreferencesFacade__" -> "__:SharedPreferences.Editor__": putString(password)
+"__:PreferencesFacade__" -> "__:SharedPreferences.Editor__": apply()
+    "__:PreferencesActivity__" -> "__:PreferencesFacade__":saveUserName(username)
+    "__:PreferencesFacade__" -> "__:SharedPreferences.Editor__": putString(username)
+"__:PreferencesFacade__" -> "__:SharedPreferences.Editor__": apply()
+    "__:PreferencesActivity__" -> "__:PreferencesFacade__":saveExchangeURL(exchangeURL)
+    "__:PreferencesFacade__" -> "__:SharedPreferences.Editor__": putString(exchangeURL)
+"__:PreferencesFacade__" -> "__:SharedPreferences.Editor__": apply()
+    "__:PreferencesActivity__" -> "__:PreferencesFacade__":saveExchangeUser(exchangeUsername)
+    "__:PreferencesFacade__" -> "__:SharedPreferences.Editor__": putString(exchangeUsername)
+"__:PreferencesFacade__" -> "__:SharedPreferences.Editor__": apply()
+    "__:PreferencesActivity__" -> "__:PreferencesFacade__":saveExchangePassword(exchangePassword)
+    "__:PreferencesFacade__" -> "__:SharedPreferences.Editor__": putString(exchangePassword)
+"__:PreferencesFacade__" -> "__:SharedPreferences.Editor__": apply()
+    "__:PreferencesActivity__" -> "__:PreferencesFacade__":saveMovementDetectionOn(movementDetection)
+    "__:PreferencesFacade__" -> "__:SharedPreferences.Editor__": putBoolean(movementDetection)
+"__:PreferencesFacade__" -> "__:SharedPreferences.Editor__": apply()
+    "__:PreferencesActivity__" -> "__:PreferencesActivity__": finish()
+    deactivate "__:SharedPreferences.Editor__"
+    deactivate "__:PreferencesFacade__"
 
 
 else arePreferencesFilled() == false
-    PreferencesActivity -> PreferencesActivity:showToast()
+    "__:PreferencesActivity__" -> "__:PreferencesActivity__":showToast()
 
 end
 
-PreferencesActivity --> User: view
+"__:PreferencesActivity__" --> User: view
 
 
 

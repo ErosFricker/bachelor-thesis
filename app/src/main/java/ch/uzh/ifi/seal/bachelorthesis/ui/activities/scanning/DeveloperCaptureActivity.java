@@ -8,9 +8,9 @@ import com.reconinstruments.os.hardware.glance.GlanceDetectionListener;
 import com.reconinstruments.os.hardware.glance.HUDGlanceManager;
 
 /**
- * Created by erosfricker on 22.04.16.
+ * Created by Eros Fricker on 22.04.16.
  */
-public class DeveloperCaptureActivity extends CaptureActivity implements GlanceDetectionListener{
+public class DeveloperCaptureActivity extends CaptureActivity implements GlanceDetectionListener {
     private HUDGlanceManager glanceManager;
 
     @Override

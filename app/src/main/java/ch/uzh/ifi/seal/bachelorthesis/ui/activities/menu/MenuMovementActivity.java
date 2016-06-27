@@ -13,7 +13,7 @@ import ch.uzh.ifi.seal.bachelorthesis.model.preferences.PreferencesFacade;
 import ch.uzh.ifi.seal.bachelorthesis.ui.activities.calendar.MyCalendarActivity;
 
 /**
- * Created by Eros Fricker on 05/02/16.
+ * Created by Eros Fricker on 22/05/16.
  */
 public abstract class MenuMovementActivity extends CarouselActivity implements MetricsValueChangedListener {
 

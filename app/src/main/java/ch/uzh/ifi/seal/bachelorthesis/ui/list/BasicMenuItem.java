@@ -4,7 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 
 /**
- * Created by erosfricker on 23/04/16.
+ * Created by Eros Fricker on 23/04/16.
  */
 abstract class BasicMenuItem extends MenuItem {
 
@@ -14,6 +14,7 @@ abstract class BasicMenuItem extends MenuItem {
 
     /**
      * Uses Factory Method to get the correct Intent based on the position
+     *
      * @param context The application's context
      */
     @Override
@@ -22,5 +23,6 @@ abstract class BasicMenuItem extends MenuItem {
         context.startActivity(intent);
 
     }
+
     abstract Intent getIntentFromPosition(Context context, int position);
 }

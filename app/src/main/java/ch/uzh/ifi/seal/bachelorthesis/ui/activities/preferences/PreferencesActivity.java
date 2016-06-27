@@ -1,8 +1,8 @@
 package ch.uzh.ifi.seal.bachelorthesis.ui.activities.preferences;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.app.Activity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -12,27 +12,31 @@ import android.widget.Toast;
 import java.io.IOException;
 
 import ch.uzh.ifi.seal.bachelorthesis.R;
+import ch.uzh.ifi.seal.bachelorthesis.model.preferences.PreferencesFacade;
 import ch.uzh.ifi.seal.bachelorthesis.rest.BugzillaConnector;
 import ch.uzh.ifi.seal.bachelorthesis.ui.activities.scanning.ScanSettingsActivity;
-import ch.uzh.ifi.seal.bachelorthesis.model.preferences.PreferencesFacade;
 
+/**
+ * Created by Eros Fricker on 25/04/16.
+ */
 public class PreferencesActivity extends Activity {
     private EditText serverURLEditText, usernameEditText,
             passwordEditText, exchangeURLEditText,
             exchangeUserEditText, exchangePasswordEditText;
     private CheckBox movementDetectionCheckBox;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
 
-        serverURLEditText = (EditText)findViewById(R.id.setting_server_url);
-        usernameEditText = (EditText)findViewById(R.id.setting_login);
-        passwordEditText = (EditText)findViewById(R.id.setting_password);
-        exchangeURLEditText = (EditText)findViewById(R.id.exchange_url);
-        exchangeUserEditText = (EditText)findViewById(R.id.exchange_user);
-        exchangePasswordEditText = (EditText)findViewById(R.id.exchange_password);
-        movementDetectionCheckBox = (CheckBox)findViewById(R.id.movement_detection_checkbox);
+        serverURLEditText = (EditText) findViewById(R.id.setting_server_url);
+        usernameEditText = (EditText) findViewById(R.id.setting_login);
+        passwordEditText = (EditText) findViewById(R.id.setting_password);
+        exchangeURLEditText = (EditText) findViewById(R.id.exchange_url);
+        exchangeUserEditText = (EditText) findViewById(R.id.exchange_user);
+        exchangePasswordEditText = (EditText) findViewById(R.id.exchange_password);
+        movementDetectionCheckBox = (CheckBox) findViewById(R.id.movement_detection_checkbox);
 
         Button saveButton = (Button) findViewById(R.id.save_button);
         saveButton.setOnClickListener(new View.OnClickListener() {
@@ -77,8 +81,8 @@ public class PreferencesActivity extends Activity {
         String exchangeUsername = exchangeUserEditText.getText().toString();
         String exchangePassword = exchangePasswordEditText.getText().toString();
         boolean movementDetection = movementDetectionCheckBox.isChecked();
-        if(areFieldsFilled()) {
-            if(checkServerReachable()) {
+        if (areFieldsFilled()) {
+            if (checkServerReachable()) {
 
                 PreferencesFacade preferencesFacade = PreferencesFacade.getInstance(this);
                 preferencesFacade.saveServerURL(serverURL);
@@ -91,7 +95,7 @@ public class PreferencesActivity extends Activity {
 
                 finish();
             }
-        }else {
+        } else {
             Toast.makeText(this, "Please enter the data or scan your login token!", Toast.LENGTH_LONG).show();
         }
     }
@@ -119,7 +123,7 @@ public class PreferencesActivity extends Activity {
 
     @Override
     public void onBackPressed() {
-        if(areFieldsFilled()) {
+        if (areFieldsFilled()) {
             finish();
         }
     }

@@ -49,14 +49,14 @@ public class BugListItem extends SimpleListItem {
 
     @Override
     public void updateView(View view) {
-        TextView titleView = (TextView)view.findViewById(R.id.issue_title);
+        TextView titleView = (TextView) view.findViewById(R.id.issue_title);
         titleView.setText(this.title);
 
-        TextView changeDateView = (TextView)view.findViewById(R.id.issue_change_date);
+        TextView changeDateView = (TextView) view.findViewById(R.id.issue_change_date);
         DateFormat dateFormat = DateFormat.getDateTimeInstance();
         changeDateView.setText(dateFormat.format(this.lastChangeTime));
 
-        ImageView imageView = (ImageView)view.findViewById(R.id.issue_icon);
+        ImageView imageView = (ImageView) view.findViewById(R.id.issue_icon);
         switch (this.status) {
             case CONFIRMED:
                 imageView.setImageDrawable(activity.getResources().getDrawable(R.mipmap.ic_issue_confirmed));
